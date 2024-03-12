@@ -5,7 +5,7 @@ export async function POST(req: Request) {
         const body = await req.json()
         const playerText = body.playerText
         const id = body.id
-        const promptResponse = await fetch("https://dreamlabchatbot.azurewebsites.net/chat/", {
+        const promptResponse = await fetch("http://127.0.0.1:8000/chat/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

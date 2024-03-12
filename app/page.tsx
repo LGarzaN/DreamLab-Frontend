@@ -1,11 +1,9 @@
 "use client"
-
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import axios from "axios";
 import { TypeAnimation } from "react-type-animation";
-import { v4 } from "uuid";
+import { ClipLoader } from "react-spinners";
 
 export default function Home() {
   const [npcText, setNpcText] = useState("¿Hola!, ¿Cómo te puedo ayudar?")
@@ -13,6 +11,12 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [room, setRoom] = useState("bg")
   const [id, setId] = useState("1")
+
+  const handleKeyPress = (e: any) => {
+    if (e.key === 'Enter') {
+      handleSend();
+    }
+  }
 
   const handleSend = async () => {
     setLoading(true)
@@ -36,6 +40,8 @@ export default function Home() {
     }
   }
 
+  
+
   const checkForRoom = (text: string) => {
     if (text && text.includes("$$")) {
       const char = text.split("$$")[1]
@@ -44,9 +50,13 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-[#121417] h-screen flex flex-col">
+    <div className="bg-[#121417] h-screen flex flex-col overflow-hidden relative">
+      <head>
+        <title>DREAM Lab</title>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
+      {room !== "" && <img src={`/${room}.png`} className="w-full h-full object-cover z-0 absolute inset-0"/>}
         <div className="w-full h-[88%] relative">
-          {room !== "" && <img src={`/${room}.png`} className="w-full h-full object-cover z-0 absolute inset-0"/>}
           <div className="h-[40%] w-full flex items-center justify-center gap-32 z-10">
             <motion.div 
               className="bg-white h-[175px] w-[225px] rounded-[30px] flex justify-center px-5 items-center z-10"
@@ -60,7 +70,7 @@ export default function Home() {
               initial={{opacity: 0}}
               animate={{opacity: 1}}
               transition={{duration: 1, delay: 3}}>
-                {!loading && <TypeAnimation sequence={[npcText]} speed={75}></TypeAnimation>}
+                {!loading ? <TypeAnimation sequence={[npcText]} speed={75}></TypeAnimation>: <ClipLoader />}
               </motion.div>
           </div>
           <div className="h-[60%] w-full flex items-end justify-center gap-24 z-10">
@@ -80,12 +90,19 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-        <div className="w-full h-[12%] flex justify-center items-center">
-          <div className="w-1/2 h-full bg-slate-900 flex justify-center items-center">
-            <input type="text" className="rounded-lg h-[30%] w-5 mr-2 bg-gray-300" onChange={(e) => {setId(e.target.value)}}/>
+        <div className="w-full h-[12%] flex justify-center items-center bg-black bg-opacity-50 z-10">
+          <div className="w-full h-full flex justify-center items-center z-10">
+            <input type="text" className="rounded-md h-[30%] w-7 px-0.5 mr-2 bg-white" onChange={(e) => {setId(e.target.value)}}/>
             <div className="h-[30%] rounded-lg bg-white">
-              <input type="text" className="rounded-lg h-full" onChange={(e) => {setPlayerText(e.target.value)}}/>
-                <button className="h-full px-4 bg-white rounded-lg hover:bg-gray-400" onClick={() => {handleSend()}}>Send</button>
+              <input type="text" 
+              className="rounded-l-lg h-full" 
+              value={playerText} 
+              onChange={(e) => {setPlayerText(e.target.value)}}
+              onKeyDown={handleKeyPress}/>
+                <button 
+                className="h-full px-3 bg-white rounded-r-lg hover:bg-gray-300 font-bold transition-all" 
+                onClick={() => {handleSend()}}
+                disabled={loading}>Send</button>
             </div>
           </div>
         </div>
