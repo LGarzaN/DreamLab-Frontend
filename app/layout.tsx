@@ -19,6 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <title>DREAM Lab</title>
+      </head>
       <body className={inter.className}>
         <Toaster />
         <Theme appearance="dark" accentColor="violet">

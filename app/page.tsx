@@ -6,6 +6,7 @@ import { TypeAnimation } from "react-type-animation";
 import { ClipLoader } from "react-spinners";
 import Cookies from 'js-cookie'
 import { Button, TextFieldInput, TextFieldRoot, TextFieldSlot } from "@radix-ui/themes";
+import Link from "next/link";
 
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [room, setRoom] = useState("bg2")
   const [id, setId] = useState("1")
+  const [interactions, setInteractions] = useState(0)
 
   const handleKeyPress = (e: any) => {
     if (e.key === 'Enter') {
@@ -23,7 +25,8 @@ export default function Home() {
 
   useEffect(() => {
     const token = Cookies.get("id")
-    setId(id)
+    setId(token ?? "1")
+    console.log(token)
   }, [])
 
   const handleSend = async () => {
@@ -40,6 +43,7 @@ export default function Home() {
         console.log(response.data.npcText.response)
       }
       setPlayerText("")
+      setInteractions(interactions + 1)
       setNpcText(response.data.npcText.response)
       setLoading(false)
     } catch (e) {
@@ -114,6 +118,13 @@ export default function Home() {
                 {loading ? <ClipLoader size={20} color="white"/>: "Enviar"}
               </button>
             </TextFieldRoot>
+            <div>
+              {interactions > 3 && 
+                <Link href="/" className="text-neutral-400 ml-10 hover:text-white underline">
+                  Reservar manualmente
+                </Link>
+              }
+            </div>
           </div>
         </div>
     </div>

@@ -44,9 +44,9 @@ export default function Login() {
 
     return (
         <div className="bg-[#121417] h-screen flex justify-center items-center relative">
-            <img src="/loginbg.png" className="w-full h-full object-cover z-0 absolute inset-0 opacity-30" />
+            <img src="/bg6.png" className="w-full h-full object-cover z-0 absolute inset-0 opacity-80" />
             <div className="bg-neutral-900 w-9/12 h-[90vh] flex items-center justify-center z-10 bg-opacity-85 rounded-lg">
-                <div className="w-7/12 h-full bg-[#2B3B52] bg-opacity-90 flex justify-center items-center flex-col rounded-l-lg">
+                <div className="w-7/12 h-full bg-[#2F353D] bg-opacity-35 flex justify-center items-center flex-col rounded-l-lg">
                     <Text className="text-5xl font-bold text-white">D.R.E.A.M. Lab</Text>
                     <Text className="text-2xl text-white">Aprende, descubre, e inova</Text>
                     <img src="/loginimg.png" className="w-8/12 h-8/12 mt-10" />
@@ -58,14 +58,14 @@ export default function Login() {
                         <form onSubmit={handleSubmit}>
                         <div>
                             <span className="text-white">Matricula</span>
-                            <TextFieldInput name="username" placeholder="Ej. A01721881" className="w-full rounded-md bg-[#111215] text-white" size={"3"}/>
+                            <TextFieldInput name="username" placeholder="Ej. A01721881" className="w-full rounded-md bg-[#111215] text-white border-gray-600 border-[0.1px]" size={"3"}/>
                         </div>
                         <div className="mt-4">
-                            <span className="text-white">Contrasena</span>
-                            <TextFieldInput name="password" placeholder="Contrasena" type="password" className="w-full rounded-md bg-[#111215] text-white" size={"3"}/>
+                            <span className="text-white">Contraseña</span>
+                            <TextFieldInput name="password" placeholder="Contraseña" type="password" className="w-full rounded-md bg-[#111215] text-white border-gray-600 border-[0.1px]" size={"3"}/>
                         </div>
                         <div className="w-full flex justify-center mt-10">
-                            <button type="submit" className="w-10/12 h-12 rounded-full bg-[#726FF5] hover:bg-opacity-40 text-white text-lg flex items-center justify-center transition-all  ">{loading ? <ClipLoader size={20} color="white"/>: "Iniciar sesion"}</button>
+                            <button type="submit" className="w-10/12 h-12 rounded-full bg-[#726FF5] hover:bg-opacity-45 text-white text-lg flex items-center justify-center transition-all  ">{loading ? <ClipLoader size={20} color="white"/>: "Iniciar sesión"}</button>
                         </div>
                         </form>
                     </div>
