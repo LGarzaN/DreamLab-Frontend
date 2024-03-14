@@ -22,10 +22,8 @@ export default function Home() {
   }
 
   useEffect(() => {
-    const token = Cookies.get("jwt")
-    if (!token) {
-      window.location.href = "/login"
-    }
+    const token = Cookies.get("id")
+    setId(id)
   }, [])
 
   const handleSend = async () => {
@@ -98,12 +96,10 @@ export default function Home() {
         </div>
         <div className="w-full h-[15%] flex justify-center items-center bg-[#121417] bg-opacity-75 z-10">
           <div className="w-full h-full flex justify-center items-center z-10">
-            <input type="text" className="rounded-md h-[30%] w-7 px-0.5 mr-2" onChange={(e) => {setId(e.target.value)}}/>
             <TextFieldRoot radius="full" size={"3"} style={{ display: 'flex', alignItems: 'center', width: '30vw', height: '7vh'}}>
               <TextFieldInput 
                 placeholder="Escribe tu mensaje"
-                className="w-7/12 h-16 rounded-md bg-neutral-800 text-white"
-                size={"3"}
+                className=" bg-opacity-0 text-white"
                 radius="full"
                 value={playerText}
                 onChange={(e) => setPlayerText(e.target.value)}
@@ -112,9 +108,8 @@ export default function Home() {
               />
               <button 
                 type="submit"  
-                className="z-10 hover:bg-opacity-60 transition-all bg-[#726FF5] rounded-full w-[10vw] h-[6.8vh] ml-auto text-xl" 
+                className="z-10 hover:bg-opacity-60 transition-all bg-[#726FF5] rounded-full w-[8vw] h-[7vh] ml-auto text-xl flex items-center justify-center" 
                 onClick={handleSend}
-                 // Align button to the rightmost part
               >
                 {loading ? <ClipLoader size={20} color="white"/>: "Enviar"}
               </button>

@@ -7,6 +7,7 @@ import { useState } from "react";
 import Cookies from 'js-cookie'
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Login() {
     const router = useRouter();
@@ -33,7 +34,7 @@ export default function Login() {
         })
      
         if (response.status === 200) {
-            Cookies.set('jwt', "algo")
+            Cookies.set('id', uuidv4())
             router.push('/')
         } else {
             toast.error("Usario y/o contrasena incorrectos", {style: {backgroundColor: "#121417", color: "white"}})
@@ -57,11 +58,11 @@ export default function Login() {
                         <form onSubmit={handleSubmit}>
                         <div>
                             <span className="text-white">Matricula</span>
-                            <TextFieldInput name="username" placeholder="Ej. A01721881" className="w-full rounded-md bg-neutral-800 text-white" size={"3"}/>
+                            <TextFieldInput name="username" placeholder="Ej. A01721881" className="w-full rounded-md bg-[#111215] text-white" size={"3"}/>
                         </div>
                         <div className="mt-4">
                             <span className="text-white">Contrasena</span>
-                            <TextFieldInput name="password" placeholder="Contrasena" type="password" className="w-full h-16 rounded-md bg-neutral-800 text-white" size={"3"}/>
+                            <TextFieldInput name="password" placeholder="Contrasena" type="password" className="w-full rounded-md bg-[#111215] text-white" size={"3"}/>
                         </div>
                         <div className="w-full flex justify-center mt-10">
                             <button type="submit" className="w-10/12 h-12 rounded-full bg-[#726FF5] hover:bg-opacity-40 text-white text-lg flex items-center justify-center transition-all  ">{loading ? <ClipLoader size={20} color="white"/>: "Iniciar sesion"}</button>
