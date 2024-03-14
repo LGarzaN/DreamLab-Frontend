@@ -1,15 +1,18 @@
 "use client"
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { TypeAnimation } from "react-type-animation";
 import { ClipLoader } from "react-spinners";
+import Cookies from 'js-cookie'
+import { Button, TextFieldInput, TextFieldRoot, TextFieldSlot } from "@radix-ui/themes";
+
 
 export default function Home() {
   const [npcText, setNpcText] = useState("¿Hola!, ¿Cómo te puedo ayudar?")
   const [playerText, setPlayerText] = useState("")
   const [loading, setLoading] = useState(false)
-  const [room, setRoom] = useState("bg")
+  const [room, setRoom] = useState("bg2")
   const [id, setId] = useState("1")
 
   const handleKeyPress = (e: any) => {
@@ -17,6 +20,13 @@ export default function Home() {
       handleSend();
     }
   }
+
+  useEffect(() => {
+    const token = Cookies.get("jwt")
+    if (!token) {
+      window.location.href = "/login"
+    }
+  }, [])
 
   const handleSend = async () => {
     setLoading(true)
@@ -51,22 +61,18 @@ export default function Home() {
 
   return (
     <div className="bg-[#121417] h-screen flex flex-col overflow-hidden relative">
-      <head>
-        <title>DREAM Lab</title>
-        <link rel="icon" href="/favicon.ico" />
-      </head>
       {room !== "" && <img src={`/${room}.png`} className="w-full h-full object-cover z-0 absolute inset-0"/>}
-        <div className="w-full h-[88%] relative">
+        <div className="w-full h-[85%] relative">
           <div className="h-[40%] w-full flex items-center justify-center gap-32 z-10">
             <motion.div 
-              className="bg-white h-[175px] w-[225px] rounded-[30px] flex justify-center px-5 items-center z-10"
+              className="bg-[#121417] border-[#42454A] border-2 h-[175px] w-[225px] rounded-[30px] flex justify-center px-5 items-center z-10"
               initial={{opacity: 0}}
               animate={{opacity: 1}}
               transition={{duration: 1, delay: 3}}>
                 {playerText}
               </motion.div>
               <motion.div 
-              className="bg-white h-[175px] w-[300px] rounded-[30px] flex justify-center px-5 py-4 items-center overflow-y-auto z-10"
+              className="bg-[#121417] border-[#42454A] border-2 h-[175px] w-[300px] rounded-[30px] flex justify-center px-5 py-4 items-center overflow-y-auto z-10"
               initial={{opacity: 0}}
               animate={{opacity: 1}}
               transition={{duration: 1, delay: 3}}>
@@ -90,22 +96,34 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-        <div className="w-full h-[12%] flex justify-center items-center bg-black bg-opacity-50 z-10">
+        <div className="w-full h-[15%] flex justify-center items-center bg-[#121417] bg-opacity-75 z-10">
           <div className="w-full h-full flex justify-center items-center z-10">
-            <input type="text" className="rounded-md h-[30%] w-7 px-0.5 mr-2 bg-white" onChange={(e) => {setId(e.target.value)}}/>
-            <div className="h-[30%] rounded-lg bg-white">
-              <input type="text" 
-              className="rounded-l-lg h-full" 
-              value={playerText} 
-              onChange={(e) => {setPlayerText(e.target.value)}}
-              onKeyDown={handleKeyPress}/>
-                <button 
-                className="h-full px-3 bg-white rounded-r-lg hover:bg-gray-300 font-bold transition-all" 
-                onClick={() => {handleSend()}}
-                disabled={loading}>Send</button>
-            </div>
+            <input type="text" className="rounded-md h-[30%] w-7 px-0.5 mr-2" onChange={(e) => {setId(e.target.value)}}/>
+            <TextFieldRoot radius="full" size={"3"} style={{ display: 'flex', alignItems: 'center', width: '30vw', height: '7vh'}}>
+              <TextFieldInput 
+                placeholder="Escribe tu mensaje"
+                className="w-7/12 h-16 rounded-md bg-neutral-800 text-white"
+                size={"3"}
+                radius="full"
+                value={playerText}
+                onChange={(e) => setPlayerText(e.target.value)}
+                onKeyDown={handleKeyPress}
+                style={{ marginRight: 'auto' }} // Align text field to the leftmost part
+              />
+              <button 
+                type="submit"  
+                className="z-10 hover:bg-opacity-60 transition-all bg-[#726FF5] rounded-full w-[10vw] h-[6.8vh] ml-auto text-xl" 
+                onClick={handleSend}
+                 // Align button to the rightmost part
+              >
+                {loading ? <ClipLoader size={20} color="white"/>: "Enviar"}
+              </button>
+            </TextFieldRoot>
           </div>
         </div>
     </div>
   );
 }
+
+
+// rounded-full w-full px-3 h-full bg-[#726FF5] hover:bg-opacity-40 text-white text-lg flex items-center justify-center transition-all

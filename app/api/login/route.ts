@@ -1,24 +1,23 @@
-
 export async function POST(req: Request) {
-    console.log("POST request received")
     try {
         const body = await req.json()
-        const playerText = body.playerText
-        const id = body.id
-        const promptResponse = await fetch("https://dlbackendtws.azurewebsites.net/chat", {
+        const username = body.username
+        const password= body.password
+        const res = await fetch("https://dlbackendtws.azurewebsites.net/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                "session_id": id,
-                "prompt": playerText
+                "username": username,
+                "password": password
             })
         })
-        const npcText = await promptResponse.json()
+        const response = await res.json()
         return new Response(JSON.stringify({
-            npcText: npcText
+            response: response
         }), {
+            status: res.status,
             headers: {
                 "Content-Type": "application/json"
             }
@@ -28,6 +27,7 @@ export async function POST(req: Request) {
         return new Response(JSON.stringify({
             error: e
         }), {
+            status: 500,
             headers: {
                 "Content-Type": "application/json"
             }
