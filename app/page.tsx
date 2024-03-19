@@ -87,14 +87,14 @@ export default function Home() {
             initial={{x: '-60vw'}}
             animate={{x: 0}}
             transition={{duration: 2}}>
-              <img src="/character.png" className="w-[350px]"/>
+              <img src="/Usuario.png" className="w-[290px]"/>
             </motion.div>
             <motion.div 
             className="h-[95%] w-[30%] rounded-full p-6 mb-6"
             initial={{x: '60vw'}}
             animate={{x: 0}}
             transition={{duration: 2, delay: 1}}>
-              <img src="/guide.png" className="w-[370px]"/>
+              <img src="/robot.png" className="w-[300px]"/>
             </motion.div>
           </div>
         </div>
