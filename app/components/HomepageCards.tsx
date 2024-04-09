@@ -223,7 +223,8 @@ function HomepageCards({
                         <Link href={{
                           pathname:"/reserva_hora",
                           query: {
-                            nombre:item.name,
+                            name:item.name,
+                            image:item.image,
                           },
                         }}>
                           <Button variant="soft" color="violet">
