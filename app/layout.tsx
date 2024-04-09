@@ -4,6 +4,7 @@ import "./globals.css";
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
 import { Toaster } from "react-hot-toast";
+import Navbar from "./components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Toaster />
         <Theme appearance="dark" accentColor="violet">
+          <Navbar />
           {children}
         </Theme>
         </body>
