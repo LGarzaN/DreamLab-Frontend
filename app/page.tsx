@@ -5,45 +5,45 @@ import { Tabs, Box, Text } from "@radix-ui/themes";
 import Image from "next/image";
 import Link from "next/link";
 
-function page() {
+export default function Page() {
   const [name, setName] = useState("");
+
+  const scrollToSection = () => {
+    const targetSection = document.getElementById('areas');
+    targetSection!.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="">
       <div className="relative w-full">
         <Image
           src="/areas/new_horizons2.jpeg"
           alt="Descripción"
-          className="w-full h-[85vh] object-cover"
+          className="w-full h-[90vh] object-cover"
           width={2000}
           height={2000}
           objectFit="cover"
           objectPosition="center"
         />
         <div className="absolute inset-0 flex items-center justify-center lg:justify-start lg:pl-16 text-center lg:text-start">
-          <div className="w-[73vh]">
+          <div className="w-[35vw]">
             <p className="text-white text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide">
               Sumérgete en la educación del futuro
             </p>
-            <p className="text-xl md:text-2xl lg:text-3xl tracking-wide font-light text-white mt-3">
+            <p className="text-xl md:text-2xl lg:text-3xl tracking-wide font-light text-white mt-3 mb-10">
               Aprende de manera interactiva y con la tecnología más nueva
             </p>
-            <Link href="/chatbot">
-              <div className="bg-[#726FF5] h-[50px] w-[300px] justify-center content-center rounded-full mt-4 transition ease-in-out delay-100 hover:bg-[#5654BE] hover:text-slate-300">
-                <h1 className="flex justify-center text-2xl font-bold">
-                  {" "}
-                  Reserva Ahora{" "}
-                </h1>
-              </div>
+            <Link href="/chatbot" className="px-24 py-3 rounded-full bg-[#726FF5] font-bold hover:bg-[#5654BE] hover:text-slate-300 transition-all">
+              Reserva Ahora
             </Link>
-
-            <Link href="#areas">
-              <div className="h-[50px] w-[300px] justify-center content-center transition ease-in-out delay-100 hover:text-slate-300">
-                <h1 className="flex justify-center text-xl underline underline-offset-4 ">
+            <button onClick={scrollToSection} className="mt-2">
+              <div className="h-[50px] w-[300px] justify-center content-center transition ease-in-out delay-100">
+                <h1 className="flex justify-center underline underline-offset-4 hover:text-[#abaaff] transition-all">
                   {" "}
                   Reserva Manual{" "}
                 </h1>
               </div>
-            </Link>
+            </button>
           </div>
         </div>
       </div>
@@ -112,5 +112,3 @@ function page() {
     </div>
   );
 }
-
-export default page;

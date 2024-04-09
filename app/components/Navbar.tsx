@@ -24,7 +24,7 @@ const Navbar = () => {
 
     return (
         <>
-            <div className="bg-[#121417] z-20 absolute top-0 w-full h-[65px] bg-opacity-95">
+            <div className="bg-[#121417] z-20 absolute top-0 w-full h-[65px] bg-opacity-0">
                 <div className="hidden md:flex items-center px-10 h-full">
                     <div className="flex flex-row items-center gap-3">
                         <Link href={"/"} className="flex flex-row items-center gap-3">
