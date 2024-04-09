@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { Dialog, TextField, Button, Flex, Text } from "@radix-ui/themes";
+import Link from "next/link";
 
 function HomepageCards({
   keyword,
@@ -177,18 +178,18 @@ function HomepageCards({
 
   return (
     <div className="flex justify-center">
-      <div className="w-[90%] lg:w-[65.4%] flex flex-wrap justify-start">
+      <div className="w-[90%] lg:w-[65.4%] flex flex-wrap justify-start min-h-[80vh]">
         {filteredData.map((item) => (
           <Dialog.Root>
             <Dialog.Trigger>
               <div key={item.id}>
-                <div className="m-4">
+                <div className="m-4 ">
                   <Image
                     src={item.image}
                     alt={item.alt}
                     height={200}
                     width={200}
-                    className="rounded-lg object-cover h-28 w-36 lg:h-40 lg:w-52"
+                    className="rounded-lg object-cover h-28 w-36 lg:h-40 lg:w-52 hover:brightness-50 transition ease-in-out delay-100"
                   />
                   <div className="text-sm lg:text-xl font-semibold tracking-wide ">
                     {item.name}
@@ -201,12 +202,39 @@ function HomepageCards({
             </Dialog.Trigger>
 
             <Dialog.Content>
-              {item.descripcion}
-              <Dialog.Close>
-                <Button variant="soft" color="gray">
-                  Cancel
-                </Button>
-              </Dialog.Close>
+              <div className="flex items-center">
+                <Image
+                      src={item.image}
+                      alt={item.alt}
+                      height={200}
+                      width={200}
+                      className="rounded-lg object-cover h-28 w-36 lg:h-40 lg:w-52 hover:brightness-50 transition ease-in-out delay-100"
+                    />
+                  <div className=" grid justify-items-stretch ml-4">
+                    
+                    <div className="text-3xl font-bold">
+                      {item.name}
+                    </div>
+                    <div>
+                      {item.descripcion}
+                    </div>
+                    <div className="justify-self-center mt-4	">
+                      <Dialog.Close>
+                        <Link href={{
+                          pathname:"/reserva_hora",
+                          query: {
+                            nombre:item.name,
+                          },
+                        }}>
+                          <Button variant="soft" color="violet">
+                              Reservar ahora
+                            </Button>
+                        </Link>
+                          
+                      </Dialog.Close>
+                    </div>
+                  </div>
+              </div>
             </Dialog.Content>
           </Dialog.Root>
         ))}
@@ -216,4 +244,3 @@ function HomepageCards({
 }
 
 export default HomepageCards;
-
