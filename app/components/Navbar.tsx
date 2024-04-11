@@ -3,6 +3,8 @@
 import Link from "next/link";
 import React, {useState} from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
     const [show, setShow] = useState(false);
@@ -22,6 +24,19 @@ const Navbar = () => {
         }
     };
 
+    const logout = async () => {
+        const res = await axios.post('/api/logout', {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        if (res.status === 200) {
+            window.location.reload();
+        } else {
+            toast.error("Error al cerrar sesion");
+        }
+    }
+
     return (
         <>
             <div className="bg-[#121417] z-20 absolute top-0 w-full h-[65px] bg-opacity-0">
@@ -38,7 +53,8 @@ const Navbar = () => {
                             <li className="hover:text-[#abaaff] transition-all"><Link href={"/info"}>Informacion</Link></li>
                         </ul>
                     </div>
-                    <div className="ml-auto">
+                    <div className="ml-auto flex flex-row gap-4">
+                        <button onClick={async () => {await logout()}}>Log Out</button>
                         <Link href={"/user"}>
                             <img src="/userdefault.svg" className="w-[45px]"></img>
                         </Link>

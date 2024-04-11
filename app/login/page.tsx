@@ -32,10 +32,12 @@ export default function Login() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
         })
+        console.log('aqui1')
      
         if (response.status === 200) {
-            Cookies.set('id', uuidv4())
+            console.log('aqui2')
             router.push('/')
+            console.log('aqui3')
         } else {
             toast.error("Usario y/o contrasena incorrectos", {style: {backgroundColor: "#121417", color: "white"}})
             setLoading(false)
