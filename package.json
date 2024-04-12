@@ -1,5 +1,5 @@
 {
-  "name": "prueba_concepto",
+  "name": "dreamlab_frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "engines": {
+    "node": "18.17.1"
+   },
   "dependencies": {
     "@radix-ui/themes": "^2.0.3",
     "axios": "^1.6.7",
@@ -25,7 +28,6 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
-    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

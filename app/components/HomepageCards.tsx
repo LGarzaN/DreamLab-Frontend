@@ -29,7 +29,7 @@ function HomepageCards({
     <div className="flex justify-center min-h-[80vh]">
       <div className="md:w-[66vw] w-[84vw] grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2">
         {filteredData.map((item) => (
-          <Dialog.Root>
+          <Dialog.Root key={item.id}>
             <Dialog.Trigger>
               <div key={item.id} className="m-2">
                 <img

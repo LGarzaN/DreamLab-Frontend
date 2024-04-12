@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { data } from "@/data/areas_data";
@@ -10,7 +10,7 @@ function getImage(name: string) {
   return area ? area.image : null;
 }
 
-function ReservaHora() {
+/* function ReservaHora() {
   const sp = useSearchParams();
   const name = sp.get("name") || "Lego Room";
   const image_link = getImage(name) || "/areas/lego_room.jpeg";
@@ -95,6 +95,11 @@ function ReservaHora() {
       </section>
     </div>
   );
+}*/
+
+
+const ReservaHora = () => {
+  return <div>PaginaReserva</div> 
 }
 
 export default ReservaHora;

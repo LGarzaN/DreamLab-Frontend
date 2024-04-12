@@ -7,6 +7,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
 import axios from "axios";
+import Image from "next/image";
 
 export default function Login() {
     const router = useRouter();
@@ -42,12 +43,12 @@ export default function Login() {
 
     return (
         <div className="bg-[#121417] h-screen flex justify-center items-center relative">
-            <img src="/bg6.png" className="w-full h-full object-cover z-0 absolute inset-0 opacity-80" />
+            <img alt="" src="/bg6.png" className="w-full h-full object-cover z-0 absolute inset-0 opacity-80"/>
             <div className="bg-neutral-900 bg-opacity-0 w-full md:w-9/12 h-screen md:h-[90vh] flex items-center justify-center z-10 md:bg-opacity-85 rounded-lg">
                 <div className="w-7/12 h-full bg-[#2F353D] bg-opacity-35 hidden justify-center items-center flex-col rounded-l-lg md:flex">
                     <Text className="text-5xl font-bold text-white">D.R.E.A.M. Lab</Text>
                     <Text className="text-2xl text-white">Aprende, descubre, e inova</Text>
-                    <img src="/loginimg.png" className="w-8/12 h-8/12 mt-10" />
+                    <img alt="" src="/loginimg.png" className="w-8/12 h-8/12 mt-10" />
                 </div>
                 <div className="w-full md:w-5/12 h-full flex justify-center items-center flex-col">
                     <Text className="text-5xl md:text-4xl font-semiboldtext-white">Inicia sesión</Text>
