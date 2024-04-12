@@ -20,9 +20,6 @@ function ReservaHora() {
                 
             />
             <div className="absolute inset-0 flex items-center justify-center lg:justify-start m-16 text-2xl lg:text-6xl font-extrabold">
-                <Suspense fallback={<div>Loading...</div>}>
-                  <h1>{name}</h1>
-                </Suspense>
             </div>
         </div>
         
