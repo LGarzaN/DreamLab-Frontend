@@ -27,7 +27,8 @@ export async function POST(req: Request) {
 
         nextResponse.cookies.set("session", sessionToken, {
             httpOnly: true,
-            expires: new Date(Date.now() + 12 * 60 * 60 * 1000)
+            expires: new Date(Date.now() + 12 * 60 * 60 * 1000),
+            secure: true
         });
 
         return nextResponse;
