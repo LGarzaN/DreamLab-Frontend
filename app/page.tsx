@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HomepageCards from "./components/HomepageCards";
 import { Tabs, Box, Text } from "@radix-ui/themes";
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "./components/Navbar";
 
 export default function Page() {
   const [name, setName] = useState("");
@@ -15,6 +16,7 @@ export default function Page() {
 
   return (
     <div className="">
+      <Navbar />
       <div className="relative w-full">
         <Image
           src="/areas/new_horizons2.jpeg"
