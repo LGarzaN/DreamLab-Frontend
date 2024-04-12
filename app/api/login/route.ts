@@ -8,7 +8,7 @@ export async function POST(req: Request) {
         const body = await req.json()
 
         const username = body.username
-        const password= body.password
+        const password = body.password
         
         const res = await axios.post('https://dlbackendtws.azurewebsites.net/login/', {
             username,
