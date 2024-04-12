@@ -3,6 +3,7 @@ import React from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { data } from "@/data/areas_data";
+import { reservation_data } from "@/data/reservation_data";
 
 function getImage(name: string) {
   const area = data.find((area) => area.name === name);
@@ -64,6 +65,8 @@ function ReservaHora() {
     }
   }
 
+  const horas = reservation_data.filter(item => item.atributo === "disponible");
+
   return (
     <div>
       <div className="relative w-full">
@@ -80,7 +83,14 @@ function ReservaHora() {
       </div>
       <section className="w-[80vw] flex">
         {dates.map((index) => (
-          <div className="w-32 font-bold"> {index} </div>
+          <div>
+             <div className="w-32 font-bold"> {index} </div>
+             <div className="flex flex-col">
+                {horas.map((elemento) => (
+                  <div>{elemento}</div>
+                ))}
+             </div>
+          </div>
         ))}
       </section>
     </div>

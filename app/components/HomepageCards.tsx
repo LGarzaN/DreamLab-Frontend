@@ -65,6 +65,7 @@ function HomepageCards({
                           pathname: "/reserva_hora",
                           query: {
                             name: item.name,
+                            id: item.id
                           },
                         }}
                       >
