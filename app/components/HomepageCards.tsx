@@ -180,7 +180,7 @@ function HomepageCards({
     <div className="flex justify-center">
       <div className="w-[90%] lg:w-[65.4%] flex flex-wrap justify-start min-h-[80vh]">
         {filteredData.map((item) => (
-          <Dialog.Root>
+          <Dialog.Root key={item.id}>
             <Dialog.Trigger>
               <div key={item.id}>
                 <div className="m-4 ">
