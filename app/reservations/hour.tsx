@@ -1,24 +1,26 @@
 "use client";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { Tabs, Box, Separator, Theme } from "@radix-ui/themes";
 import { useSearchParams } from "next/navigation";
 import HourCards from "../components/HourCards";
 import { data } from "@/data/areas_data"; 
 import Navbar from "../components/Navbar";
+import { ClipLoader } from "react-spinners";
 
 function DataBaseDates() {
+ 
+
   const today = new Date();
-  const today_date = today.toISOString().split("T")[0];
+  const today_date = today.toLocaleDateString('es-MX');
+  console.log(today_date);
+  
 
   const weekDaysDB = [today_date];
 
   for (let i = 1; i < 7; i++) {
     const nextday = new Date();
     nextday.setDate(today.getDate() + i);
-
-    if (nextday.getDay() != 0) {
-      weekDaysDB.push(nextday.toISOString().split("T")[0]);
-    }
+    weekDaysDB.push(nextday.toLocaleDateString('es-MX'));
   }
 
   return weekDaysDB;
@@ -40,10 +42,11 @@ function WeekDays() {
   const today_week = today.getDay();
   let today_week_m = today_week;
 
-  for (let i = 0; i < 8; i++) {
-    if (today_week_m != 0) {
+  for (let i = 0; i < 7; i++) {
+    /*if (today_week_m != 0) {
       weekDaysTittle.push(weekDaysFormat[today_week_m]);
-    }
+    }*/
+    weekDaysTittle.push(weekDaysFormat[today_week_m]);
     if (today_week_m === 6) {
       today_week_m = 0;
     }
@@ -79,6 +82,15 @@ function Description() {
     const dia = nextDay.getDate() + i;
     nextDay.setDate(today.getDate() + i);
 
+    if (i === 0) {
+      weekDescription.push("Hoy");
+    } else if (i === 1) {
+      weekDescription.push("Mañana");
+    } else {
+        weekDescription.push(dia + " de " + month);
+      }
+
+    /*
     if (i === 0 && nextDay.getDay() != 0) {
       weekDescription.push("Hoy");
     } else if (i === 1 && nextDay.getDay() != 0) {
@@ -87,7 +99,7 @@ function Description() {
       if (nextDay.getDay() != 0) {
         weekDescription.push(dia + " de " + month);
       }
-    }
+    }*/
   }
   return weekDescription;
 }
@@ -102,8 +114,7 @@ function getImage(id: number) {
     return area ? area.image : null;
 }
 
-function Page() {
-  const [inicio, SetInicio] = useState("")
+export default function HourChooser(inicio: string, setInicio: any) {
   const dias = DataBaseDates();
   const weekdays = WeekDays();
   const description = Description();
@@ -124,8 +135,7 @@ function Page() {
     });
   }
   return (
-    <div className="h-screen">
-      <Navbar />
+    <div className="h-[85vh]">
         <div className="relative w-full">
             <img
             src={bg_image}
@@ -182,54 +192,36 @@ function Page() {
                     <h1>{datos[5].weekdaysDescription}</h1>
                     </div>
                 </Tabs.Trigger>
+
                 </Tabs.List>
 
                 <Box pt="4">
-                <Tabs.Content value="dia1">
-                    <HourCards day={datos[0].dataBase} setInicio={SetInicio}/>
-                </Tabs.Content>
-                <Tabs.Content value="dia2">
-                    <HourCards day={datos[1].dataBase} setInicio={SetInicio}/>
-                </Tabs.Content>
-                <Tabs.Content value="dia3">
-                    <HourCards day={datos[2].dataBase} setInicio={SetInicio}/>
-                </Tabs.Content>
-                <Tabs.Content value="dia4">
-                    <HourCards day={datos[3].dataBase} setInicio={SetInicio}/>
-                </Tabs.Content>
-                <Tabs.Content value="dia5">
-                    <HourCards day={datos[4].dataBase} setInicio={SetInicio}/>
-                </Tabs.Content>
-                <Tabs.Content value="dia6">
-                    <HourCards day={datos[5].dataBase} setInicio={SetInicio}/>
-                </Tabs.Content>
+                  {datos ? <>
+                  <Tabs.Content value="dia1">
+                  <HourCards day={datos[0].dataBase} setInicio={setInicio}/>
+              </Tabs.Content>
+              <Tabs.Content value="dia2">
+                  <HourCards day={datos[1].dataBase} setInicio={setInicio}/>
+              </Tabs.Content>
+              <Tabs.Content value="dia3">
+                  <HourCards day={datos[2].dataBase} setInicio={setInicio}/>
+              </Tabs.Content>
+              <Tabs.Content value="dia4">
+                  <HourCards day={datos[3].dataBase} setInicio={setInicio}/>
+              </Tabs.Content>
+              <Tabs.Content value="dia5">
+                  <HourCards day={datos[4].dataBase} setInicio={setInicio}/>
+              </Tabs.Content>
+              <Tabs.Content value="dia6">
+                  <HourCards day={datos[5].dataBase} setInicio={setInicio}/>
+              </Tabs.Content> </> : <div className="w-full h-full justify-center items-center"><ClipLoader color="white" size={50} /> </div>
+                }
+                
                 </Box>
+
             </Tabs.Root>
-            </div>
-
-            <div className="w-[80vw] mt-10 md:mt-[12vh]">
-              <Separator size="4"/>
-
-              <section className="flex justify-around mt-10">
-                <div>
-                  <h1 className="font-bold"> Inicia: {inicio}  </h1>
-                </div>
-
-                <div>
-                  <h1 className="font-bold"> Termina: </h1> 
-                </div>
-
-                <div>
-                  <button>
-                    Continuar
-                  </button>
-                </div>
-
-              </section>
             </div>
             </div>
     </div>
   );
 }
-
-export default Page;
