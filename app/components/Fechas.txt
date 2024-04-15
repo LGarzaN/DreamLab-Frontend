@@ -1,0 +1,43 @@
+import React from "react";
+import { useEffect, useState } from "react";
+
+function obtenerFechasSemana() {
+  const hoy = new Date(); // Fecha de hoy
+  const fechaHoy = hoy.toISOString().split("T")[0]; // Formato "aaaa-mm-dd"
+
+  const fechasSemana = [fechaHoy]; // Inicializamos con la fecha de hoy
+
+  // Añadimos las fechas de los próximos 6 días
+  for (let i = 1; i <= 6; i++) {
+    const siguienteDia = new Date();
+    siguienteDia.setDate(hoy.getDate() + i);
+    const fechaSiguiente = siguienteDia.toISOString().split("T")[0];
+    fechasSemana.push(fechaSiguiente);
+  }
+
+  return fechasSemana;
+}
+
+function Fechas() {
+  const hoy = new Date(); // Fecha de hoy
+  const fechaHoy = hoy.toISOString().split("T")[0]; // Formato "aaaa-mm-dd"
+
+  const fechasSemana = [fechaHoy]; // Inicializamos con la fecha de hoy
+
+  // Añadimos las fechas de los próximos 6 días
+  for (let i = 1; i <= 6; i++) {
+    const siguienteDia = new Date();
+    siguienteDia.setDate(hoy.getDate() + i);
+    const fechaSiguiente = siguienteDia.toISOString().split("T")[0];
+    fechasSemana.push(fechaSiguiente);
+  }
+
+  return (
+    <div>
+      <h2>Fechas de la semana:</h2>
+      {fechaHoy}
+    </div>
+  );
+}
+
+export default Fechas;
