@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Tabs, Box, Separator, Theme } from "@radix-ui/themes";
 import { useSearchParams } from "next/navigation";
 import HourCards from "../components/HourCards";
 import { data } from "@/data/areas_data"; 
+import Navbar from "../components/Navbar";
 
 function DataBaseDates() {
   const today = new Date();
@@ -39,7 +40,7 @@ function WeekDays() {
   const today_week = today.getDay();
   let today_week_m = today_week;
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 8; i++) {
     if (today_week_m != 0) {
       weekDaysTittle.push(weekDaysFormat[today_week_m]);
     }
@@ -78,7 +79,7 @@ function Description() {
     const dia = nextDay.getDate() + i;
     nextDay.setDate(today.getDate() + i);
 
-    if (i === 0) {
+    if (i === 0 && nextDay.getDay() != 0) {
       weekDescription.push("Hoy");
     } else if (i === 1 && nextDay.getDay() != 0) {
       weekDescription.push("Mañana");
@@ -102,6 +103,7 @@ function getImage(id: number) {
 }
 
 function Page() {
+  const [inicio, SetInicio] = useState("")
   const dias = DataBaseDates();
   const weekdays = WeekDays();
   const description = Description();
@@ -122,22 +124,23 @@ function Page() {
     });
   }
   return (
-    <div>
+    <div className="h-screen">
+      <Navbar />
         <div className="relative w-full">
             <img
             src={bg_image}
             alt="Descripción"
-            className="w-full h-[60vh] object-cover md:opacity-70 opacity-50"
+            className="w-full h-[40vh] object-cover md:opacity-70 opacity-50"
             />
              <section className="absolute inset-0 flex flex-col items-center justify-center lg:items-start">
                 <div className="text-center lg:pl-16 lg:text-start text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide"> {name} </div>
              </section>
         </div>
 
-        <div className="flex flex-col items-center justify-center mt-20">
-        <Theme scaling="110%">
-            <Tabs.Root defaultValue="dia1">
-                <Tabs.List size="2" className="w-full flex justify-center">
+        <div className="flex flex-col items-center justify-center mt-10">
+          <div className="w-[100vw] md:w-[80vw]"> 
+            <Tabs.Root defaultValue="dia1" className="">
+                <Tabs.List className="w-full flex justify-center overflow-x-auto" size="">
                 <Tabs.Trigger value="dia1" className="">
                     <div className="flex flex-col items-center w-40">
                     <h1 className="font-bold">{datos[0].weekdaysTittle}</h1> {/* text-2xl */}
@@ -183,33 +186,33 @@ function Page() {
 
                 <Box pt="4">
                 <Tabs.Content value="dia1">
-                    <HourCards day={datos[0].dataBase}/>
+                    <HourCards day={datos[0].dataBase} setInicio={SetInicio}/>
                 </Tabs.Content>
                 <Tabs.Content value="dia2">
-                    <HourCards day={datos[1].dataBase}/>
+                    <HourCards day={datos[1].dataBase} setInicio={SetInicio}/>
                 </Tabs.Content>
                 <Tabs.Content value="dia3">
-                    <HourCards day={datos[2].dataBase}/>
+                    <HourCards day={datos[2].dataBase} setInicio={SetInicio}/>
                 </Tabs.Content>
                 <Tabs.Content value="dia4">
-                    <HourCards day={datos[3].dataBase}/>
+                    <HourCards day={datos[3].dataBase} setInicio={SetInicio}/>
                 </Tabs.Content>
                 <Tabs.Content value="dia5">
-                    <HourCards day={datos[4].dataBase}/>
+                    <HourCards day={datos[4].dataBase} setInicio={SetInicio}/>
                 </Tabs.Content>
                 <Tabs.Content value="dia6">
-                    <HourCards day={datos[5].dataBase}/>
+                    <HourCards day={datos[5].dataBase} setInicio={SetInicio}/>
                 </Tabs.Content>
                 </Box>
             </Tabs.Root>
-            </Theme>
+            </div>
 
-            <div className="w-[80vw] mt-40 mb-20">
+            <div className="w-[80vw] mt-10 md:mt-[12vh]">
               <Separator size="4"/>
 
               <section className="flex justify-around mt-10">
                 <div>
-                  <h1 className="font-bold"> Inicia:  </h1>
+                  <h1 className="font-bold"> Inicia: {inicio}  </h1>
                 </div>
 
                 <div>
@@ -224,7 +227,6 @@ function Page() {
 
               </section>
             </div>
-              holasas
             </div>
     </div>
   );
