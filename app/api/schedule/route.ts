@@ -1,12 +1,36 @@
+import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-import { NextApiRequest, NextApiResponse } from "next";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
-    console.log("hola")
-    const { slug } = req.query
-    console.log(slug)
-    return res.send({"slug": slug})
+
+export async function POST(req: NextRequest) {
+    try {
+        const body = await req.json();
+        console.log("request");
+        const id = body.id;
+        const response = await axios.get(`https://dlbackendtws.azurewebsites.net/reservations/schedule/${id}`, 
+        {
+            headers: {
+                "x-api-key": "ihbnjek.fiwavfubg?njkm!rof7482?930ijef.xKP.ADEI?OU!HQE98742.Qg7984?20"
+            }
+        }
+        );
+        const data = response.data;
+        return new NextResponse(JSON.stringify(data))
+    }
+    catch(e) {
+        console.error(e);
+        return new NextResponse(JSON.stringify({
+            error: e
+        }), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+        )
+    }
 }
+
 
 // export async function GET() {
 //   //await new Promise(resolve => setTimeout(resolve, 3000));

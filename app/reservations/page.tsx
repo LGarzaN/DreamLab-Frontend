@@ -26,14 +26,11 @@ export default function Page() {
               <h1 className="font-bold pb-2"> Termina: </h1>
               <div className="w-60 h-12 border-2	border-white rounded-full flex justify-center items-center">{inicio} hrs</div>
             </div>
-
                 <div>
                   <button onClick={() => setPage(page + 1)}>
                     Continuar
                   </button>
                 </div>
-
-
               </section>
             </div>
     </div>

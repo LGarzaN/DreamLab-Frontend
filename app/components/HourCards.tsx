@@ -12,12 +12,10 @@ interface Schedule {
     Occupied: boolean,
 }
 
-function getAvailableStartHours(spaceId: number, day: string, reservation_data: []): string[] {
+function getAvailableStartHours(day: string, reservation_data: []): string[] {
   const filteredReservations = reservation_data.filter((reservation: Schedule) => {
     return (
-      reservation.SpaceId === spaceId &&
-      reservation.Day === day &&
-      !reservation.Occupied
+      reservation.Day === day 
     );
   });
 
@@ -30,40 +28,24 @@ function getAvailableStartHours(spaceId: number, day: string, reservation_data: 
 
 function HourCards({
     day,
-    setInicio
+    setInicio,
+    data,
+    id
 }: {
     day : string;
-    setInicio: any
-
+    setInicio: any;
+    data: any;
+    id: number;
 }) {
-  const sp = useSearchParams();
-  const id_temporal = sp.get("id") || "1";
-  const id = parseInt(id_temporal);
-
   const [horasDisponibles, setHorasDisponibles] = useState<string[]>([]);
   const [buttonStates, setButtonStates] = useState(Array(horasDisponibles.length).fill(false));
 
-
   useEffect(()=> {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`/api/schedule/${id}`);
-        const data = response.data;
-        console.log("Data",data);
-        
-        const availableStartHours = getAvailableStartHours(id, day, data);
-        setHorasDisponibles(availableStartHours);
-        setButtonStates(Array(availableStartHours.length).fill(false));
-      } catch (error) {
-        // Handle error
-        console.error("Error fetching schedule:", error);
-      }
-    };
+    const availableStartHours = getAvailableStartHours(day, data);
+    setHorasDisponibles(availableStartHours);
+    setButtonStates(Array(availableStartHours.length).fill(false));
+  }, []);
   
-    fetchData();
-  }, [id]);
-  
-
   const handleBotonClick = (index: number, hora: string) => {
     const selectedCount = buttonStates.filter(state => state).length;
     if (selectedCount === 1 && !buttonStates[index]) {
@@ -78,9 +60,6 @@ function HourCards({
     });
   };
   
-  
-
-
   return (
     <div className="flex justify-center h-[25vh] md:h-40 items-start overflow-y-auto">
         <div className="grid justify-center items-center lg:grid-cols-6 md:grid-cols-3 grid-cols-2"> 
@@ -96,7 +75,6 @@ function HourCards({
             ))}
         </div>
     </div>
-
   );
 }
 export default HourCards;

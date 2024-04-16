@@ -1,19 +1,15 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Tabs, Box, Separator, Theme } from "@radix-ui/themes";
 import { useSearchParams } from "next/navigation";
 import HourCards from "../components/HourCards";
 import { data } from "@/data/areas_data"; 
-import Navbar from "../components/Navbar";
-import { ClipLoader } from "react-spinners";
+import axios from "axios";
 
 function DataBaseDates() {
- 
-
   const today = new Date();
   const today_date = today.toLocaleDateString('es-MX');
-  console.log(today_date);
-  
 
   const weekDaysDB = [today_date];
 
@@ -27,15 +23,7 @@ function DataBaseDates() {
 }
 
 function WeekDays() {
-  const weekDaysFormat = [
-    "Domingo",
-    "Lunes",
-    "Martes",
-    "Miercoles",
-    "Jueves",
-    "Viernes",
-    "Sabado",
-  ];
+  const weekDaysFormat = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado",];
   const weekDaysTittle = [];
 
   const today = new Date();
@@ -52,25 +40,11 @@ function WeekDays() {
     }
     today_week_m++;
   }
-
   return weekDaysTittle;
 }
 
 function Description() {
-  const months = [
-    "Enero",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dic",
-  ];
+  const months = ["Enero", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 
   const today = new Date();
   const month = months[today.getMonth()];
@@ -115,13 +89,14 @@ function getImage(id: number) {
 }
 
 export default function HourChooser(inicio: string, setInicio: any) {
+  const [id, setId] = useState(1);
+  const [data, setData] = useState([]);
+  const sp = useSearchParams();
+
   const dias = DataBaseDates();
   const weekdays = WeekDays();
   const description = Description();
 
-  const sp = useSearchParams();
-  const id_temporal = sp.get("id") || "1";
-  const id = parseInt(id_temporal);
   const bg_image = getImage(id) || "/areas/social_network.jpeg";
   const name = getName(id) || "Social Network";
   let day = 0;
@@ -134,6 +109,26 @@ export default function HourChooser(inicio: string, setInicio: any) {
       weekdaysDescription: description[i],
     });
   }
+
+  useEffect(() => {
+    const id_temporal = sp.get("id") || "1";
+    setId(parseInt(id_temporal));
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(`/api/schedule/`, {id: id});
+        const data = response.data;
+        setData(data);
+        
+      } catch (error) {
+        // Handle error
+        console.error("Error fetching schedule:", error);
+      }
+    };
+
+    fetchData();
+  }, [])
+
   return (
     <div className="h-[85vh]">
         <div className="relative w-full">
@@ -196,26 +191,25 @@ export default function HourChooser(inicio: string, setInicio: any) {
                 </Tabs.List>
 
                 <Box pt="4">
-                  {datos ? <>
+                  
                   <Tabs.Content value="dia1">
-                  <HourCards day={datos[0].dataBase} setInicio={setInicio}/>
+                  <HourCards day={datos[0].dataBase} setInicio={setInicio} data={data} id={id}/>
               </Tabs.Content>
               <Tabs.Content value="dia2">
-                  <HourCards day={datos[1].dataBase} setInicio={setInicio}/>
+                  <HourCards day={datos[1].dataBase} setInicio={setInicio} data={data} id={id}/>
               </Tabs.Content>
               <Tabs.Content value="dia3">
-                  <HourCards day={datos[2].dataBase} setInicio={setInicio}/>
+                  <HourCards day={datos[2].dataBase} setInicio={setInicio} data={data} id={id}/>
               </Tabs.Content>
               <Tabs.Content value="dia4">
-                  <HourCards day={datos[3].dataBase} setInicio={setInicio}/>
+                  <HourCards day={datos[3].dataBase} setInicio={setInicio} data={data} id={id}/>
               </Tabs.Content>
               <Tabs.Content value="dia5">
-                  <HourCards day={datos[4].dataBase} setInicio={setInicio}/>
+                  <HourCards day={datos[4].dataBase} setInicio={setInicio} data={data} id={id}/>
               </Tabs.Content>
               <Tabs.Content value="dia6">
-                  <HourCards day={datos[5].dataBase} setInicio={setInicio}/>
-              </Tabs.Content> </> : <div className="w-full h-full justify-center items-center"><ClipLoader color="white" size={50} /> </div>
-                }
+                  <HourCards day={datos[5].dataBase} setInicio={setInicio} data={data} id={id}/>
+              </Tabs.Content>
                 
                 </Box>
 
