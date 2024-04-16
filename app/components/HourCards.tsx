@@ -47,9 +47,9 @@ function HourCards({
   useEffect(()=> {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/schedule");
+        const response = await axios.get(`/api/schedule/${id}`);
         const data = response.data;
-        console.log(data);
+        console.log("Data",data);
         
         const availableStartHours = getAvailableStartHours(id, day, data);
         setHorasDisponibles(availableStartHours);
