@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import axios from "axios"
+import { headers } from "next/headers"
 
 //"https://dlbackendtws.azurewebsites.net/login/"
 
@@ -13,6 +14,11 @@ export async function POST(req: Request) {
         const res = await axios.post('https://dlbackendtws.azurewebsites.net/login/', {
             username,
             password
+        }, {
+            headers: {
+                "Content-Type": "application/json",
+                "x-api-key": process.env.API_KEY
+            }
         })
 
         const response = await res.data;

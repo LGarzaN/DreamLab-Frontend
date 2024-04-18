@@ -26,17 +26,22 @@ export default function Login() {
             setLoading(false)
             return
         }
-
-        const response = await axios.post('/api/login', {
-            username: username,
-            password: password
-        })
-
-        if (response.status === 200) {
-            setLoading(false)
-            router.push('/')
-        } else {
-            toast.error("Usario y/o contrasena incorrectos", {style: {backgroundColor: "#121417", color: "white"}})
+        
+        try {
+            const response = await axios.post('/api/login', {
+                username: username,
+                password: password
+            })
+            
+            if (response.status === 200) {
+                setLoading(false)
+                router.push('/')
+            } else {
+                toast.error("Usario y/o contrasena incorrectos", {style: {backgroundColor: "#121417", color: "white"}})
+                setLoading(false)
+            }
+        } catch (error) {
+            toast.error(`Error: ${error}`, {style: {backgroundColor: "#121417", color: "white"}})
             setLoading(false)
         }
       }
