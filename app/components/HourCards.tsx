@@ -9,7 +9,6 @@ interface Schedule {
   Day: string;
   StartHour: string;
   EndHour: string;
-  Occupied: boolean;
 }
 
 function getAvailableStartHours(day: string, reservation_data: []): string[] {

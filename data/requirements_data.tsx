@@ -2,7 +2,7 @@ export const requirements_data = [
     {
         id: 1,
         name: "Número de Mesas",
-        image: "",
+        image: "/requirements/desk.png",
     },
     {
         id: 2,
@@ -64,4 +64,17 @@ export const requirements_data = [
         name: "Número de Iphones",
         image: "",
     },
+    {
+        id: 14,
+        name: "Número de Personas",
+        image: "/requirements/persons.png"
+    }
+]
+
+export const requirements_area = [
+    {
+        id_area: 1,
+        ids_requirements: [1, 14]
+    }
+
 ]

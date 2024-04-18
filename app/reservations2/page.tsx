@@ -55,7 +55,7 @@ export default function Page() {
 
   return (
     <div className="">
-      {/*<div className="relative w-full">
+      <div className="relative w-full">
         <img
           src={bgImage}
           alt="Descripción"
@@ -67,7 +67,7 @@ export default function Page() {
             {name}{" "}
           </div>
         </section>
-  </div>*/}
+      </div>
 
       <div className="Body">
         {PageDisplay()}
