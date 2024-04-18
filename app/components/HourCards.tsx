@@ -5,19 +5,19 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 interface Schedule {
-    SpaceId: number,
-    Day: string,
-    StartHour: string,
-    EndHour: string,
-    Occupied: boolean,
+  SpaceId: number;
+  Day: string;
+  StartHour: string;
+  EndHour: string;
+  Occupied: boolean;
 }
 
 function getAvailableStartHours(day: string, reservation_data: []): string[] {
-  const filteredReservations = reservation_data.filter((reservation: Schedule) => {
-    return (
-      reservation.Day === day 
-    );
-  });
+  const filteredReservations = reservation_data.filter(
+    (reservation: Schedule) => {
+      return reservation.Day === day;
+    }
+  );
 
   const availableStartHours = filteredReservations.map(
     (reservation: Schedule) => reservation.StartHour
@@ -27,53 +27,56 @@ function getAvailableStartHours(day: string, reservation_data: []): string[] {
 }
 
 function HourCards({
-    day,
-    setInicio,
-    data,
-    id
+  day,
+  setInicio,
+  data,
+  id,
 }: {
-    day : string;
-    setInicio: any;
-    data: any;
-    id: number;
+  day: string;
+  setInicio: any;
+  data: any;
+  id: number;
 }) {
   const [horasDisponibles, setHorasDisponibles] = useState<string[]>([]);
-  const [buttonStates, setButtonStates] = useState(Array(horasDisponibles.length).fill(false));
+  const [buttonStates, setButtonStates] = useState(
+    Array(horasDisponibles.length).fill(false)
+  );
 
-  useEffect(()=> {
+  useEffect(() => {
     const availableStartHours = getAvailableStartHours(day, data);
     setHorasDisponibles(availableStartHours);
     setButtonStates(Array(availableStartHours.length).fill(false));
   }, []);
-  
+
   const handleBotonClick = (index: number, hora: string) => {
-    const selectedCount = buttonStates.filter(state => state).length;
+    const selectedCount = buttonStates.filter((state) => state).length;
     if (selectedCount === 1 && !buttonStates[index]) {
       return;
     }
-  
-    setButtonStates(prevStates => {
-        setInicio(hora);
-        const newStates = [...prevStates];
-        newStates[index] = !newStates[index];
-        return newStates;
+
+    setButtonStates((prevStates) => {
+      setInicio(hora);
+      const newStates = [...prevStates];
+      newStates[index] = !newStates[index];
+      return newStates;
     });
   };
-  
+
   return (
     <div className="flex justify-center h-[25vh] md:h-40 items-start overflow-y-auto">
-        <div className="grid justify-center items-center lg:grid-cols-6 md:grid-cols-3 grid-cols-2"> 
-            {horasDisponibles.map((hora, index) => (
-            <button
+      <div className="grid justify-center items-center lg:grid-cols-6 md:grid-cols-3 grid-cols-2">
+        {horasDisponibles.map((hora, index) => (
+          <button
             key={index}
-            className={`w-40 h-10 flex justify-center items-center m-4 rounded-full text-white ${buttonStates[index] ? 'bg-green-600' : 'bg-[#3A3B3E]'} hover:bg-green-500 active:bg-green-600`}
+            className={`w-40 h-10 flex justify-center items-center m-4 rounded-full text-white ${
+              buttonStates[index] ? "bg-green-600" : "bg-[#3A3B3E]"
+            } hover:bg-green-500 active:bg-green-600`}
             onClick={() => handleBotonClick(index, hora)}
           >
             {hora}
           </button>
-
-            ))}
-        </div>
+        ))}
+      </div>
     </div>
   );
 }
