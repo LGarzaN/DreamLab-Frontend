@@ -55,7 +55,7 @@ export default function Page() {
 
   return (
     <div className="">
-      {/*<div className="relative w-full">
+      <div className="relative w-full">
         <img
           src={bgImage}
           alt="Descripción"
@@ -67,13 +67,13 @@ export default function Page() {
             {name}{" "}
           </div>
         </section>
-  </div>*/}
+      </div>
 
       <div className="Body">
         {PageDisplay()}
       </div>
 
-      {/*<div className="w-full justify-center ">
+      <div className="w-full justify-center ">
         <Separator size="4" />
         <section className="flex flex-col lg:flex-row items-center lg:justify-around mt-10 w-full mb-10">
           <div className="w-60 flex flex-col justify-center items-center">
@@ -110,14 +110,7 @@ export default function Page() {
             </div>
           </div>
         </section>
-          </div>*/}
-
-<button
-                onClick={handleClick}
-                className="w-60 h-12 mt-5 md:mt-0 rounded-full bg-[#5FA256] hover:bg-[#45783E] "
-              >
-                <h1 className="font-bold text-2xl">Continuar</h1>
-              </button>
+          </div>
     </div>
   );
 }

@@ -48,7 +48,7 @@ export default function Page() {
     if (page === 0) {
       return HourChooser(inicio, SetInicio, date, SetDate);
     } else{
-      return RequirementsChooser(date, start, end);
+      return RequirementsChooser();
     }
   }
   ;
