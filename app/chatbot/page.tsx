@@ -7,15 +7,25 @@ import { ClipLoader } from "react-spinners";
 import Cookies from 'js-cookie'
 import { Button, TextFieldInput, TextFieldRoot, TextFieldSlot } from "@radix-ui/themes";
 import Link from "next/link";
+import lottie from "lottie-react"
+import Lottie from "lottie-react";
+
+import Run from "./Run.json"
+import BotAnim from "./BotAnim.json"
+import Wave from "./Wave.json"
+import Secuencia from "./Secuencia"
+
 
 
 export default function Home() {
   const [npcText, setNpcText] = useState("¿Hola!, ¿Cómo te puedo ayudar?")
   const [playerText, setPlayerText] = useState("")
   const [loading, setLoading] = useState(false)
-  const [room, setRoom] = useState("bg2")
+  const [room, setRoom] = useState("recep")
   const [id, setId] = useState("1")
   const [interactions, setInteractions] = useState(0)
+
+  
 
   const handleKeyPress = (e: any) => {
     if (e.key === 'Enter') {
@@ -83,18 +93,18 @@ export default function Home() {
           </div>
           <div className="h-[60%] w-full flex items-end justify-center gap-24 z-10">
             <motion.div 
-            className="h-[95%] w-[30%] rounded-full p-6 mb-6"
+            className="h-[80%] w-[40%] rounded-full p-6 mb-6"
             initial={{x: '-60vw'}}
             animate={{x: 0}}
             transition={{duration: 2}}>
-              <img src="/Usuario.png" className="w-[290px]"/>
+              <Secuencia />
             </motion.div>
             <motion.div 
-            className="h-[95%] w-[30%] rounded-full p-6 mb-6"
+            className="h-[100%] w-[30%] rounded-full p-6 mb-6"
             initial={{x: '60vw'}}
             animate={{x: 0}}
             transition={{duration: 2, delay: 1}}>
-              <img src="/robot.png" className="w-[300px]"/>
+              <Lottie animationData={BotAnim} />
             </motion.div>
           </div>
         </div>
