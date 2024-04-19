@@ -4,6 +4,7 @@ import { Tabs, Box } from "@radix-ui/themes";
 import { useSearchParams } from "next/navigation";
 import HourCards from "../components/HourCards";
 import axios from "axios";
+import { ClipLoader } from "react-spinners";
 
 interface WeekData {
   dataBase: string;
@@ -89,7 +90,7 @@ function Description() {
   return weekDescription;
 }
 
-function hour(
+function Hour(
   id: number,
   inicio: string,
   setInicio: any,
@@ -98,6 +99,7 @@ function hour(
   data: any[],
   scheduleId: number,
   setScheduleId: any,
+  loading: boolean,
 ) {
   const dias = DataBaseDates();
   const weekdays = WeekDays();
@@ -237,6 +239,7 @@ function hour(
               </Tabs.Trigger>
             </Tabs.List>
 
+            {loading ? <div className="w-full h-[25vh] flex justify-center items-center"><ClipLoader size={30} color="white"/></div>: 
             <Box pt="4">
               <Tabs.Content value="dia1">
                 <HourCards
@@ -293,6 +296,7 @@ function hour(
                 />
               </Tabs.Content>
             </Box>
+            }
           </Tabs.Root>
         </div>
       </div>
@@ -300,4 +304,4 @@ function hour(
   );
 }
 
-export default hour
+export default Hour

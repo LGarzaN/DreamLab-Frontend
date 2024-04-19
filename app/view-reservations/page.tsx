@@ -5,6 +5,8 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import { AlertDialog, Button, Flex } from "@radix-ui/themes";
+import toast from "react-hot-toast";
+
 
 interface Reservation {
     Day: string,
@@ -52,11 +54,26 @@ export default function Page() {
 }
 
 function ReservationCard(index: number, reservation: Reservation) {
+    const handleClick = async () => {
+        const res = await axios.delete(`/api/reservations/`, {
+            data: {
+                group_code: reservation.GroupCode
+            }
+        })
+
+        if (res.status === 200) {
+            toast.success("Reservación Cancelada con exito!")
+            window.location.reload()
+        } else {
+            toast.error("Hubo un error al cancelar la reservación")
+        }
+
+    }
     return <AlertDialog.Root key={index}>
         <AlertDialog.Trigger>
             <div className="w-5/12 h-[40vh] flex flex-row p-10">
                 <div className="w-1/2">
-                    <img src="/areas/social_network.jpeg" className="rounded-lg h-full w-full" />
+                    <img src="/areas/lego_room.jpeg" className="rounded-lg h-full w-full" />
                 </div>
                 <div className="w-1/2 p-6">
                     <div className="">
@@ -87,7 +104,7 @@ function ReservationCard(index: number, reservation: Reservation) {
                     </Button>
                 </AlertDialog.Cancel>
                 <AlertDialog.Action>
-                    <Button variant="solid" color="red">
+                    <Button variant="solid" color="red" onClick={handleClick}>
                         Cancelar Reservación
                     </Button>
                 </AlertDialog.Action>
