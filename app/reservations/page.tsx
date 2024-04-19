@@ -1,4 +1,5 @@
-import React, { useEffect, useState, Suspense } from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import HourChooser from "./hour";
 import { Separator } from "@radix-ui/themes";
