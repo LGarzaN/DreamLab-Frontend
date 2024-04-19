@@ -63,7 +63,7 @@ function RequirementsChooser(
 
         <section className="flex justify-evenly w:full lg:flex-row flex-col">
           {requirements_data_especifics.map((item) => (
-            <div className="bg-white-500 h-28 w-[90vw] lg:w-[40vw] bg-[#16191C] rounded-xl flex items-center	m-4 justify-evenly">
+            <div key={item.id} className="bg-white-500 h-28 w-[90vw] lg:w-[40vw] bg-[#16191C] rounded-xl flex items-center	m-4 justify-evenly">
               <img
                 src={item.image}
                 alt="descripcion"
