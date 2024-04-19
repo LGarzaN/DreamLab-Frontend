@@ -15,17 +15,20 @@ const ReproducirAnimaciones = () => {
     useEffect(() => {
         if (animationFinished) {
             setCurrentAnimation(Wave);
-            lottieRef.current.play();
         }
     }, [animationFinished]);
+
+    const handleAnimationComplete = () => {
+        setAnimationFinished(true);
+    };
 
     return (
         <Lottie
             lottieRef={lottieRef}
             animationData={currentAnimation}
-            loop={currentAnimation === Run ? 2 : true} // Establecer el bucle solo para la primera animación
-            autoplay={false}
-            onComplete={() => setAnimationFinished(true)}
+            loop={currentAnimation === Run ? 2 : true}
+            autoplay={true}
+            onComplete={handleAnimationComplete}
         />
     );
 };
