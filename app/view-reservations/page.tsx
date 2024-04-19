@@ -6,6 +6,7 @@ import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 import toast from "react-hot-toast";
+import { data } from "@/data/areas_data";
 
 
 interface Reservation {
@@ -40,10 +41,10 @@ export default function Page() {
         <div className="relative w-full">
             <img src="/viewReservations.png" alt="View Reservations" className="w-full h-[30vh] lg:h-[30vh] object-cover brightness-75" />
             <div className="absolute top-0 left-0 w-full h-full flex items-center">
-                <h1 className="text-2xl lg:text-5xl text-white z-10 pl-20 mt-10">Mis Reservaciones</h1>
+                <h1 className="text-4xl lg:text-5xl text-white z-10 pl-20 mt-10">Mis Reservaciones</h1>
             </div>
         </div>
-        <div className="h-[70vh] flex">
+        <div className="h-[70vh] flex flex-col md:flex-row">
             {!loading && reservations.length > 0 ? reservations.map((reservation: Reservation, index) => {
                 return (
                     ReservationCard(index, reservation)
@@ -54,6 +55,16 @@ export default function Page() {
 }
 
 function ReservationCard(index: number, reservation: Reservation) {
+    function getImage(id: number) {
+        const area = data.find((area) => area.id === id);
+        return area ? area.image : "/areas/social_network.jpeg";
+    }
+
+    function getArea(id: number) {
+        const area = data.find((area) => area.id === id);
+        return area ? area.area : "Espacios Abiertos";
+    }
+
     const handleClick = async () => {
         const res = await axios.delete(`/api/reservations/`, {
             data: {
@@ -71,14 +82,14 @@ function ReservationCard(index: number, reservation: Reservation) {
     }
     return <AlertDialog.Root key={index}>
         <AlertDialog.Trigger>
-            <div className="w-5/12 h-[40vh] flex flex-row p-10">
+            <div className="w-full md:w-5/12 h-[40vh] flex flex-row p-10">
                 <div className="w-1/2 justify-center items-center flex">
-                    <img src="/areas/lego_room.jpeg" className="rounded-lg h-full w-full hover:opacity-75 transition-all hover:w-[97%] hover:h-[97%]" />
+                    <img src={getImage(reservation.SpaceId)} className="rounded-lg h-full w-full hover:opacity-75 transition-all hover:w-[97%] hover:h-[97%]" alt="Space Image"/>
                 </div>
                 <div className="w-1/2 p-6">
                     <div className="">
                         <p className="text-xl font-bold">{reservation.SpaceName}</p>
-                        <p className="text-lg text-neutral-400">Espacios Abiertos</p>
+                        <p className="text-lg text-neutral-400">{getArea(reservation.SpaceId)}</p>
                     </div>
                     <div className="mt-10 gap-2">
                         <p className="font-bold">{reservation.Day}</p>

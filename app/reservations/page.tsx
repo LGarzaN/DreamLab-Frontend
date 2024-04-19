@@ -8,6 +8,7 @@ import RequirementsChooser from "./requirements";
 import { data } from "@/data/areas_data";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
+import Navbar from "../components/Navbar";
 
 function getName(id: number) {
   const area = data.find((area) => area.id === id);
@@ -85,6 +86,7 @@ function Page() {
 
   return (
     <div className="h-screen">
+      <Navbar />
       <div className="relative w-full">
         <img
           src={bgImage}
