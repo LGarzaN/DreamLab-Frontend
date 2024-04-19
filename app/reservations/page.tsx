@@ -9,6 +9,8 @@ import { Separator } from "@radix-ui/themes";
 import Link from "next/link";
 import RequirementsChooser from "./requirements";
 import { data } from "@/data/areas_data";
+import toast from "react-hot-toast";
+import { ClipLoader } from "react-spinners";
 
 function getName(id: number) {
   const area = data.find((area) => area.id === id);
@@ -20,7 +22,7 @@ function getImage(id: number) {
   return area ? area.image : null;
 }
 
-function page() {
+function Page() {
   const [page, setPage] = useState(0);
   const sp = useSearchParams();
 
@@ -35,12 +37,28 @@ function page() {
   const [data, setData] = useState([]);
   const [requirements, setRequirements] = useState("");
   const [scheduleId, setScheduleId] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (page == 0) {
       setPage(page + 1);
-      console.log("ID", scheduleId);
+      
     } else {
+      setLoading(true);
+      const res = await axios.post(`/api/reservations/`, {
+        schedule_id: scheduleId,
+        user_requirements: "1=1,2=1",
+        space_id: id,
+      });
+
+      if (res.status === 200) {
+        toast.success("Reservación realizada con éxito");
+        setLoading(false);
+        window.location.href = "/";
+      } else {
+        setLoading(false);
+        toast.error("Error al realizar la reservación");
+      }
     }
   };
 
@@ -62,8 +80,10 @@ function page() {
       try {
         const response = await axios.post(`/api/schedule/`, { id: id });
         const data = response.data;
+        setLoading(false);
         setData(data);
       } catch (error) {
+        setLoading(false);
         console.error("Error fetching schedule:", error);
       }
     };
@@ -72,12 +92,12 @@ function page() {
   }, [sp, inicio]);
 
   return (
-    <div>
+    <div className="h-screen">
       <div className="relative w-full">
         <img
           src={bgImage}
           alt="Descripción"
-          className="w-full h-[40vh] object-cover md:opacity-70 opacity-50"
+          className="w-full h-[35vh] object-cover md:opacity-70 opacity-50"
         />
         <section className="absolute inset-0 flex flex-col items-center justify-center lg:items-start">
           <div className="text-center lg:pl-16 lg:text-start text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide">
@@ -96,11 +116,12 @@ function page() {
             SetDate,
             data,
             scheduleId,
-            setScheduleId
+            setScheduleId,
+            loading
           )
         : RequirementsChooser(date, start, end, requirements, setRequirements)}
 
-      <div className="w-full justify-center ">
+      <div className="w-full justify-center">
         <Separator size="4" />
         <section className="flex flex-col lg:flex-row items-center lg:justify-around mt-10 w-full mb-10">
           <div className="w-60 flex flex-col justify-center items-center">
@@ -121,16 +142,16 @@ function page() {
             <div className="flex flex-col items-center">
               <button
                 onClick={handleClick}
-                className="w-60 h-12 mt-5 md:mt-0 rounded-full bg-[#5FA256] hover:bg-[#45783E] "
+                className="w-56 h-12 mt-5 md:mt-0 rounded-full bg-[#5FA256] hover:bg-[#45783E] transition-all text-2xl"
               >
-                <h1 className="font-bold text-2xl">Continuar</h1>
+                {page === 0 ? "Siguiente": loading ? <div className="flex w-full h-full justify-center items-center"><ClipLoader color="white" size={20}/></div>: "Reservar"}
+                
               </button>
               <Link
                 href="/"
-                className="mt-2 text-red-500 underline font-bold hover:text-red-800"
+                className="mt-2 text-red-500 underline font-bold hover:text-red-800 transition-all"
               >
-                {" "}
-                Cancelar{""}
+                Cancelar
               </Link>
             </div>
           </div>
@@ -140,4 +161,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

@@ -33,7 +33,7 @@ export default function Page() {
               Aprende de manera interactiva y con la tecnología más nueva
             </p>
             <div className="flex justify-center items-center lg:justify-start">
-              <Link href="/chatbot" className="flex justify-center items-center h-[40px] lg:h-[50px] w-[200px] lg:w-[300px] rounded-full bg-[#726FF5] transition ease-in-out delay-100 hover:bg-[#5654BE] hover:text-slate-300 ">
+              <Link href="/chatbot" className="flex justify-center items-center h-[40px] lg:h-[50px] w-[200px] lg:w-[300px] rounded-full bg-[#726FF5] transition ease-in-out hover:bg-[#5654BE] hover:text-slate-300 ">
                 <p className="self-center font-bold md:text-xl"> Reserva Ahora </p>
               </Link>
             </div>
@@ -50,7 +50,7 @@ export default function Page() {
         Espacios Disponibles
       </div>
 
-      <div className="flex justify-center ">
+      <div className="flex justify-center mb-6">
         <input //cambiar a input de radix
           value={name}
           onChange={(e) => setName(e.target.value)}
