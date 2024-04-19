@@ -1,5 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
+"use client"
 import React, { useEffect, useState } from "react";
 import { Tabs, Box } from "@radix-ui/themes";
 import { useSearchParams } from "next/navigation";
@@ -10,6 +9,7 @@ interface WeekData {
   dataBase: string;
   weekdaysTittle: string;
   weekdaysDescription: string;
+  
 }
 
 function DataBaseDates() {
@@ -89,19 +89,18 @@ function Description() {
   return weekDescription;
 }
 
-export default function HourChooser(
+function hour(
+  id: number,
   inicio: string,
   setInicio: any,
   date: string,
-  setDate: any
+  setDate: any,
+  data: any[]
 ) {
-  const [id, setId] = useState(1);
-  const [data, setData] = useState([]);
-  const sp = useSearchParams();
-
   const dias = DataBaseDates();
   const weekdays = WeekDays();
   const description = Description();
+  const [prueba, setPrueba] = useState(0);
 
   const datos: WeekData[] = [];
   for (let i = 0; i < 6; i++) {
@@ -112,23 +111,6 @@ export default function HourChooser(
     });
   }
 
-  useEffect(() => {
-    const id_temporal = sp.get("id") || "1";
-    setId(parseInt(id_temporal));
-
-    const fetchData = async () => {
-      try {
-        const response = await axios.post(`/api/schedule/`, { id: id });
-        const data = response.data;
-        setData(data);
-      } catch (error) {
-        // Handle error
-        console.error("Error fetching schedule:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const handleTabsChange = (value: string) => {
     const Day = new Date();
@@ -193,6 +175,8 @@ export default function HourChooser(
         break;
     }
   };
+  
+
 
   return (
     <div className="h-[40vh]">
@@ -307,3 +291,5 @@ export default function HourChooser(
     </div>
   );
 }
+
+export default hour
