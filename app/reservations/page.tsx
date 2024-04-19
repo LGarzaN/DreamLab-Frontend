@@ -1,8 +1,4 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { Tabs, Box } from "@radix-ui/themes";
-import { useSearchParams } from "next/navigation";
-import HourCards from "../components/HourCards";
+import React, { useEffect, useState, Suspense } from "react";
 import axios from "axios";
 import HourChooser from "./hour";
 import { Separator } from "@radix-ui/themes";
@@ -24,12 +20,9 @@ function getImage(id: number) {
 
 function Page() {
   const [page, setPage] = useState(0);
-  const sp = useSearchParams();
-
   const [id, setId] = useState(1);
   const [name, SetName] = useState("");
   const [bgImage, SetBgImage] = useState("");
-
   const [date, SetDate] = useState(" Viernes 19 de Abril del 2024");
   const [inicio, SetInicio] = useState("");
   const [start, setStart] = useState(0);
@@ -42,7 +35,6 @@ function Page() {
   const handleClick = async () => {
     if (page == 0) {
       setPage(page + 1);
-      
     } else {
       setLoading(true);
       const res = await axios.post(`/api/reservations/`, {
@@ -63,16 +55,15 @@ function Page() {
   };
 
   useEffect(() => {
-    const id_temporal = sp.get("id") || "1";
+    const searchParams = new URLSearchParams(window.location.search);
+    const id_temporal = searchParams.get("id") || "1";
     const id = parseInt(id_temporal);
     const bg_image = getImage(id) || "/areas/social_network.jpeg";
     const name = getName(id) || "Social Network";
 
     setId(id);
-
     SetBgImage(bg_image);
     SetName(name);
-
     setStart(parseInt(inicio));
     setEnd(parseInt(inicio) + 1);
 
@@ -89,7 +80,7 @@ function Page() {
     };
 
     fetchData();
-  }, [sp, inicio]);
+  }, [inicio]);
 
   return (
     <div className="h-screen">
@@ -144,8 +135,13 @@ function Page() {
                 onClick={handleClick}
                 className="w-56 h-12 mt-5 md:mt-0 rounded-full bg-[#5FA256] hover:bg-[#45783E] transition-all text-2xl"
               >
-                {page === 0 ? "Siguiente": loading ? <div className="flex w-full h-full justify-center items-center"><ClipLoader color="white" size={20}/></div>: "Reservar"}
-                
+                {page === 0 ? "Siguiente" : loading ? (
+                  <div className="flex w-full h-full justify-center items-center">
+                    <ClipLoader color="white" size={20} />
+                  </div>
+                ) : (
+                  "Reservar"
+                )}
               </button>
               <Link
                 href="/"

@@ -1,9 +1,7 @@
 "use client"
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Tabs, Box } from "@radix-ui/themes";
-import { useSearchParams } from "next/navigation";
 import HourCards from "../components/HourCards";
-import axios from "axios";
 import { ClipLoader } from "react-spinners";
 
 interface WeekData {
