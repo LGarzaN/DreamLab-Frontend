@@ -72,8 +72,8 @@ function ReservationCard(index: number, reservation: Reservation) {
     return <AlertDialog.Root key={index}>
         <AlertDialog.Trigger>
             <div className="w-5/12 h-[40vh] flex flex-row p-10">
-                <div className="w-1/2">
-                    <img src="/areas/lego_room.jpeg" className="rounded-lg h-full w-full" />
+                <div className="w-1/2 justify-center items-center flex">
+                    <img src="/areas/lego_room.jpeg" className="rounded-lg h-full w-full hover:opacity-75 transition-all hover:w-[97%] hover:h-[97%]" />
                 </div>
                 <div className="w-1/2 p-6">
                     <div className="">

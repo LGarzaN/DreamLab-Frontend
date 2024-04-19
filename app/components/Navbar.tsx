@@ -56,7 +56,7 @@ const Navbar = () => {
                     </div>
                     <div className="ml-auto flex flex-row gap-4">
                         <button onClick={async () => {await logout()}}>Log Out</button>
-                        <Link href={"/user"}>
+                        <Link href={"/profile"}>
                             <Image src="/userdefault.svg" className="w-[45px]" alt="ProfilePicture" width={45} height={45}/>
                         </Link>
                     </div>
@@ -92,7 +92,7 @@ const Navbar = () => {
                     <div className="flex w-full h-[63%] px-5">
                         <ul className="flex flex-col gap-8 w-full text-lg">
                             <li className="hover:text-[#abaaff] transition-all"><Link href={"/"}>Inicio</Link></li>
-                            <li className="hover:text-[#abaaff] transition-all"><Link href={"/reservations"}>Reservaciones</Link></li>
+                            <li className="hover:text-[#abaaff] transition-all"><Link href={"/view-reservations"}>Reservaciones</Link></li>
                             <li className="hover:text-[#abaaff] transition-all"><Link href={"/info"}>Informacion</Link></li>
                             <li className="hover:text-[#abaaff] transition-all"><Link href={"/info"}>Cerrar Sesion</Link></li>
                         </ul>
