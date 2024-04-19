@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 interface Schedule {
+  ScheduleId: number;
   SpaceId: number;
   Day: string;
   StartHour: string;
@@ -25,16 +26,33 @@ function getAvailableStartHours(day: string, reservation_data: []): string[] {
   return availableStartHours;
 }
 
+function getScheduleId(day: string, reservation_data: []): number[] {
+  const filteredReservations = reservation_data.filter(
+    (reservation: Schedule) => {
+      return reservation.Day === day;
+    }
+  );
+
+  const scheduleId = filteredReservations.map(
+    (reservation: Schedule) => reservation.ScheduleId
+  );
+
+  return scheduleId;
+}
+
 function HourCards({
   day,
   setInicio,
   data,
   id,
+  setScheduleId,
 }: {
   day: string;
   setInicio: any;
   data: any;
   id: number;
+  setScheduleId: any;
+  
 }) {
   const [horasDisponibles, setHorasDisponibles] = useState<string[]>([]);
   const [buttonStates, setButtonStates] = useState(
@@ -59,7 +77,11 @@ function HourCards({
       newStates[index] = !newStates[index];
       return newStates;
     });
-  };
+
+    const scheduleId = getScheduleId(day, data)[index]; 
+    setScheduleId(scheduleId);
+    //console.log("ID", scheduleId);
+  };;
 
   return (
     <div className="flex justify-center h-[25vh] md:h-40 items-start overflow-y-auto">
