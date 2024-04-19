@@ -4,7 +4,7 @@ import { jwtVerify } from 'jose'
 
 // Middleware function to validate JWT stored in the "session" cookie
 export async function middleware(request: NextRequest) {
-  const session = request.cookies.get("session")?.value; 
+  const session = request.cookies.get("session")?.value;
 
   if (!session) {
     return NextResponse.redirect(new URL('/login', request.url))

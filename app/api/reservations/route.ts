@@ -7,7 +7,9 @@ export async function GET(req: NextRequest) {
     try {
         const jwt = req.cookies.get("session")?.value;
         if (!jwt) {
-            throw new Error("JWT token is missing");
+            return new Response("Unauthorized", {
+                status: 401
+            })
         }
         const data = await jwtVerify(jwt, new TextEncoder().encode(process.env.JWT_SECRET));
         console.log(data)
@@ -27,5 +29,6 @@ export async function GET(req: NextRequest) {
         })
     } catch (e) {
         console.log(e)
+
     }
 }

@@ -15,6 +15,7 @@ import BotAnim from "./BotAnim.json"
 import Wave from "./Wave.json"
 import Secuencia from "./Secuencia"
 import Image from "next/image";
+import Navbar from "../components/Navbar";
 
 
 export default function Home() {
@@ -73,18 +74,19 @@ export default function Home() {
 
   return (
     <div className="bg-[#121417] h-screen flex flex-col overflow-hidden relative">
+      <Navbar />
       {room !== "" && <img alt="" src={`/${room}.png`} className="w-full h-full object-cover z-0 absolute inset-0"/>}
         <div className="w-full h-[85%] relative">
           <div className="h-[40%] w-full flex items-center justify-center gap-32 z-10">
             <motion.div 
-              className="bg-[#121417] border-[#42454A] border-2 h-[175px] w-[225px] rounded-[30px] flex justify-center px-5 items-center z-10"
+              className="bg-[#121417] mt-24 border-[#42454A] border-2 h-[175px] w-[225px] rounded-[30px] flex justify-center px-5 items-center z-10"
               initial={{opacity: 0}}
               animate={{opacity: 1}}
               transition={{duration: 1, delay: 3}}>
                 {playerText}
               </motion.div>
               <motion.div 
-              className="bg-[#121417] border-[#42454A] border-2 h-[175px] w-[300px] rounded-[30px] flex justify-center px-5 py-4 items-center overflow-y-auto z-10"
+              className="bg-[#121417] mt-24 border-[#42454A] border-2 h-[175px] w-[300px] rounded-[30px] flex justify-center px-5 py-4 items-center overflow-y-auto z-10"
               initial={{opacity: 0}}
               animate={{opacity: 1}}
               transition={{duration: 1, delay: 3}}>
