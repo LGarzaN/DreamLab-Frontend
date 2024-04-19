@@ -31,13 +31,13 @@ function HomepageCards({
         {filteredData.map((item) => (
           <Dialog.Root key={item.id}>
             <Dialog.Trigger>
-              <div key={item.id} className="m-2">
+              <div key={item.id} className="m-2 mb-3">
                 <img
                   src={item.image}
                   alt={item.alt}
-                  className="rounded-lg object-cover h-28 w-36 lg:h-40 lg:w-[15vw] hover:brightness-50 transition ease-in-out delay-100 "
+                  className="rounded-lg object-cover h-28 w-36 lg:h-40 lg:w-[15vw] hover:brightness-50 transition ease-in-out "
                 />
-                <div className="text-sm lg:text-xl font-semibold tracking-wide ">
+                <div className="text-sm lg:text-xl font-semibold tracking-wide mt-1.5">
                   {item.name}
                 </div>
                 <div className="text-xs lg:text-base font-light tracking-wide text-slate-400">
@@ -46,34 +46,38 @@ function HomepageCards({
               </div>
             </Dialog.Trigger>
 
-            <Dialog.Content>
+            <Dialog.Content size={"4"}>
               <div className="flex items-center">
                 <Image
                   src={item.image}
                   alt={item.alt}
                   height={200}
                   width={200}
-                  className="rounded-lg object-cover h-28 w-36 lg:h-40 lg:w-52 hover:brightness-50 transition ease-in-out delay-100"
+                  className="rounded-lg object-cover h-28 w-36 lg:h-40 lg:w-52 hover:brightness-50 transition ease-in-out"
                 />
                 <div className=" grid justify-items-stretch ml-4">
-                  <div className="text-3xl font-bold">{item.name}</div>
+                  <div className="text-3xl font-bold mb-4">{item.name}</div>
                   <div>{item.descripcion}</div>
-                  <div className="justify-self-center mt-4	">
-                    <Dialog.Close>
-                      <Link
-                        href={{
-                          pathname: "/reserva_hora",
-                          query: {
-                            name: item.name,
-                            id: item.id
-                          },
-                        }}
-                      >
-                        <Button variant="soft" color="violet">
-                          Reservar ahora
-                        </Button>
-                      </Link>
-                    </Dialog.Close>
+                  <div className="justify-end gap-4 flex mt-4">
+                    <Dialog.Close className="">
+                          <Button variant="soft" color="gray" className="hover:cursor-pointer">
+                            Cerrar
+                          </Button>
+                      </Dialog.Close>
+                      <Dialog.Close>
+                        <Link
+                          href={{
+                            pathname: "/reservations",
+                            query: {
+                              id: item.id
+                            },
+                          }}
+                        >
+                          <Button variant="soft" color="violet" className="hover:cursor-pointer">
+                            Reservar ahora
+                          </Button>
+                        </Link>
+                      </Dialog.Close>
                   </div>
                 </div>
               </div>

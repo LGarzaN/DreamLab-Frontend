@@ -16,8 +16,8 @@ export async function POST(req: Request) {
             password
         }, {
             headers: {
-                "Content-Type": "application/json",
-                "x-api-key": process.env.API_KEY
+                'Content-Type': 'application/json',
+                'x-api-key': process.env.API_KEY
             }
         })
 
