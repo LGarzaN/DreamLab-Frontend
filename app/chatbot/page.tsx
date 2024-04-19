@@ -14,7 +14,7 @@ import Run from "./Run.json"
 import BotAnim from "./BotAnim.json"
 import Wave from "./Wave.json"
 import Secuencia from "./Secuencia"
-
+import Image from "next/image";
 
 
 export default function Home() {
@@ -73,7 +73,7 @@ export default function Home() {
 
   return (
     <div className="bg-[#121417] h-screen flex flex-col overflow-hidden relative">
-      {room !== "" && <img src={`/${room}.png`} className="w-full h-full object-cover z-0 absolute inset-0"/>}
+      {room !== "" && <img alt="" src={`/${room}.png`} className="w-full h-full object-cover z-0 absolute inset-0"/>}
         <div className="w-full h-[85%] relative">
           <div className="h-[40%] w-full flex items-center justify-center gap-32 z-10">
             <motion.div 
