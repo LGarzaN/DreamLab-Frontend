@@ -43,11 +43,11 @@ function WeekDays() {
   const today_week = today.getDay();
   let today_week_m = today_week;
 
-  for (let i = 0; i < 7; i++) {
-    weekDaysTittle.push(weekDaysFormat[today_week_m]);
-    if (today_week_m === 6) {
+  for (let i = -1; i < 7; i++) {
+    if (today_week_m === 7) {
       today_week_m = 0;
     }
+    weekDaysTittle.push(weekDaysFormat[today_week_m]);
     today_week_m++;
   }
   return weekDaysTittle;
@@ -95,7 +95,9 @@ function hour(
   setInicio: any,
   date: string,
   setDate: any,
-  data: any[]
+  data: any[],
+  scheduleId: number,
+  setScheduleId: any,
 ) {
   const dias = DataBaseDates();
   const weekdays = WeekDays();
@@ -242,6 +244,7 @@ function hour(
                   setInicio={setInicio}
                   data={data}
                   id={id}
+                  setScheduleId={setScheduleId}
                 />
               </Tabs.Content>
               <Tabs.Content value="dia2">
@@ -250,6 +253,7 @@ function hour(
                   setInicio={setInicio}
                   data={data}
                   id={id}
+                  setScheduleId={setScheduleId}
                 />
               </Tabs.Content>
               <Tabs.Content value="dia3">
@@ -258,6 +262,7 @@ function hour(
                   setInicio={setInicio}
                   data={data}
                   id={id}
+                  setScheduleId={setScheduleId}
                 />
               </Tabs.Content>
               <Tabs.Content value="dia4">
@@ -266,6 +271,7 @@ function hour(
                   setInicio={setInicio}
                   data={data}
                   id={id}
+                  setScheduleId={setScheduleId}
                 />
               </Tabs.Content>
               <Tabs.Content value="dia5">
@@ -274,6 +280,7 @@ function hour(
                   setInicio={setInicio}
                   data={data}
                   id={id}
+                  setScheduleId={setScheduleId}
                 />
               </Tabs.Content>
               <Tabs.Content value="dia6">
@@ -282,6 +289,7 @@ function hour(
                   setInicio={setInicio}
                   data={data}
                   id={id}
+                  setScheduleId={setScheduleId}
                 />
               </Tabs.Content>
             </Box>

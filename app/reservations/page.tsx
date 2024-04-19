@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { Tabs, Box } from "@radix-ui/themes";
 import { useSearchParams } from "next/navigation";
@@ -34,14 +34,14 @@ function page() {
   const [end, setEnd] = useState(0);
   const [data, setData] = useState([]);
   const [requirements, setRequirements] = useState("");
+  const [scheduleId, setScheduleId] = useState(0);
 
   const handleClick = () => {
-    if (page == 0){
+    if (page == 0) {
       setPage(page + 1);
-    }else{
-
+      console.log("ID", scheduleId);
+    } else {
     }
-    
   };
 
   useEffect(() => {
@@ -87,8 +87,18 @@ function page() {
         </section>
       </div>
 
-      {page === 0 ? HourChooser(id, inicio, SetInicio, date, SetDate, data) : RequirementsChooser(date, start, end, requirements, setRequirements)}
-
+      {page === 0
+        ? HourChooser(
+            id,
+            inicio,
+            SetInicio,
+            date,
+            SetDate,
+            data,
+            scheduleId,
+            setScheduleId
+          )
+        : RequirementsChooser(date, start, end, requirements, setRequirements)}
 
       <div className="w-full justify-center ">
         <Separator size="4" />
@@ -96,23 +106,15 @@ function page() {
           <div className="w-60 flex flex-col justify-center items-center">
             <h1 className="font-bold pb-2"> Inicia: </h1>
             <div className="w-60 h-12 border-2	border-white rounded-full flex justify-center items-center">
-            {inicio !== "" && (
-            <p>{parseInt(inicio)} hrs</p>
-            )}
-            {inicio == "" && (
-            <p>hrs</p>
-            )}
+              {inicio !== "" && <p>{parseInt(inicio)} hrs</p>}
+              {inicio == "" && <p>hrs</p>}
             </div>
           </div>
           <div className="w-60 flex flex-col justify-center items-center mt-5 md:mt-0">
             <h1 className="font-bold pb-2"> Termina: </h1>
             <div className="w-60 h-12 border-2	border-white rounded-full flex justify-center items-center">
-            {inicio !== "" && (
-            <p>{parseInt(inicio) + 1} hrs</p>
-            )}
-            {inicio == "" && (
-            <p>hrs</p>
-            )}
+              {inicio !== "" && <p>{parseInt(inicio) + 1} hrs</p>}
+              {inicio == "" && <p>hrs</p>}
             </div>
           </div>
           <div>
@@ -133,10 +135,9 @@ function page() {
             </div>
           </div>
         </section>
-        </div>
-
+      </div>
     </div>
-  )
+  );
 }
 
-export default page
+export default page;
