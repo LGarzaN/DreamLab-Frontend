@@ -49,8 +49,8 @@ const Navbar = () => {
                         </Link>
                     </div>
                     <div className="ml-12">
-                        <ul className="flex flex-row gap-8 text-white">
-                            <li className="hover:text-[#abaaff] transition-all"><Link href={"/reservations"}>Reservaciones</Link></li>
+                        <ul className="flex flex-row gap-8 text-gray-400">
+                            <li className="hover:text-[#abaaff] transition-all"><Link href={"/view-reservations"}>Reservaciones</Link></li>
                             <li className="hover:text-[#abaaff] transition-all"><Link href={"/info"}>Informacion</Link></li>
                         </ul>
                     </div>

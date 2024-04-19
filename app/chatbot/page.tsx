@@ -7,16 +7,26 @@ import { ClipLoader } from "react-spinners";
 import Cookies from 'js-cookie'
 import { Button, TextFieldInput, TextFieldRoot, TextFieldSlot } from "@radix-ui/themes";
 import Link from "next/link";
+import lottie from "lottie-react"
+import Lottie from "lottie-react";
+
+import Run from "./Run.json"
+import BotAnim from "./BotAnim.json"
+import Wave from "./Wave.json"
+import Secuencia from "./Secuencia"
 import Image from "next/image";
+import Navbar from "../components/Navbar";
 
 
 export default function Home() {
   const [npcText, setNpcText] = useState("¿Hola!, ¿Cómo te puedo ayudar?")
   const [playerText, setPlayerText] = useState("")
   const [loading, setLoading] = useState(false)
-  const [room, setRoom] = useState("bg2")
+  const [room, setRoom] = useState("recep")
   const [id, setId] = useState("1")
   const [interactions, setInteractions] = useState(0)
+
+  
 
   const handleKeyPress = (e: any) => {
     if (e.key === 'Enter') {
@@ -64,18 +74,19 @@ export default function Home() {
 
   return (
     <div className="bg-[#121417] h-screen flex flex-col overflow-hidden relative">
+      <Navbar />
       {room !== "" && <img alt="" src={`/${room}.png`} className="w-full h-full object-cover z-0 absolute inset-0"/>}
         <div className="w-full h-[85%] relative">
           <div className="h-[40%] w-full flex items-center justify-center gap-32 z-10">
             <motion.div 
-              className="bg-[#121417] border-[#42454A] border-2 h-[175px] w-[225px] rounded-[30px] flex justify-center px-5 items-center z-10"
+              className="bg-[#121417] mt-24 border-[#42454A] border-2 h-[175px] w-[225px] rounded-[30px] flex justify-center px-5 items-center z-10"
               initial={{opacity: 0}}
               animate={{opacity: 1}}
               transition={{duration: 1, delay: 3}}>
                 {playerText}
               </motion.div>
               <motion.div 
-              className="bg-[#121417] border-[#42454A] border-2 h-[175px] w-[300px] rounded-[30px] flex justify-center px-5 py-4 items-center overflow-y-auto z-10"
+              className="bg-[#121417] mt-24 border-[#42454A] border-2 h-[175px] w-[300px] rounded-[30px] flex justify-center px-5 py-4 items-center overflow-y-auto z-10"
               initial={{opacity: 0}}
               animate={{opacity: 1}}
               transition={{duration: 1, delay: 3}}>
@@ -84,18 +95,18 @@ export default function Home() {
           </div>
           <div className="h-[60%] w-full flex items-end justify-center gap-24 z-10">
             <motion.div 
-            className="h-[95%] w-[30%] rounded-full p-6 mb-6"
+            className="h-[80%] w-[40%] rounded-full p-6 mb-6"
             initial={{x: '-60vw'}}
             animate={{x: 0}}
             transition={{duration: 2}}>
-              <img alt="User" src="/Usuario.png" className="w-[290px]"/>
+              <Secuencia />
             </motion.div>
             <motion.div 
-            className="h-[95%] w-[30%] rounded-full p-6 mb-6"
+            className="h-[100%] w-[30%] rounded-full p-6 mb-6"
             initial={{x: '60vw'}}
             animate={{x: 0}}
             transition={{duration: 2, delay: 1}}>
-              <img alt="Robot" src="/robot.png" className="w-[300px]"/>
+              <Lottie animationData={BotAnim} />
             </motion.div>
           </div>
         </div>
