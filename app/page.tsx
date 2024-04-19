@@ -1,56 +1,55 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HomepageCards from "./components/HomepageCards";
 import { Tabs, Box, Text } from "@radix-ui/themes";
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "./components/Navbar";
 
 export default function Page() {
   const [name, setName] = useState("");
 
   const scrollToSection = () => {
-    const targetSection = document.getElementById('areas');
-    targetSection!.scrollIntoView({ behavior: 'smooth' });
+    const targetSection = document.getElementById("areas");
+    targetSection!.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <div className="">
+      <Navbar />
       <div className="relative w-full">
-        <Image
+        <img
           src="/areas/new_horizons2.jpeg"
           alt="Descripción"
-          className="w-full h-[90vh] object-cover"
-          width={2000}
-          height={2000}
-          objectFit="cover"
-          objectPosition="center"
+          className="w-full h-[90vh] object-cover md:opacity-100 opacity-50"
         />
-        <div className="absolute inset-0 flex items-center justify-center lg:justify-start lg:pl-16 text-center lg:text-start">
-          <div className="w-[35vw]">
+
+        <section className="absolute inset-0 flex flex-col items-center justify-center lg:items-start">
+          <div className="text-center lg:pl-16 lg:w-[40vw] lg:text-start">
             <p className="text-white text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide">
               Sumérgete en la educación del futuro
             </p>
-            <p className="text-xl md:text-2xl lg:text-3xl tracking-wide font-light text-white mt-3 mb-10">
+            <p className="text-xl md:text-2xl lg:text-3xl tracking-wide font-light text-white mt-3 mb-5">
               Aprende de manera interactiva y con la tecnología más nueva
             </p>
-            <Link href="/chatbot" className="px-24 py-3 rounded-full bg-[#726FF5] font-bold hover:bg-[#5654BE] hover:text-slate-300 transition-all">
-              Reserva Ahora
-            </Link>
+            <div className="flex justify-center items-center lg:justify-start">
+              <Link href="/chatbot" className="flex justify-center items-center h-[40px] lg:h-[50px] w-[200px] lg:w-[300px] rounded-full bg-[#726FF5] transition ease-in-out delay-100 hover:bg-[#5654BE] hover:text-slate-300 ">
+                <p className="self-center font-bold md:text-xl"> Reserva Ahora </p>
+              </Link>
+            </div>
             <button onClick={scrollToSection} className="mt-2">
               <div className="h-[50px] w-[300px] justify-center content-center transition ease-in-out delay-100">
-                <h1 className="flex justify-center underline underline-offset-4 hover:text-[#abaaff] transition-all">
-                  {" "}
-                  Reserva Manual{" "}
-                </h1>
+                <h1 className="flex justify-center underline underline-offset-4 hover:text-[#abaaff] transition-all"> Reserva Manual </h1>
               </div>
             </button>
           </div>
-        </div>
+        </section>
       </div>
 
-      <div id="areas" className="flex justify-center p-12 text-5xl font-bold">
+      <div id="areas" className="flex justify-center p-12 text-5xl font-bold text-center">
         Espacios Disponibles
       </div>
+
       <div className="flex justify-center ">
         <input //cambiar a input de radix
           value={name}
@@ -59,8 +58,12 @@ export default function Page() {
           className="flex justify-center  w-4/5 lg:w-2/5 p-2.5 rounded-lg text-sm bg-[#293038]  "
         />
       </div>
+      
       <div className="">
-        <Tabs.Root defaultValue="todos">
+        <Tabs.Root
+          defaultValue="todos"
+          className="hidden sm:block md:block lg:block xl:block"
+        >
           <div className="flex justify-center text-xl ">
             <Tabs.List className="w-full lg:w-[65.4%] flex justify-center">
               <Tabs.Trigger value="todos">
@@ -108,6 +111,9 @@ export default function Page() {
             </Tabs.Content>
           </Box>
         </Tabs.Root>
+      </div>
+      <div className="md:hidden lg:hidden xl:hidden">
+        <HomepageCards keyword={name} specificArea="" />
       </div>
     </div>
   );

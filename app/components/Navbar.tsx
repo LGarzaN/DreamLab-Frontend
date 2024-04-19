@@ -3,6 +3,9 @@
 import Link from "next/link";
 import React, {useState} from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
+import axios from "axios";
+import toast from "react-hot-toast";
+import Image from "next/image";
 
 const Navbar = () => {
     const [show, setShow] = useState(false);
@@ -22,13 +25,26 @@ const Navbar = () => {
         }
     };
 
+    const logout = async () => {
+        const res = await axios.post('/api/logout', {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        if (res.status === 200) {
+            window.location.reload();
+        } else {
+            toast.error("Error al cerrar sesion");
+        }
+    }
+
     return (
         <>
             <div className="bg-[#121417] z-20 absolute top-0 w-full h-[65px] bg-opacity-0">
                 <div className="hidden md:flex items-center px-10 h-full">
                     <div className="flex flex-row items-center gap-3">
                         <Link href={"/"} className="flex flex-row items-center gap-3">
-                            <img src="/navlogo.svg" alt="logo" className="h-[37px] w-[37px]" />
+                            <Image src="/navlogo.svg" alt="logo" className="h-[37px] w-[37px]" width={37} height={37}/>
                             <h1 className="font-black text-lg italic">D.R.E.A.M.</h1>
                         </Link>
                     </div>
@@ -38,15 +54,16 @@ const Navbar = () => {
                             <li className="hover:text-[#abaaff] transition-all"><Link href={"/info"}>Informacion</Link></li>
                         </ul>
                     </div>
-                    <div className="ml-auto">
+                    <div className="ml-auto flex flex-row gap-4">
+                        <button onClick={async () => {await logout()}}>Log Out</button>
                         <Link href={"/user"}>
-                            <img src="/userdefault.svg" className="w-[45px]"></img>
+                            <Image src="/userdefault.svg" className="w-[45px]" alt="ProfilePicture" width={45} height={45}/>
                         </Link>
                     </div>
                 </div>
                 <div className="flex md:hidden h-full items-center px-5">
                     <button onClick={()=> setShow(true)}>
-                        {!show && <img src="/hamburger.svg" className="w-[40px]"/>}
+                        {!show && <Image alt="Menu" src="/hamburger.svg" className="w-[40px]" width={40} height={40}/>}
                     </button> 
                 </div>
             </div>
@@ -66,7 +83,7 @@ const Navbar = () => {
                 style={{ opacity }}
                 onDrag={handleDragEnd}>
                     <div className="flex flex-row items-center pl-5 w-full h-[22%]">
-                        <img src="/userdefault.svg" className="w-[65px] mr-5"></img>
+                        <Image alt="ProfilePicture" src="/userdefault.svg" className="w-[65px] mr-5" width={65} height={65}/>
                         <div className="flex flex-col">
                             <h1 className="text-white text-sm">Juan Perez</h1>
                             <p className="text-neutral-400 text-sm">Matricula</p>

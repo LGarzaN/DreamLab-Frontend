@@ -7,6 +7,7 @@ import { ClipLoader } from "react-spinners";
 import Cookies from 'js-cookie'
 import { Button, TextFieldInput, TextFieldRoot, TextFieldSlot } from "@radix-ui/themes";
 import Link from "next/link";
+import Image from "next/image";
 
 
 export default function Home() {
@@ -63,7 +64,7 @@ export default function Home() {
 
   return (
     <div className="bg-[#121417] h-screen flex flex-col overflow-hidden relative">
-      {room !== "" && <img src={`/${room}.png`} className="w-full h-full object-cover z-0 absolute inset-0"/>}
+      {room !== "" && <img alt="" src={`/${room}.png`} className="w-full h-full object-cover z-0 absolute inset-0"/>}
         <div className="w-full h-[85%] relative">
           <div className="h-[40%] w-full flex items-center justify-center gap-32 z-10">
             <motion.div 
@@ -87,14 +88,14 @@ export default function Home() {
             initial={{x: '-60vw'}}
             animate={{x: 0}}
             transition={{duration: 2}}>
-              <img src="/Usuario.png" className="w-[290px]"/>
+              <img alt="User" src="/Usuario.png" className="w-[290px]"/>
             </motion.div>
             <motion.div 
             className="h-[95%] w-[30%] rounded-full p-6 mb-6"
             initial={{x: '60vw'}}
             animate={{x: 0}}
             transition={{duration: 2, delay: 1}}>
-              <img src="/robot.png" className="w-[300px]"/>
+              <img alt="Robot" src="/robot.png" className="w-[300px]"/>
             </motion.div>
           </div>
         </div>

@@ -23,7 +23,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <Toaster />
         <Theme appearance="dark" accentColor="violet">
-          <Navbar />
           {children}
         </Theme>
         </body>
