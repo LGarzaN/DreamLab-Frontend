@@ -4,17 +4,20 @@ import Run from './Run.json';
 import Wave from './Wave.json';
 
 const ReproducirAnimaciones = () => {
-    const lottieRef = useRef();
+    const lottieRef = useRef<any>();
     const [currentAnimation, setCurrentAnimation] = useState(Run);
     const [animationFinished, setAnimationFinished] = useState(false);
 
     useEffect(() => {
-        lottieRef.current.play();
+        if (lottieRef.current){
+            lottieRef.current.play();
+        }
+        
     }, []);
 
     useEffect(() => {
         if (animationFinished) {
-            setCurrentAnimation(Wave);
+            setCurrentAnimation(Wave as any);
         }
     }, [animationFinished]);
 

@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 
-const Rectangle = ({ iconSrc, title, description }) => (
+const Rectangle = ({ iconSrc, title, description }: { iconSrc: string, title: string, description: string }) => (
   <div className="bg-gray-700 flex rounded-lg overflow-hidden p-4">
     <img src={iconSrc} alt={title} className="w-12 h-12 object-cover mr-4 rounded-lg" />
     <div className="flex-1">

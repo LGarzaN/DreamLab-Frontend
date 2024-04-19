@@ -193,7 +193,6 @@ function Hour(
           >
             <Tabs.List
               className="w-full flex justify-center overflow-x-auto"
-              size=""
             >
               <Tabs.Trigger value="dia1" className="">
                 <div className="flex flex-col items-center w-40">
