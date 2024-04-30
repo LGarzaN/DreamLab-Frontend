@@ -4,7 +4,6 @@ describe('Salas disponibles General', () => {
         cy.get(':nth-child(1) > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
         cy.get('.mt-4 > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
         cy.contains('Iniciar sesión').click();
-        cy.wait(3000);
         cy.contains('Sumérgete en la educación del futuro');
         cy.scrollTo('bottom');
     })})
@@ -15,7 +14,6 @@ describe('Salas disponibles Espacios Abiertos', () => {
         cy.get(':nth-child(1) > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
         cy.get('.mt-4 > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
         cy.contains('Iniciar sesión').click();
-        cy.wait(3000);
         cy.contains('Sumérgete en la educación del futuro');
         cy.contains('Espacios Abiertos').click();
         cy.contains('Social Networking');
@@ -28,7 +26,6 @@ describe('Salas disponibles Garage Valley', () => {
         cy.get(':nth-child(1) > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
         cy.get('.mt-4 > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
         cy.contains('Iniciar sesión').click();
-        cy.wait(3000);
         cy.contains('Sumérgete en la educación del futuro');
         cy.contains('Garage Valley').click();
         cy.contains('Electric Garage');
@@ -46,7 +43,6 @@ describe('Salas disponibles Zona de Xploracion', () => {
         cy.get(':nth-child(1) > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
         cy.get('.mt-4 > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
         cy.contains('Iniciar sesión').click();
-        cy.wait(3000);
         cy.contains('Sumérgete en la educación del futuro');
         cy.contains('Zona de Xploracion').click()
         cy.contains('Hack-Battlefield');
@@ -63,7 +59,6 @@ describe('Salas disponibles Zona de Xploracion', () => {
             cy.get(':nth-child(1) > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
             cy.get('.mt-4 > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
             cy.contains('Iniciar sesión').click();
-            cy.wait(3000);
             cy.contains('Sumérgete en la educación del futuro');
             cy.get('.mb-6 > .flex').type('Social')
             cy.contains('Social Networking')
