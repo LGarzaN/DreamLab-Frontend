@@ -34,7 +34,7 @@ function Videowall_bar() {
   return (
     <div>
         {!mapa && !ayuda && !reservar && (
-            <div className='w-[1000px] h-[80px] flex place-content-around rounded-full bg-black bg-opacity-60 text-2xl font-light'>
+            <div className='w-[1000px] h-[80px] flex place-content-around rounded-full bg-black bg-opacity-60 text-2xl font-light transition ease-in-out '>
                 <button onClick={() => setMapa(true)} className="flex flex-row items-center"> 
                     <img src="/videowall/map_icon.png" className="w-[40px]"/>
                     <div className='ml-3'> Mapa </div>
