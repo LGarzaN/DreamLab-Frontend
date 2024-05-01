@@ -9,9 +9,14 @@ describe('Hacer Reserva de Sala Funcionalidad', () => {
         cy.contains('Social Networking').click();
         cy.contains('Reservar').click();
         cy.contains('Mañana').click();
-        cy.contains('10:00').click();
+        cy.get('.grid > :nth-child(n)').then($elements => {
+            const randomIndex = Math.floor(Math.random() * $elements.length);
+            cy.get('.grid > :nth-child(n)').eq(randomIndex).click();
+        });
         cy.contains('Siguiente').click();
-        cy.get(':nth-child(2) > .lg\:w-28 > .flex-col > .rounded-tr-xl > .lg\:w-6').click();
-        cy.get(':nth-child(1) > .lg\:w-28 > .flex-col > .rounded-tr-xl').click();
+        cy.get(':nth-child(1) > .lg\\\:w-28 > .flex-col > .rounded-tr-xl > .lg\\\:w-6').click();
+        cy.get(':nth-child(2) > .lg\\\:w-28 > .flex-col > .rounded-tr-xl > .lg\\\:w-6').click();
+        cy.contains("Reservar").click();
+        cy.contains("Reservación realizada con éxito");
     })
 })
