@@ -11,15 +11,22 @@ export async function GET(req: NextRequest) {
                 status: 401
             })
         }
+        //check if the request came from the /videowall page
+        if (req.headers.get("source") && req.headers.get("source") === "videowall") {
+            return new Response(JSON.stringify(vwreservations), {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+        }
+
         const data = await jwtVerify(jwt, new TextEncoder().encode(process.env.JWT_SECRET));
-        console.log(data)
         const userId = data.payload.userId
         const res = await axios.get(`https://dlbackendtws.azurewebsites.net/reservations/${userId}`, {
             headers: {
                 "x-api-key": process.env.API_KEY
             }
         })
-        console.log(res.data)
 
         const reservations = res.data;
         return new Response(JSON.stringify(reservations), {
@@ -94,3 +101,73 @@ export async function DELETE(req: NextRequest) {
 
     }
 }
+
+
+const vwreservations = [
+    {
+        Username: 'A01721881',
+        Day: '2024-05-01',
+        StartHour: '18:00',
+        EndHour: '19:00',
+        SpaceName: 'Social Networking',
+        SpaceId: 1,
+        RequirementsId: '1,2,4',
+        RequirementsQuantity: '1,3,6',
+        GroupCode: '5ee4e77'
+    },
+    {
+        Username: 'A01721881',
+        Day: '2024-05-01',
+        StartHour: '18:00',
+        EndHour: '19:00',
+        SpaceName: 'Lego Room',
+        SpaceId: 2,
+        RequirementsId: '1,2,4',
+        RequirementsQuantity: '1,3,6',
+        GroupCode: '5ee4e77'
+    },
+    {
+        Username: 'A01721881',
+        Day: '2024-05-01',
+        StartHour: '18:00',
+        EndHour: '19:00',
+        SpaceName: 'Electric Garage',
+        SpaceId: 3,
+        RequirementsId: '1,2,4',
+        RequirementsQuantity: '1,3,6',
+        GroupCode: '5ee4e77'
+    },
+    {
+        Username: 'A01721881',
+        Day: '2024-05-01',
+        StartHour: '18:00',
+        EndHour: '19:00',
+        SpaceName: 'Dimension Forge',
+        SpaceId: 4,
+        RequirementsId: '1,2,4',
+        RequirementsQuantity: '1,3,6',
+        GroupCode: '5ee4e77'
+    },
+    {
+        Username: 'A01721881',
+        Day: '2024-05-01',
+        StartHour: '18:00',
+        EndHour: '19:00',
+        SpaceName: 'Social Networking',
+        SpaceId: 1,
+        RequirementsId: '1,2,4',
+        RequirementsQuantity: '1,3,6',
+        GroupCode: '5ee4e77'
+    },
+    {
+        Username: 'A01721881',
+        Day: '2024-05-01',
+        StartHour: '18:00',
+        EndHour: '19:00',
+        SpaceName: 'Social Networking',
+        SpaceId: 1,
+        RequirementsId: '1,2,4',
+        RequirementsQuantity: '1,3,6',
+        GroupCode: '5ee4e77'
+    },
+]

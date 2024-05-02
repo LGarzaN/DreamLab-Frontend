@@ -1,17 +1,136 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Videowall_bar from "../components/Videowall_bar";
+import axios from "axios";
+import ReservationCard from "./ReservationCard";
 
-function page() {
+function Page() {
+  const [reservations, setReservations] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("/api/reservations", {
+          headers: {
+            "source": "videowall"
+          }
+        });
+        setReservations(res.data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchData();
+    console.log("hola")
+  }, []);
+
+  useEffect(() => {
+    if (reservations.length > 4) {
+      setReservations(reservations.slice(0, 4));
+    }
+  }, [reservations]);
+
   return (
-    <div className="h-[1080px] w-[3840px] bg-gradient-to-t from-[#010135] to-[#00001C] flex flex-row">
-      <div className="w-[960px]"> Reservaciones </div>
+    <div className="w-[3840px] relative h-[1080px] bg-gradient-to-t from-[#010135] to-[#00001C] flex justify-center items-center">
+      <div className="absolute inset-0 flex justify-center items-center">
+        <video autoPlay loop muted className="h-full w-[1750px] object-cover">
+          <source
+            src="/videowall/videowall.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </div>
+
+      <div className="z-10 text-white w-full h-full flex flex-row">
+        <div className="h-full w-[33%] ">
+          <div className="w-full mt-10 flex justify-center">
+            <p className="text-4xl font-bold">Próximas Reservaciones</p>
+          </div>
+          <div className="h-[60%] w-full  p-10">
+            <div className="grid grid-cols-2 gap-y-12 gap-x-10">
+              {reservations.map((item, index) => (
+                <ReservationCard key={index} reservation={item} />
+              ))}
+            </div>
+          </div>
+          <div className="h-[30%] flex w-full justify-start items-center flex-col">
+              <p className="text-4xl font-semibold">Noticias</p>
+              <div className="mt-10 flex flex-row gap-10">
+                <img src="/videowall/news1.png" alt="" className="h-[75%] w-[50%] object-cover rounded-xl"/>
+                <img src="/videowall/news1.png" alt="" className="h-[75%] w-[50%] object-cover rounded-xl"/>
+              </div>
+          </div>
+        </div>
+        <div className="h-full w-[34%]  flex justify-center">
+          <div className="absolute bottom-20">
+            <Videowall_bar />
+          </div>
+          
+        </div>
+        <div className="h-full w-[33%] ">
+          <div className="w-full h-[70%] ">
+            <p className="text-4xl font-semibold text-center mt-10">Espacios Disponibles</p>
+            <div className="w-full h-[90%] flex flex-row">
+                <div className="w-1/2 h-full  flex flex-col">
+                  <div className=" h-1/2 w-full p-10 px-20">
+                    <div className="w-full h-full">
+                      <img src="/Lego Room.png" alt="" className="h-[80%] w-full object-cover rounded-xl"/>
+                      <div className="w-full h-[20%] pt-5 flex flex-row justify-between px-3">
+                        <p className="text-4xl font-semibold">Lego Room </p>
+                        <p className="text-red-400 text-4xl font-semibold">11/12</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className=" h-1/2 w-full p-10 px-20">
+                    <div className="w-full h-full">
+                      <img src="/areas/graveyard.jpeg" alt="" className="h-[80%] w-full object-cover rounded-xl"/>
+                      <div className="w-full h-[20%] pt-5 flex flex-row justify-between px-3">
+                        <p className="text-4xl font-semibold">Graveyard</p>
+                        <p className="text-green-400 text-4xl font-semibold">1/4</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-1/2 h-full p-10 px-20">
+                  <div className="w-full h-full">
+                    <img src="/areas/deep_net.jpeg" alt="" className="h-[80%] w-full object-cover rounded-xl"/>
+                    <div className="w-full h-[20%] pt-5 flex flex-row justify-between px-3">
+                      <p className="text-4xl font-semibold">Deep Net</p>
+                      <p className="text-orange-400 text-4xl font-semibold">6/10</p>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+export default Page;
+
+/*
+    <div className="h-[1080px] w-[200vw] bg-gradient-to-t from-[#010135] to-[#00001C] flex flex-row">
+      <div className="w-[1200px] flex flex-col border-red-500 border-2">
+        <div className="w-full mt-10 flex justify-center">
+          <p className="text-4xl font-bold">Próximas Reservaciones</p>
+        </div>
+        <div className="h-[60%] w-full border-red-500 border-2 p-10">
+        <div className="grid grid-cols-2 gap-y-10">
+          {reservations.map((item, index) => (
+            <ReservationCard key={index} reservation={item} />
+          ))}
+        </div>
+        </div>
+      </div>
 
       <div className="w-[1920px]">
         <div className="relative h-full w-full place-content-center">
-          <video autoPlay loop muted className="w-full h-full object-cover">
+          <video autoPlay loop muted className="w-full h-full object-cover border-yellow-500 border-2">
             <source
-              src="https://picmeshbucket.s3.us-east-1.amazonaws.com/videowall.mp4?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMX%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQCQKtrOwmqVIO9SyTB36UYG2YHpKlmmXAEtovzt1sOhtwIhAP8860YgJJWSHvdlAx3BGhh3ENrMTVFu9UJdC7szdAV%2BKuQCCB0QABoMODkxMzc3MDc4MTAwIgwzN%2BrO9vHAzv7bK8cqwQLph2omaYyTLUfs%2F%2FtnuRjz%2FHuAymEDU0Z9rR5QMrap%2F6B6aXw92ZAbooNUr7ixl9B3WY7Epbha2wT5gJFa7b%2F004QEdQKrbAtjDizAgrSiqYlJ2jZKvTs10LRK3W42JhMRLSsEGwbWA5KDTITa4gbA8kGqQmJK4v%2Btn5hu18nurd%2Bic%2BbDSRkKj93kBwP4DKzTmX0cAu05ViCloj4tMpR1qhZWRKtTjb%2BptgnRlX%2Ff%2F2kKlALa0VWrMamH59Nkeb29sGn9sn5GPN5eaUr8Ecfpf%2B2j7ETrDif%2BRHi4S7IFnWedFHWl%2FXkqWeYM8blZZfmyHrqO0pCQ7KjEXr5ZEwVTy5B9mZumtcBjHfC2DO5RDO7LZf2aVLqHi%2FGcw5IB03giQmOZ5wcqehccbYbNCUKOBm7J%2FJTYeYNnyxJQ96FIQ0Qwify%2FsQY6sgKNgMbHUcJSr0irotlcGmDcl17FnQRekDwaVLXAZygF1%2F348kGko41vPkRBQn90%2Ff3bg9d%2B1dckYgyww7Jyyn9Z%2FP2eB2EAHfnvoTy2dVhf9W0HvUVUxCnySI4e6RuhhcsrC2WBBq6n5SvDl7YXe2w6OEJUQ6Bt6KWSOQ95d7ySVb8ZG4GWcXMborIOPCPS3%2F5NYQINdQ6wazw4DMmY1tyTvHy2Yuf7DNJv1UlAK3IhSLZKInBQkb2p8Z%2FAr3uS5jSWh3yK%2BqO72awG%2FgbfBU7X%2B5b%2F%2BriADICeXvYc%2BFQS7FD%2F2q8XHDI1VjGrG2sta5teb7PwoqIcUm1S4l5uwFGMU4KJyjPUeM0ZPOiHLQ31U8pGtTby5N0eD3dbBXY0Yy5iI7oO8prgZJYznUuBj7uN6No%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240429T201425Z&X-Amz-SignedHeaders=host&X-Amz-Expires=43200&X-Amz-Credential=ASIA47CRWZ5KGALE2JNN%2F20240429%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=87b660980a1165d1142ac9dc13c55d3185e8eb0ca860be7234c09814c7fdccfe"
+              src="/videowall/videowall.mp4"
               type="video/mp4"
             />
           </video>
@@ -23,7 +142,4 @@ function page() {
 
       <div className="w-[960px]">h</div>
     </div>
-  );
-}
-
-export default page;
+*/

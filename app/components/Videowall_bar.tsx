@@ -1,9 +1,10 @@
 "use client"
 import React from 'react'
 import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 function Videowall_bar() {
-    const [mapa, setMapa] = useState(true);
+    const [mapa, setMapa] = useState(false);
     const [ayuda, setAyuda] = useState(false);
     const [reservar, setReservar] = useState(false);
 
@@ -32,9 +33,15 @@ function Videowall_bar() {
     };
 
   return (
+    <AnimatePresence>
     <div>
         {!mapa && !ayuda && !reservar && (
-            <div className='w-[1000px] h-[80px] flex place-content-around rounded-full bg-black bg-opacity-60 text-2xl font-light transition ease-in-out '>
+            <motion.div 
+            className='w-[1000px] h-[80px] flex place-content-around rounded-full bg-black bg-opacity-60 text-2xl font-light transition ease-in-out '
+            initial={{ opacity: 0, width: '0px'}}
+            animate={{ opacity: 1, width: '1000px'}}
+            exit={{ width: '0px' }}
+            transition={{ duration: 0.5 }}>
                 <button onClick={() => setMapa(true)} className="flex flex-row items-center"> 
                     <img src="/videowall/map_icon.png" className="w-[40px]"/>
                     <div className='ml-3'> Mapa </div>
@@ -47,11 +54,16 @@ function Videowall_bar() {
                     <img src="/videowall/reservation_icon.png" className="w-[40px]"/>
                     <div className='ml-3'> Reservar </div>
                 </button>
-            </div>
+            </motion.div>
         )}
 
         {!mapa && ayuda && !reservar && (
-            <div className="w-[80px] h-[400px] flex flex-col place-content-around rounded-full bg-black bg-opacity-60">
+            <motion.div 
+            className="w-[80px] h-[400px] flex flex-col place-content-around rounded-full bg-black bg-opacity-60"
+            initial={{ opacity: 0, height: '0px' }}
+            animate={{ opacity: 1, height: '400px'}}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}>
                 <button onClick={handleMapa} className="place-self-center"> 
                   <img src="/videowall/map_icon.png" className="w-[40px]"/>
                 </button>
@@ -61,11 +73,16 @@ function Videowall_bar() {
                 <button onClick={handleReservar} className="place-self-center"> 
                   <img src="/videowall/reservation_icon.png" className="w-[40px]"/>
                 </button>
-            </div>
+            </motion.div>
         )}
 
         {mapa && !ayuda && !reservar && (
-            <div className='flex flex-row'>
+            <motion.div 
+            className='flex flex-row'
+            initial={{ opacity: 0, height: '0px' }}
+            animate={{ opacity: 1, height: '400px'}}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}>
                 <div>
                     <div className="w-[500px] h-[380px] bg-black bg-opacity-60 rounded-xl flex flex-col">
                         <img src="/videowall/map.png" className="p-5 w-[400px] flex self-center"></img>
@@ -92,11 +109,16 @@ function Videowall_bar() {
                     </button>
                 </div>
                 <div className='w-[563px]'/>
-            </div>
+            </motion.div>
         )}
     
         {!mapa && !ayuda && reservar && (
-            <div className='flex flex-row'>
+            <motion.div 
+            className='flex flex-row'
+            initial={{ opacity: 0, height: '0px' }}
+            animate={{ opacity: 1, height: '400px'}}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}>
                 <div className='w-[480px]'/>
                 <div className="w-[80px] h-[400px] flex flex-col place-content-around rounded-full bg-black bg-opacity-60">
                     <button onClick={handleMapa} className="place-self-center"> 
@@ -121,10 +143,11 @@ function Videowall_bar() {
                     </button>
                     <img src="/videowall/qr_techwise.png" className="p-5 w-[320px] flex self-center"></img>
                 </div>
-            </div>
+            </motion.div>
         )}
 
     </div>
+    </AnimatePresence>
   )
 }
 
