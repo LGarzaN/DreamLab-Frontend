@@ -44,14 +44,6 @@ export default function Page() {
     fetchProfileData();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <Navbar />
