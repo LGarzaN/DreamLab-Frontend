@@ -1,4 +1,5 @@
-import React from "react";
+'use client'
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 
 const Rectangle = ({ iconSrc, title, description }: { iconSrc: string, title: string, description: string }) => (
@@ -12,6 +13,45 @@ const Rectangle = ({ iconSrc, title, description }: { iconSrc: string, title: st
 );
 
 export default function Page() {
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [userData, setUserData] = useState<{ username: string; name: string; priority: number, profile_picture: string}>({ 
+    username: "", 
+    name: "", 
+    priority: 0,
+    profile_picture: ""
+  });
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const response = await fetch('/api/profile');
+        if (response.ok) {
+          const data = await response.json();
+          setUserData(data.usuario);
+        } else {
+          throw new Error('Failed to fetch profile data');
+        }
+      } catch (error) {
+        console.error(error);
+        setError('Failed to fetch profile data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <Navbar />
@@ -27,17 +67,17 @@ export default function Page() {
       <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px", width: "80%" }}>
       <div style={{ display: "flex", alignItems: "center" }}>
           <img
-            src="profile-icon.png"
-            alt="Profile Icon"
+            src={userData.profile_picture}
+            alt=""
             style={{ width: "120px", height: "120px", objectFit: "cover", borderRadius: "50%", marginRight: "20px" }}
           />
           <div>
-            <p style={{ fontSize: "34px", fontWeight: "bold", textAlign: "center" }}>Marco Flores</p>
-            <p style={{ fontSize: "22px", fontStyle: "italic", textAlign: "left" }}>A01234567</p>
+            <p style={{ fontSize: "34px", fontWeight: "bold", textAlign: "center" }}>{userData.name}</p>
+            <p style={{ fontSize: "22px", fontStyle: "italic", textAlign: "left" }}>{userData.username}</p>
           </div>
         </div>
         <div style={{ textAlign: "right" }}>
-          <p style={{ fontSize: "30px", fontWeight: "bold" }}>Prioridad: 5</p>
+          <p style={{ fontSize: "30px", fontWeight: "bold" }}>Prioridad: {userData.priority}</p>
         </div>
       </div>
 
