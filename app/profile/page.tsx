@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 
 const Rectangle = ({ iconSrc, title, description }: { iconSrc: string, title: string, description: string }) => (
-  <div className="bg-gray-700 flex rounded-lg overflow-hidden p-4">
+  <div className="bg-[#2A3038] flex rounded-lg overflow-hidden p-4">
     <img src={iconSrc} alt={title} className="w-12 h-12 object-cover mr-4 rounded-lg" />
     <div className="flex-1">
       <h4 className="text-xl font-bold text-white">{title}</h4>
@@ -47,34 +47,44 @@ export default function Page() {
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <Navbar />
-      <img
-        src="/techimg.png"
-        alt="Tech Image"
-        style={{
-          width: "100%",
-          maxHeight: "40vh",
-          objectFit: "cover"
-        }}
-      />
-      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px", width: "80%" }}>
-      <div style={{ display: "flex", alignItems: "center" }}>
-          <img
-            src={userData.profile_picture}
+      <div>
+        <img
+          src="/techimg.png"
+          alt="Tech Image"
+          //style={{
+            //width: "100%",
+            //maxHeight: "40vh",
+            //objectFit: "cover"
+          //}}
+          className="absolute inset-0 w-full max-h-[40vh] object-cover"
+        />
+
+        <img
+            //src={userData.profile_picture}
+            src="/profilepic.jpeg"
             alt=""
-            style={{ width: "120px", height: "120px", objectFit: "cover", borderRadius: "50%", marginRight: "20px" }}
+            className="w-[200px] h-[200px] rounded-full absolute inset-0 mt-48 ml-24"
+            style={{ zIndex: 10 }}
+            //style={{ width: "200px", height: "200px", objectFit: "cover", borderRadius: "50%", marginRight: "20px" }}
           />
-          <div>
-            <p style={{ fontSize: "34px", fontWeight: "bold", textAlign: "center" }}>{userData.name}</p>
-            <p style={{ fontSize: "22px", fontStyle: "italic", textAlign: "left" }}>{userData.username}</p>
-          </div>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "320px", width: "80%"}} className="relative z-0">
+        <div style={{ display: "flex", alignItems: "center" }}>
+            <div>
+              <p style={{ fontSize: "34px", fontWeight: "bold", textAlign: "center", marginLeft: "150px"}}>{userData.name}</p>
+              {/*<p style={{ fontSize: "34px", fontWeight: "bold", textAlign: "center", marginLeft: "150px"}}>Luis Garza</p>
+              <p style={{ fontSize: "22px", textAlign: "left", marginLeft: "150px", fontWeight: "lighter"}}>A01252605</p>*/}
+              <p style={{ fontSize: "22px", textAlign: "left", marginLeft: "150px", fontWeight: "lighter"}}>{userData.username}</p>
+            </div>
         </div>
         <div style={{ textAlign: "right" }}>
-          <p style={{ fontSize: "30px", fontWeight: "bold" }}>Prioridad: {userData.priority}</p>
+          <p style={{ fontSize: "30px", fontWeight:"initial" }}>Prioridad: {userData.priority}</p>
         </div>
       </div>
 
       <div className="flex justify-center mt-4">
-        <div className="bg-gray-900 text-white p-6 rounded-lg mx-4" style={{ textAlign: "center" }}>
+        <div className="bg-[#16191C] text-white p-6 rounded-lg mx-4" style={{ textAlign: "center" }}>
           <h3 className="text-3xl font-bold mb-4">Proxima Reservación</h3>
           <div className="flex items-center justify-center">
             <img
@@ -89,7 +99,7 @@ export default function Page() {
                 title="Lunes, 4 de Marzo"
                 description="15:00 - 17:00"
               />
-              <div className="bg-gray-700 flex rounded-lg overflow-hidden p-4" style={{ width:"400px", height: "225px" }}>
+              <div className="bg-[#2A3038] flex rounded-lg overflow-hidden p-4" style={{ width:"400px", height: "225px" }}>
                 <img
                   src=""
                   alt=""
@@ -104,10 +114,10 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="bg-gray-900 text-white p-6 rounded-lg mx-4" style={{ textAlign: "center" }}>
+        <div className="bg-[#16191C] text-white p-6 rounded-lg mx-4" style={{ textAlign: "center" }}>
           <h3 className="text-3xl font-bold mb-4">Estadísticas</h3>
           <div className="mt-4 flex flex-col gap-6">
-            <Rectangle iconSrc="/calendar.png" title="Reservaciones" description="7" />
+            <Rectangle iconSrc="/calendar.png" title="Reservaciones" description="7"/>
             <Rectangle iconSrc="/clock.png" title="Horas de Aprendizaje" description="15" />
             <Rectangle iconSrc="/location.png" title="Áreas Descubiertas" description="2/14" />
           </div>
