@@ -21,8 +21,9 @@ describe('Cancelar Reservación Compatibilidad', () => {
         cy.get('.mt-4 > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
         cy.contains('Iniciar sesión').click();
         cy.contains('Sumérgete en la educación del futuro');
-        cy.contains('Reservaciones').click();
-        cy.get('[aria-controls="radix-:r2v:"] > .justify-center > .rounded-lg').click();
+        cy.get('.w-\\\[40px\\\]').click();
+        cy.contains('Reservaciones').click({force:true});
+        cy.contains('Social Networking').click();
         cy.contains("Cancelar Reservación").click();
         cy.contains("Reservación Cancelada con exito!");
     })
