@@ -48,6 +48,7 @@ function Page() {
       if (res.status === 200) {
         toast.success("Reservación realizada con éxito");
         setLoading(false);
+        await new Promise((resolve) => setTimeout(resolve, 2000));
         window.location.href = "/";
       } else {
         setLoading(false);
