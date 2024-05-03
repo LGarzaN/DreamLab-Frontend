@@ -9,6 +9,7 @@ describe('Cancelar Reservación Funcionalidad', () => {
         cy.contains('Reservaciones').click();
         cy.get('[aria-controls="radix-:r2v:"] > .justify-center > .rounded-lg').click();
         cy.contains("Cancelar Reservación").click();
+        cy.contains("Reservación Cancelada con exito!");
     })
 })
 
@@ -23,5 +24,6 @@ describe('Cancelar Reservación Compatibilidad', () => {
         cy.contains('Reservaciones').click();
         cy.get('[aria-controls="radix-:r2v:"] > .justify-center > .rounded-lg').click();
         cy.contains("Cancelar Reservación").click();
+        cy.contains("Reservación Cancelada con exito!");
     })
 })

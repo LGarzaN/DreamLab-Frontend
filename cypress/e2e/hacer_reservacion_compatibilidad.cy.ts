@@ -10,10 +10,10 @@ describe('Reservación Funcionalidad', () => {
     })
 
     it('Reserva con toda la información correcta', () => {
-        cy.viewport(1440, 900);
+        cy.viewport("iphone-6+");
         cy.visit('https://dreamlab.azurewebsites.net');
         cy.contains('Sumérgete en la educación del futuro');
-        cy.contains('Social Networking').click();
+        cy.contains('Social Networking').click({force:true});
         cy.contains('Reservar').click();
         cy.contains('Lunes').click();
         cy.get('.grid > :nth-child(n)').then($elements => {
@@ -28,10 +28,10 @@ describe('Reservación Funcionalidad', () => {
     })
 
     it('Reserva sin Horario', () => {
-        cy.viewport(1440, 900);
+        cy.viewport("iphone-6+");
         cy.visit('https://dreamlab.azurewebsites.net');
         cy.contains('Sumérgete en la educación del futuro');
-        cy.contains('Social Networking').click();
+        cy.contains('Social Networking').click({force:true});
         cy.contains('Reservar').click();
         cy.contains('Lunes').click();
         cy.contains('Siguiente').click();
@@ -39,10 +39,10 @@ describe('Reservación Funcionalidad', () => {
     })
 
     it('Reserva sin Requerimientos', () => {
-        cy.viewport(1440, 900);
+        cy.viewport("iphone-6+");
         cy.visit('https://dreamlab.azurewebsites.net');
         cy.contains('Sumérgete en la educación del futuro');
-        cy.contains('Social Networking').click();
+        cy.contains('Social Networking').click({force:true});
         cy.contains('Reservar').click();
         cy.contains('Lunes').click();
         cy.get('.grid > :nth-child(n)').then($elements => {

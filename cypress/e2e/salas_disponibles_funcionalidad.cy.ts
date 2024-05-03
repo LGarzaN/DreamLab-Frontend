@@ -1,31 +1,30 @@
-describe('Salas disponibles General', () => {
-    it('Passed', () => {
-        cy.visit('https://dreamlab.azurewebsites.net/login');
-        cy.get(':nth-child(1) > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
-        cy.get('.mt-4 > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
-        cy.contains('Iniciar sesión').click();
+describe('Salas disponibles', () => {
+    beforeEach(() => {
+        cy.Login().then(() => {
+            cy.visit('https://dreamlab.azurewebsites.net/login', {
+                onBeforeLoad: function(window) {
+                    window.localStorage.setItem('token', Cypress.env('token'))
+                }
+            })
+        }) 
+    })
+
+    it('Passed Salas Disponibles General', () => {
+        cy.visit('https://dreamlab.azurewebsites.net');
         cy.contains('Sumérgete en la educación del futuro');
         cy.scrollTo('bottom');
-    })})
+    })
 
-describe('Salas disponibles Espacios Abiertos', () => {
-    it('Passed', () => {
-        cy.visit('https://dreamlab.azurewebsites.net/login');
-        cy.get(':nth-child(1) > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
-        cy.get('.mt-4 > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
-        cy.contains('Iniciar sesión').click();
+    it('Salas Disponibles Espacios Abiertos', () => {
+        cy.visit('https://dreamlab.azurewebsites.net');
         cy.contains('Sumérgete en la educación del futuro');
         cy.contains('Espacios Abiertos').click();
         cy.contains('Social Networking');
         cy.contains('Lego Room');
-    })})
-    
-describe('Salas disponibles Garage Valley', () => {
-    it('Passed', () => {
-        cy.visit('https://dreamlab.azurewebsites.net/login');
-        cy.get(':nth-child(1) > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
-        cy.get('.mt-4 > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
-        cy.contains('Iniciar sesión').click();
+    })
+
+    it('Salas Disponibles Garage Valley', () => {
+        cy.visit('https://dreamlab.azurewebsites.net');
         cy.contains('Sumérgete en la educación del futuro');
         cy.contains('Garage Valley').click();
         cy.contains('Electric Garage');
@@ -35,14 +34,10 @@ describe('Salas disponibles Garage Valley', () => {
         cy.contains('Graveyard');
         cy.contains('PCB Factory');
         cy.contains('The Matrix');
-    })})
+    })
 
-describe('Salas disponibles Zona de Xploracion', () => {
-    it('Passed', () => {
-        cy.visit('https://dreamlab.azurewebsites.net/login');
-        cy.get(':nth-child(1) > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
-        cy.get('.mt-4 > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
-        cy.contains('Iniciar sesión').click();
+    it('Salas Disponibles Zona de Xploración', () => {
+        cy.visit('https://dreamlab.azurewebsites.net');
         cy.contains('Sumérgete en la educación del futuro');
         cy.contains('Zona de Xploracion').click()
         cy.contains('Hack-Battlefield');
@@ -51,15 +46,15 @@ describe('Salas disponibles Zona de Xploracion', () => {
         cy.contains('Biometrics Flexible');
         cy.contains('Beyon-Digits');
         cy.contains('Open Innovation Lab');
-    })})
+    })
 
-    describe('Buscar Sala Disponible', () => {
-        it('Passed', () => {
-            cy.visit('https://dreamlab.azurewebsites.net/login');
-            cy.get(':nth-child(1) > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
-            cy.get('.mt-4 > .rt-TextFieldRoot > .rt-TextFieldInput').type('admin');
-            cy.contains('Iniciar sesión').click();
-            cy.contains('Sumérgete en la educación del futuro');
-            cy.get('.mb-6 > .flex').type('Social')
-            cy.contains('Social Networking')
-        })})
+    it('Buscar Sala Disponible', () => {
+        cy.visit('https://dreamlab.azurewebsites.net');
+        cy.contains('Sumérgete en la educación del futuro');
+        cy.get('.mb-6 > .flex').type('Social')
+        cy.contains('Social Networking')
+    })
+
+
+})
+
