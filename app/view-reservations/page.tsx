@@ -74,6 +74,7 @@ function ReservationCard(index: number, reservation: Reservation) {
 
         if (res.status === 200) {
             toast.success("Reservación Cancelada con exito!")
+            await new Promise((resolve) => setTimeout(resolve, 2000));
             window.location.reload()
         } else {
             toast.error("Hubo un error al cancelar la reservación")
