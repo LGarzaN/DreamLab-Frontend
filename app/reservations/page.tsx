@@ -9,6 +9,7 @@ import { data } from "@/data/areas_data";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
 import Navbar from "../components/Navbar";
+import { resolve } from "path";
 
 function getName(id: number) {
   const area = data.find((area) => area.id === id);
@@ -47,6 +48,7 @@ function Page() {
 
       if (res.status === 200) {
         toast.success("Reservación realizada con éxito");
+        await new Promise(resolve => setTimeout(resolve, 3000));
         setLoading(false);
         await new Promise((resolve) => setTimeout(resolve, 2000));
         window.location.href = "/";
