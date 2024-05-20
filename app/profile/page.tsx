@@ -194,7 +194,7 @@ export default function Page() {
           <h3 className="text-3xl font-bold mb-4">Estadísticas</h3>
           <div className="mt-4 flex flex-col gap-6">
             <Rectangle iconSrc="/calendar.png" title="Reservaciones" description="7"/>
-            <Rectangle iconSrc="/clock.png" title="Horas de Aprendizaje" description="15" />
+            <Rectangle iconSrc="/clock.png" title="Horas de Experiencia" description="15" />
             <Rectangle iconSrc="/location.png" title="Áreas Descubiertas" description="2/14" />
           </div>
         </div>
