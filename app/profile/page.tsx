@@ -1,6 +1,48 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
+import { data } from "@/data/areas_data";
+import { requirements_data, requirements_area } from "@/data/requirements_data";
+
+interface Reservation {
+  Day: string;
+  StartHour: string;
+  EndHour: string;
+  SpaceName: string;
+  SpaceId: number;
+  RequirementsId: string;
+  RequirementsQuantity: string;
+  GroupCode: string;
+}
+
+interface UserData {
+  username: string;
+  name: string;
+  priority: number;
+  profile_picture: string;
+}
+
+const formatDate = (dateString: string): string => {
+  const [year, month, day] = dateString.split('-');
+  const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  return `${parseInt(day)} de ${months[parseInt(month) - 1]}`;
+};
+
+const getImage = (id: number): string => {
+  const area = data.find((area) => area.id === id);
+  return area ? area.image : "/areas/default_image.jpeg";
+};
+
+const getRequirements = (requirementsIdString: string, requirementsQuantityString: string): string[] => {
+  const requirementsIds = requirementsIdString.split(',').map(Number);
+  const requirementsQuantities = requirementsQuantityString.split(',').map(Number);
+
+  return requirementsIds.map((requirementId, index) => {
+    const requirement = requirements_data.find(req => req.id === requirementId);
+    const quantity = requirementsQuantities[index];
+    return requirement ? `${requirement.name}: ${quantity}` : "Unknown Requirement";
+  });
+};
 
 const Rectangle = ({ iconSrc, title, description }: { iconSrc: string, title: string, description: string }) => (
   <div className="bg-[#2A3038] flex rounded-lg overflow-hidden p-4">
@@ -16,12 +58,13 @@ export default function Page() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [userData, setUserData] = useState<{ username: string; name: string; priority: number, profile_picture: string}>({ 
-    username: "", 
-    name: "", 
+  const [userData, setUserData] = useState<UserData>({
+    username: "",
+    name: "",
     priority: 0,
     profile_picture: ""
   });
+  const [reservationData, setReservationData] = useState<Reservation | null>(null);
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -41,8 +84,35 @@ export default function Page() {
       }
     };
 
+    const fetchReservationData = async () => {
+      try {
+        const response = await fetch('/api/reservations');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.length > 0) {
+            setReservationData(data[0]);
+          }
+        } else {
+          throw new Error('Failed to fetch reservation data');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     fetchProfileData();
+    fetchReservationData();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  const instructions = reservationData ? getRequirements(reservationData.RequirementsId, reservationData.RequirementsQuantity) : [];
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -88,7 +158,7 @@ export default function Page() {
           <h3 className="text-3xl font-bold mb-4">Proxima Reservación</h3>
           <div className="flex items-center justify-center">
             <img
-              src="/Lego Room.png"
+              src={reservationData ? getImage(reservationData.SpaceId) : "/areas/default_image.jpeg"}
               alt="Proxima Reservación"
               className="w-80 h-80 mr-4 rounded-lg"
               style={{ objectFit: "cover" }}
@@ -96,8 +166,8 @@ export default function Page() {
             <div className="flex flex-col gap-4 text-center">
               <Rectangle
                 iconSrc="/calendar.png"
-                title="Lunes, 4 de Marzo"
-                description="15:00 - 17:00"
+                title={reservationData ? `${formatDate(reservationData.Day)}` : ""}
+                description={reservationData ? `${reservationData.StartHour} - ${reservationData.EndHour}` : "No hay reservaciones"}
               />
               <div className="bg-[#2A3038] flex rounded-lg overflow-hidden p-4" style={{ width:"400px", height: "225px" }}>
                 <img
@@ -107,7 +177,13 @@ export default function Page() {
                 />
                 <div className="flex-1">
                   <h4 className="text-xl font-bold text-white">Instrucciones Especiales</h4>
-                  <p className="text-lg mt-2">Llevar Laptop</p>
+                  {instructions.length > 0 ? (
+                    instructions.map((instruction, index) => (
+                      <p key={index} className="text-lg mt-2">{instruction}</p>
+                    ))
+                  ) : (
+                    <p className="text-lg mt-2">No hay instrucciones especiales</p>
+                  )}
                 </div>
               </div>
             </div>
