@@ -5,20 +5,23 @@ import { jwtVerify } from 'jose'
 
 export async function GET(req: NextRequest) {
     try {
-        const jwt = req.cookies.get("session")?.value;
-        if (!jwt) {
-            return new Response("Unauthorized", {
-                status: 401
-            })
-        }
         //check if the request came from the /videowall page
         if (req.headers.get("source") && req.headers.get("source") === "videowall") {
+            console.log("videowall")
             return new Response(JSON.stringify(vwreservations), {
                 headers: {
                     "Content-Type": "application/json"
                 }
             })
         }
+        const jwt = req.cookies.get("session")?.value;
+        console.log(jwt)
+        if (!jwt) {
+            return new Response("Unauthorized", {
+                status: 401
+            })
+        }
+
 
         const data = await jwtVerify(jwt, new TextEncoder().encode(process.env.JWT_SECRET));
         const userId = data.payload.userId

@@ -84,8 +84,11 @@ function ReservationCard(index: number, reservation: Reservation) {
     return <AlertDialog.Root key={index}>
         <AlertDialog.Trigger>
             <div className="w-full md:w-5/12 h-[40vh] flex flex-row p-10">
-                <div className="w-1/2 justify-center items-center flex">
-                    <img src={getImage(reservation.SpaceId)} className="rounded-lg h-full w-full hover:opacity-75 transition-all hover:w-[97%] hover:h-[97%]" alt="Space Image"/>
+                <div className="w-1/2 justify-center items-center flex relative hover:opacity-80 transition-all">
+                    <div className="z-20 bg-green-600 w-[40%] h-[20%] top-4 left-0 absolute justify-center items-center flex" style={{borderTopRightRadius: 7, borderBottomRightRadius: 7}}>
+                        Confirmada
+                    </div>
+                    <img src={getImage(reservation.SpaceId)} className="rounded-lg z-0 h-full w-full" alt="Space Image"/>
                 </div>
                 <div className="w-1/2 p-6">
                     <div className="">
