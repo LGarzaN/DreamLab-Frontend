@@ -15,7 +15,6 @@ export async function GET(req: NextRequest) {
             })
         }
         const jwt = req.cookies.get("session")?.value;
-        console.log(jwt)
         if (!jwt) {
             return new Response("Unauthorized", {
                 status: 401
@@ -82,12 +81,15 @@ export async function DELETE(req: NextRequest) {
                 status: 401
             })
         }
+        // get header
+        const reservationType = req.headers.get("reservation-type")
         const data = await jwtVerify(jwt, new TextEncoder().encode(process.env.JWT_SECRET));
         const userId = data.payload.userId
         const body = await req.json();
         const res = await axios.delete(`https://dlbackendtws.azurewebsites.net/reservations/`, {
             headers: {
-                "x-api-key": process.env.API_KEY
+                "x-api-key": process.env.API_KEY,
+                "reservation-type": reservationType
             },
             data: {
                 group_code: body.group_code,

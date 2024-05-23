@@ -14,6 +14,7 @@
   "dependencies": {
     "@radix-ui/themes": "^2.0.3",
     "axios": "^1.6.7",
+    "date-fns": "^3.6.0",
     "framer-motion": "^11.0.8",
     "import-jsx": "^5.0.0",
     "jose": "^5.2.4",
