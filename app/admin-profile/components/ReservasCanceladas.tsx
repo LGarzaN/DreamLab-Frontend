@@ -20,7 +20,7 @@ export default function ReservasCanceladas() {
 
   return (
     <div className='w-full flex flex-col justify-center items-center'>
-      <h1 className='mt-4 font-light text-xl'>Reservas Canceladas</h1>
+      <h1 className='mt-4 font-light text-xl'>Reservaciones Canceladas</h1>
       <PieChart width={300} height={300}>
         <Pie
           data={data}
