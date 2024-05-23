@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import Videowall_bar from "../components/Videowall_bar";
 import axios from "axios";
 import ReservationCard from "./ReservationCard";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import ReservationCarousel from './Carousel';
 
 function Page() {
   const [reservations, setReservations] = useState([]);
@@ -31,7 +34,7 @@ function Page() {
   }, [reservations]);
 
   return (
-    <div className="w-[3840px] relative h-[1080px] bg-gradient-to-t from-[#010135] to-[#00001C] flex justify-center items-center">
+    <div className="w-[3840px] relative h-[900px] bg-gradient-to-t from-[#010135] to-[#00001C] flex justify-center items-center">
       <div className="absolute inset-0 flex justify-center items-center">
         <video autoPlay loop muted className="h-full w-[1750px] object-cover">
           <source
@@ -46,14 +49,12 @@ function Page() {
           <div className="w-full mt-10 flex justify-center">
             <p className="text-4xl font-bold">Próximas Reservaciones</p>
           </div>
-          <div className="h-[60%] w-full  p-10">
-            <div className="grid grid-cols-2 gap-y-12 gap-x-10">
-              {reservations.map((item, index) => (
-                <ReservationCard key={index} reservation={item} />
-              ))}
-            </div>
+          <div className="h-[40%] w-full  p-10">
+          <div className="container mx-auto">
+            <ReservationCarousel reservations={reservations} />
           </div>
-          <div className="h-[30%] flex w-full justify-start items-center flex-col">
+          </div>
+          <div className="h-[50%] flex w-full justify-start items-center flex-col">
               <p className="text-4xl font-semibold">Noticias</p>
               <div className="mt-10 flex flex-row gap-10">
                 <img src="/videowall/news1.png" alt="" className="h-[75%] w-[50%] object-cover rounded-xl"/>
@@ -68,8 +69,8 @@ function Page() {
           
         </div>
         <div className="h-full w-[33%] ">
-          <div className="w-full h-[70%] ">
-            <p className="text-4xl font-semibold text-center mt-10">Espacios Disponibles</p>
+          <div className="w-full h-[80%] ">
+            <p className="text-4xl font-semibold text-center mt-20">Espacios Disponibles</p>
             <div className="w-full h-[90%] flex flex-row">
                 <div className="w-1/2 h-full  flex flex-col">
                   <div className=" h-1/2 w-full p-10 px-20">
