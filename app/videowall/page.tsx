@@ -44,7 +44,7 @@ function Page() {
         </video>
       </div>
 
-      <div className="z-10 text-white w-full h-full flex flex-row">
+      <div className="z-10 text-white w-full h-full flex flex-row mt-10">
         <div className="h-full w-[33%] ">
           <div className="w-full mt-10 flex justify-center">
             <p className="text-4xl font-bold">Próximas Reservaciones</p>
