@@ -93,7 +93,8 @@ export async function DELETE(req: NextRequest) {
             },
             data: {
                 group_code: body.group_code,
-                user_id: userId
+                user_id: userId,
+                reservation_id: body.pendingId
             }
         })
         return new Response(JSON.stringify(res.data), {
