@@ -29,6 +29,8 @@ export async function GET(req: NextRequest) {
         })
     } catch (e) {
         console.log(e)
-
+        return new Response("Internal Server Error", {
+            status: 500
+        })
     }
 }
