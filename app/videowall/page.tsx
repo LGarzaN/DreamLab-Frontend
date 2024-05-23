@@ -34,7 +34,7 @@ function Page() {
   }, [reservations]);
 
   return (
-    <div className="w-[3840px] relative h-[900px] bg-gradient-to-t from-[#010135] to-[#00001C] flex justify-center items-center">
+    <div className="w-[3840px] relative h-[1080px] bg-gradient-to-t from-[#010135] to-[#00001C] flex justify-center items-center">
       <div className="absolute inset-0 flex justify-center items-center">
         <video autoPlay loop muted className="h-full w-[1750px] object-cover">
           <source
