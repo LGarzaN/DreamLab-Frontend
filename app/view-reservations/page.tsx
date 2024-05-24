@@ -99,24 +99,32 @@ function ReservationCard(index: number, reservation: Reservation, pending: boole
     }
 
     const handleClick = async () => {
-        const res = await axios.delete(`/api/reservations/`, {
-            headers: {
-                'reservation-type': pending ? "pending" : "confirmed"
-            },
-            data: {
-                group_code: reservation.GroupCode,
-                pendingId: reservation.PendingReservationId
+        const prom = new Promise<void>(async (resolve, reject) => {
+            const res = await axios.delete(`/api/reservations/`, {
+                headers: {
+                    'reservation-type': pending ? "pending" : "confirmed"
+                },
+                data: {
+                    group_code: reservation.GroupCode,
+                    pendingId: reservation.PendingReservationId
+                }
+            })
+    
+            if (res.status === 200) {
+                resolve()
+            } else {
+                reject()
             }
         })
 
-        if (res.status === 200) {
-            toast.success("Reservación Cancelada con exito!", {style: {backgroundColor: "#121417", color: "white"}, duration: 1000})
-            await new Promise((resolve) => setTimeout(resolve, 1200));
-            window.location.reload()
-        } else {
-            toast.error("Hubo un error al cancelar la reservación")
-        }
+        await toast.promise(prom, {
+            loading: 'Cancelando...',
+            success: pending ? "Solicitud cancelada" : "Reservación cancelada",
+            error: 'Error al cancelar la reservación'
+        }, {style: {backgroundColor: "#121417", color: "white"}})
 
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+        window.location.reload();
     }
     return <AlertDialog.Root key={index}>
         <AlertDialog.Trigger>
@@ -135,7 +143,7 @@ function ReservationCard(index: number, reservation: Reservation, pending: boole
                     </div>
                     <img src={getImage(reservation.SpaceId)} className="rounded-lg z-0 h-full w-full" alt="Space Image"/>
                 </div>
-                <div className="w-[40%] p-6">
+                <div className="w-[40%] px-6">
                     <div className="">
                         <p className="text-xl font-bold">{reservation.SpaceName || getSpaceName(reservation.SpaceId)}</p>
                         <p className="text-lg text-neutral-400">{getArea(reservation.SpaceId)}</p>
@@ -147,38 +155,48 @@ function ReservationCard(index: number, reservation: Reservation, pending: boole
                 </div>
             </div>
         </AlertDialog.Trigger>
-        <AlertDialog.Content size={"3"} className="p-4">
-    <AlertDialog.Title className="text-center mb-4">
-        <p className="text-3xl">{pending ? "En espera de confirmación" : "¡Te esperamos!"}</p>
-    </AlertDialog.Title>
-    <AlertDialog.Description className="mb-4">
-        <p className="font-light text-xl px-5">{pending ? "Se te notificará por correo cuando cambie el estado de tu reserva." : "Tu reservacion ha sido confirmada."}</p>
-    </AlertDialog.Description>
-    <AlertDialog.Description size="3" className="mb-4">
-        {pending ?
-        <p className="text-gray-400 px-5">
-            Para más información sobre el proceso de asignación de espacios, visita nuestra página de 
-            <a href="/faq" className="text-blue-500"> Información</a>.
-        </p>: <p className="text-gray-400 px-5">
-            Recuerda que cuentas con una tolerancia de 5 minutos para llegar a tu reservación.
-            
-        </p>
-        }
-    </AlertDialog.Description>
-
-    <Flex gap="3" mt="4" justify="center">
-        <AlertDialog.Cancel>
-            <Button variant="soft" color="gray">Cerrar</Button>
-        </AlertDialog.Cancel>
-        <AlertDialog.Action>
-            <Button variant="solid" color="red" onClick={handleClick}>
-                Cancelar {pending ? "Solicitud" : "Reserva"}
-            </Button>
-        </AlertDialog.Action>
-    </Flex>
-</AlertDialog.Content>
-
-
+        <AlertDialog.Content size={"3"}>
+            <div className="w-full h-full py-3 px-3">
+                    <p className="text-xl font-semibold mb-3">{pending ? "En espera de confirmación" : "¡Te esperamos!"}</p>
+                    <p className="text-[17px] text-gray-300">{pending ? "Se te notificará por correo cuando cambie el estado de tu reserva." : "Ya estas listo para tu experiencia en el DREAM Lab. Aqui estan los detalles de tu reservacion"}</p>
+                    <div className="flex justify-center flex-col my-6 gap-y-4 text-gray-300">
+                        <div className="flex flex-row justify-between">
+                            <p className="">Grupo:</p>
+                            <p className="text-white">{reservation && reservation.GroupCode ? reservation.GroupCode.toUpperCase() : 'No disponible'}</p>
+                        </div>
+                        <div className="flex flex-row justify-between">
+                            <p className="">Horario:</p>
+                            <p className="text-white">{convertTo12HourFormat(reservation.StartHour)}</p>
+                        </div>
+                        <div className="flex flex-row justify-between">
+                            <p className="">Duracion:</p>
+                            <p className="text-white">1 hora</p>
+                        </div>
+                        <div>
+                            <div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {pending ?
+                    <p className="text-gray-400 mb-8">
+                        Para más información sobre el proceso de asignación de espacios, visita nuestra página de 
+                        <a href="/faq" className="text-blue-500"> Información</a>.
+                    </p>: <p className="text-gray-400 mb-8">
+                        Recuerda que cuentas con una tolerancia de 5 minutos para llegar a tu reservación.
+                        
+                    </p>
+                    }
+                <Flex gap="3" mt="4" justify="start">
+                    <AlertDialog.Cancel>
+                        <Button variant="soft" color="gray">Cerrar</Button>
+                    </AlertDialog.Cancel>
+                        <Button variant="surface" color="red" onClick={handleClick}>
+                            Cancelar {pending ? "Solicitud" : "Reserva"}
+                        </Button>
+                </Flex>
+            </div>
+        </AlertDialog.Content>
     </AlertDialog.Root>;
 }
 
@@ -191,3 +209,20 @@ const formatSpanishDate = (dateString: string) => {
     }).format(date);
     return formattedDate;
   };
+
+  function convertTo12HourFormat(time24: string) {
+    // Split the input time into hours and minutes
+    let [hours, minutes] = time24.split(':').map(Number);
+  
+    // Determine AM or PM
+    const period = hours >= 12 ? 'PM' : 'AM';
+  
+    // Convert hours from 24-hour to 12-hour format
+    hours = hours % 12 || 12;
+  
+    // Pad minutes with leading zero if necessary
+    const minutes_string = minutes.toString().padStart(2, '0');
+  
+    // Return the formatted time
+    return `${hours}:${minutes_string} ${period}`;
+  }
