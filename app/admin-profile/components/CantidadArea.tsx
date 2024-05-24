@@ -2,7 +2,15 @@
 import React, { useEffect, useState } from 'react';
 import { PieChart, Pie, Cell, Text} from 'recharts';
 
-export default function CantidadArea() {
+type DataProp = {
+  data: {
+      name: string
+      value: number
+  }[]
+}
+
+
+export default function CantidadArea({data}: DataProp) {
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
@@ -11,12 +19,6 @@ export default function CantidadArea() {
   if (!isClient) {
     return null; // Render nothing on the server side
   }
-
-  const data = [
-    { name: 'ITC', value: 60 },
-    { name: 'ITD', value: 15 },
-    { name: 'IRS', value: 25 }
-  ];
   const COLORS = ['#F2933A', '#F2D53A', "#FF0A0A"];
 
   return (

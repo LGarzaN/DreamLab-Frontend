@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { Tabs, Box, Text } from "@radix-ui/themes";
 import GeneralArea from "./general";
-import General2 from "./general2";
+import EspaciosAbiertos from "./espaciosAbiertos";
 
 export default function Page() {
     const [loading, setLoading] = useState(true);
@@ -86,7 +86,7 @@ export default function Page() {
                         </Tabs.Content>
 
                         <Tabs.Content value="abiertos">
-                        <General2/>
+                        <EspaciosAbiertos/>
                         </Tabs.Content>
 
                         <Tabs.Content value="garage">

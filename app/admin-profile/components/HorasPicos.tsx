@@ -2,15 +2,15 @@
 import React from 'react'
 import {Line, LineChart, XAxis, YAxis, Tooltip, ResponsiveContainer} from "recharts";
 
-export default function HorasPico() {
 
-    const data = [
-        { hora: 15, date: "Lun" },
-        { hora: 12, date: "Mar" },
-        { hora: 17, date: "Mie" },
-        { hora: 11, date: "Jue" },
-        { hora: 12, date: "Vie" }
-    ]
+type DataProp = {
+  data: {
+      hora: number
+      date: string
+  }[]
+}
+export default function HorasPico({data}: DataProp) {
+
   return (
     <div className='w-[40vw]'>
          <h1 className='mt-4 font-light text-xl'>Horas Pico</h1>

@@ -2,7 +2,15 @@
 import React, { useEffect, useState } from 'react';
 import { PieChart, Pie, Cell, Text} from 'recharts';
 
-export default function ReservasCanceladas() {
+
+type DataProp = {
+  data: {
+      name: string
+      value: number
+  }[]
+}
+
+export default function ReservasCanceladas({data}: DataProp) {
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
@@ -12,10 +20,6 @@ export default function ReservasCanceladas() {
     return null; // Render nothing on the server side
   }
 
-  const data = [
-    { name: 'Group A', value: 35 },
-    { name: 'Group B', value: 65 }
-  ];
   const COLORS = ['#605AD6', '#D9D9D9'];
 
   return (

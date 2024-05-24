@@ -1,16 +1,17 @@
 "use client"
 import React from 'react'
 import { ResponsiveContainer, BarChart, Bar, Cell, XAxis, YAxis, Tooltip} from 'recharts'
-export default function UsoEspacios() {
-    const data = [
-        { Cantidad: 45, Espacio: "LR" },
-        { Cantidad: 20, Espacio: "EG" },
-        { Cantidad: 25, Espacio: "DF" },
-        { Cantidad: 40, Espacio: "NH" },
-        { Cantidad: 25, Espacio: "DN" }
-    ]
 
-    const barColors = ["#00B1E9", "#FF0A0A", "#36C255", "#F2D53A", "#981CD2"]
+type DataProp = {
+  data: {
+      Cantidad: number
+      Espacio: string
+  }[]
+}
+
+export default function UsoEspacios({data}: DataProp) {
+
+  const barColors = ["#00B1E9", "#FF0A0A", "#36C255", "#F2D53A", "#981CD2"]
 
   return (
     <div>

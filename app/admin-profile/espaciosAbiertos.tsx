@@ -6,26 +6,26 @@ import ReservasTardias from './components/ReservarTardias';
 import ReservasRealizadas from './components/ReservasRealizadas';
 import CantidadArea from './components/CantidadArea';
 
-function general() {
+function EspaciosAbiertos() {
   return (
     <div className='w-[80vw] h-full flex flex-col justify-around place-content-around'>
         
         <div className="flex md:flex-row justify-between mb-4">
 
             <div className='w-[19vw] h-[17vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
-                <ReservasCanceladas data = {[{ name: 'Group A', value: 35 },{ name: 'Group B', value: 65 }]}/>
+                <ReservasCanceladas data = {[{ name: 'Group A', value: 20 },{ name: 'Group B', value: 80 }]}/>
             </div>
 
             <div className='w-[19vw] h-[17vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
-                <ReservasTardias data = {[{ name: 'Group A', value: 50}, { name: 'Group B', value: 50}]}/>
+                <ReservasTardias data = {[{ name: 'Group A', value: 60}, { name: 'Group B', value: 40}]}/>
             </div>
 
             <div className='w-[19vw] h-[17vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
-                <ReservasRealizadas data ={[{ name: 'Group A', value: 50 },{ name: 'Group B', value: 50 }]}/>
+                <ReservasRealizadas data ={[{ name: 'Group A', value: 70 },{ name: 'Group B', value: 30 }]}/>
             </div>
 
             <div className='w-[19vw] h-[17vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
-                <CantidadArea data={[{ name: 'ITC', value: 60 },{ name: 'ITD', value: 15 },{ name: 'IRS', value: 25 }]}/>
+                <CantidadArea data={[{ name: 'ITC', value: 70 },{ name: 'ITD', value: 20 },{ name: 'IRS', value: 10 }]}/>
             </div>
 
         </div>
@@ -46,4 +46,4 @@ function general() {
   )
 }
 
-export default general
+export default EspaciosAbiertos
