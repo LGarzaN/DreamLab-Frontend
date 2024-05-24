@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { ResponsiveContainer, BarChart, Bar, Cell, XAxis, YAxis } from 'recharts'
+import { ResponsiveContainer, BarChart, Bar, Cell, XAxis, YAxis, Tooltip} from 'recharts'
 export default function UsoEspacios() {
     const data = [
         { Cantidad: 45, Espacio: "LR" },
@@ -15,10 +15,11 @@ export default function UsoEspacios() {
   return (
     <div>
       <h1 className='mt-4 font-light text-xl'>Uso de Espacios</h1>
-      <ResponsiveContainer width={400} height={400} className="mr-10">
+      <ResponsiveContainer width={400} height={300}>
         <BarChart data={data}>
             <XAxis dataKey="Espacio" stroke='white' padding={{ left: 10}}/>
             <YAxis dataKey="Cantidad"  domain={[0, 50]} stroke='white' />
+            <Tooltip offset={20}/>
             <Bar dataKey="Cantidad" fill="#8884d8"  barSize={40}> 
             {
                 data.map((entry, index) => {

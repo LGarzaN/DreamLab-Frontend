@@ -1,46 +1,47 @@
-import React from 'react';
-import BarChart from '../components/BarChart';
-import DoughnutChart from '../components/DoughnutChart';
-import ReservasCanceladas from './components/ReservasCanceladas';
-import HorasPico from './components/HorasPicos';
+import React from 'react'
 import UsoEspacios from './components/UsoEspacios';
+import HorasPico from './components/HorasPicos';
+import ReservasCanceladas from './components/ReservasCanceladas';
+import ReservasTardias from './components/ReservarTardias';
+import ReservasRealizadas from './components/ReservasRealizadas';
+import CantidadArea from './components/CantidadArea';
 
 function general() {
-    
-
   return (
-    <div className='flex flex-col'>
-      <div className='flex md:flex-row justify-around'>
+    <div className='w-[80vw] h-full flex flex-col justify-around place-content-around'>
+        
+        <div className="flex md:flex-row justify-between mb-4">
 
-        <div className='w-[25vw] h-[360px] bg-[#293038] m-4 flex flex-col items-center justify-center text-center rounded-xl'>
-            <div className='w-[22vw]'>
-            <ReservasCanceladas/>
+            <div className='w-[19vw] h-[17vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
+                <ReservasCanceladas/>
             </div>
-            
-            
+
+            <div className='w-[19vw] h-[17vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
+                <ReservasTardias/>
+            </div>
+
+            <div className='w-[19vw] h-[17vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
+                <ReservasRealizadas/>
+            </div>
+
+            <div className='w-[19vw] h-[17vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
+                <CantidadArea/>
+            </div>
+
         </div>
 
-        <div className="w-[25vw] bg-[#293038] m-4 flex flex-col items-center justify-center text-center rounded-xl">
-            Chart2   
+        <div className="flex md:flex-row justify-between mt-4">
+
+            <div className='w-[45vw] h-[47vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
+                <UsoEspacios/>
+            </div>
+
+            <div className='w-[33vw] h-[47vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
+                <HorasPico/>
+            </div>
+
         </div>
 
-        <div className="w-[25vw] bg-[#293038] m-4 flex flex-col items-center justify-center text-center rounded-xl">
-            Chart 2
-        </div>
-
-      </div>
-
-      <div className='flex md:flex-row justify-around'>
-
-        <div className='w-[40vw] bg-[#293038] m-4 flex flex-col items-center justify-center text-center rounded-xl'>
-            <UsoEspacios/>
-        </div>
-
-        <div className='w-[40vw] bg-[#293038] m-4 flex flex-col items-center justify-center text-center rounded-xl'>
-            <HorasPico/>
-        </div>
-
-      </div>
     </div>
   )
 }

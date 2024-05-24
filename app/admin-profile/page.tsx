@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { Tabs, Box, Text } from "@radix-ui/themes";
 import GeneralArea from "./general";
+import General2 from "./general2";
 
 export default function Page() {
     const [loading, setLoading] = useState(true);
@@ -40,7 +41,7 @@ export default function Page() {
         <Navbar />
 
         <section className="relative pt-40 pb-24">
-            <img src="/techimg.png" alt="cover-image" className="w-full absolute top-0 left-0 z-0 h-60 md:h-[40vh]"/>
+            <img src="/techimg.png" alt="cover-image" className="w-full absolute top-0 left-0 z-0 h-60 md:h-[40vh] object-cover"/>
             <div className="w-full max-w-7xl mx-auto px-6 md:px-8">
                 <div className="flex items-center justify-center sm:justify-start relative z-10 mb-5">
                     <img src="/profilepic.jpeg" alt="user-image" className="border-4 border-solid border-white md:w-[200px] md:h-[200px] rounded-full h-32 w-32"/>
@@ -66,7 +67,7 @@ export default function Page() {
             </div>
         </section>
 
-        <section className="flex justify-center items-center">
+        <section className="flex justify-center items-center mt--12">
             <div className="bg-[#16191C] w-[90vw] h-[800px] rounded-xl">
                 <h1 className="text-3xl font-bold m-8 ml-20">Estadisticas</h1>
 
@@ -85,7 +86,7 @@ export default function Page() {
                         </Tabs.Content>
 
                         <Tabs.Content value="abiertos">
-                        <Text size="2">Access and update your documents.</Text>
+                        <General2/>
                         </Tabs.Content>
 
                         <Tabs.Content value="garage">
