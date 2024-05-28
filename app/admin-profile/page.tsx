@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { Tabs, Box, Text } from "@radix-ui/themes";
 import GeneralArea from "./general";
 import EspaciosAbiertos from "./espaciosAbiertos";
+import GarageValley from "./garagevalley";
+import ZonaXploracion from "./zonaxploracion";
 
 export default function Page() {
     const [loading, setLoading] = useState(true);
@@ -90,11 +92,11 @@ export default function Page() {
                         </Tabs.Content>
 
                         <Tabs.Content value="garage">
-                        <Text size="2">Edit your profile or update contact information.</Text>
+                        <GarageValley/>
                         </Tabs.Content>
 
                         <Tabs.Content value="x-ploracion">
-                        <Text size="2">Edit your profile or update contact information.</Text>
+                        <ZonaXploracion/>
                         </Tabs.Content>
                     </Box>
                 </Tabs.Root>
