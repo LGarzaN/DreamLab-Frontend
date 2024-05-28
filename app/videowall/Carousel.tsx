@@ -48,7 +48,7 @@ const ReservationCarousel: React.FC<CarouselProps> = ({ reservations }) => {
     return (
         <Slider {...settings}>
             {reservations.map((reservation, index) => (
-                <div key={index} className="px-2">
+                <div key={index} className="px-2 ">
                     <ReservationCard reservation={reservation} />
                 </div>
             ))}

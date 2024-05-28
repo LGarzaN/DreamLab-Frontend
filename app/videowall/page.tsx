@@ -44,21 +44,21 @@ function Page() {
         </video>
       </div>
 
-      <div className="z-10 text-white w-full h-full flex flex-row mt-10">
+      <div className="z-10 text-white w-full h-full flex flex-row mt-20">
         <div className="h-full w-[33%] ">
-          <div className="w-full mt-10 flex justify-center">
+          <div className="w-full mt-10 flex justify-center ">
             <p className="text-4xl font-bold">Próximas Reservaciones</p>
           </div>
           <div className="h-[40%] w-full  p-10">
-          <div className="container mx-auto">
+          <div className="container mx-auto ">
             <ReservationCarousel reservations={reservations} />
           </div>
           </div>
           <div className="h-[50%] flex w-full justify-start items-center flex-col">
               <p className="text-4xl font-semibold">Noticias</p>
               <div className="mt-10 flex flex-row gap-10">
-                <img src="/videowall/news1.png" alt="" className="h-[75%] w-[50%] object-cover rounded-xl"/>
-                <img src="/videowall/news1.png" alt="" className="h-[75%] w-[50%] object-cover rounded-xl"/>
+                <img src="/videowall/news1.png" alt="" className="h-[75%] w-[50%] object-cover rounded-xl bg-black bg-opacity-60"/>
+                <img src="/videowall/news1.png" alt="" className="h-[75%] w-[50%] object-cover rounded-xl bg-black bg-opacity-60"/>
               </div>
           </div>
         </div>
@@ -68,24 +68,24 @@ function Page() {
           </div>
           
         </div>
-        <div className="h-full w-[33%] ">
+        <div className="h-full w-[32%] ">
           <div className="w-full h-[80%] ">
             <p className="text-4xl font-semibold text-center mt-20">Espacios Disponibles</p>
-            <div className="w-full h-[90%] flex flex-row">
+            <div className="w-full h-[90%] flex flex-row mt-10 ">
                 <div className="w-1/2 h-full  flex flex-col">
-                  <div className=" h-1/2 w-full p-10 px-20">
-                    <div className="w-full h-full">
-                      <img src="/Lego Room.png" alt="" className="h-[80%] w-full object-cover rounded-xl"/>
-                      <div className="w-full h-[20%] pt-5 flex flex-row justify-between px-3">
+                  <div className=" h-1/2 w-full p-10 px-20 rounded-xl">
+                    <div className="w-full h-full ">
+                      <img src="/Lego Room.png" alt="" className="h-[80%] w-full object-cover rounded-xl "/>
+                      <div className="w-full h-[20%] pt-5 flex flex-row justify-between px-3 ">
                         <p className="text-4xl font-semibold">Lego Room </p>
                         <p className="text-red-400 text-4xl font-semibold">11/12</p>
                       </div>
                     </div>
                   </div>
-                  <div className=" h-1/2 w-full p-10 px-20">
-                    <div className="w-full h-full">
+                  <div className=" h-1/2 w-full p-10 px-20 ">
+                    <div className="w-full">
                       <img src="/areas/graveyard.jpeg" alt="" className="h-[80%] w-full object-cover rounded-xl"/>
-                      <div className="w-full h-[20%] pt-5 flex flex-row justify-between px-3">
+                      <div className="w-full h-[20%] pt-5 flex flex-row justify-between px-3 ">
                         <p className="text-4xl font-semibold">Graveyard</p>
                         <p className="text-green-400 text-4xl font-semibold">1/4</p>
                       </div>
@@ -93,10 +93,10 @@ function Page() {
                   </div>
                 </div>
                 <div className="w-1/2 h-full p-10 px-20">
-                  <div className="w-full h-full">
+                  <div className="w-full h-full ">
                     <img src="/areas/deep_net.jpeg" alt="" className="h-[80%] w-full object-cover rounded-xl"/>
                     <div className="w-full h-[20%] pt-5 flex flex-row justify-between px-3">
-                      <p className="text-4xl font-semibold">Deep Net</p>
+                      <p className="text-4xl font-semibold ">Deep Net</p>
                       <p className="text-orange-400 text-4xl font-semibold">6/10</p>
                     </div>
                   </div>

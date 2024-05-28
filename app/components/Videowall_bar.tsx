@@ -84,9 +84,16 @@ function Videowall_bar() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}>
                 <div>
-                    <div className="w-[500px] h-[380px] bg-black bg-opacity-60 rounded-xl flex flex-col">
-                        <img src="/videowall/map.png" className="p-5 w-[400px] flex self-center"></img>
-                        <button onClick={handleClose} className="ml-10 mb-28 "> 
+                    <div className="w-[750px] h-[450px] bg-black bg-opacity-60 rounded-xl flex flex-col ml-40">
+                        <iframe
+                            title="Mappedin Map"
+                            src="https://app.mappedin.com/map/6654e029269972f02bf83dd1?embedded=true"
+                            width="100%"
+                            height="100%"
+                            frameBorder="0"
+                            style={{ border: 0 }}
+                        ></iframe>
+                        <button onClick={handleClose} className="ml-10 mb-2 mr-2"> 
                             <img src="/videowall/close_icon.png" />
                         </button>
                     </div>
