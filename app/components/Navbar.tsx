@@ -51,7 +51,7 @@ const Navbar = () => {
                     <div className="ml-12">
                         <ul className="flex flex-row gap-8 text-gray-400">
                             <li className="hover:text-[#abaaff] transition-all"><Link href={"/view-reservations"}>Reservaciones</Link></li>
-                            <li className="hover:text-[#abaaff] transition-all"><Link href={"/info"}>Informacion</Link></li>
+                            <li className="hover:text-[#abaaff] transition-all"><Link href={"/info"}>Información</Link></li>
                         </ul>
                     </div>
                     <div className="ml-auto flex flex-row gap-4">

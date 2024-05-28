@@ -5,20 +5,22 @@ import { jwtVerify } from 'jose'
 
 export async function GET(req: NextRequest) {
     try {
-        const jwt = req.cookies.get("session")?.value;
-        if (!jwt) {
-            return new Response("Unauthorized", {
-                status: 401
-            })
-        }
         //check if the request came from the /videowall page
         if (req.headers.get("source") && req.headers.get("source") === "videowall") {
+            console.log("videowall")
             return new Response(JSON.stringify(vwreservations), {
                 headers: {
                     "Content-Type": "application/json"
                 }
             })
         }
+        const jwt = req.cookies.get("session")?.value;
+        if (!jwt) {
+            return new Response("Unauthorized", {
+                status: 401
+            })
+        }
+
 
         const data = await jwtVerify(jwt, new TextEncoder().encode(process.env.JWT_SECRET));
         const userId = data.payload.userId
@@ -79,16 +81,20 @@ export async function DELETE(req: NextRequest) {
                 status: 401
             })
         }
+        // get header
+        const reservationType = req.headers.get("reservation-type")
         const data = await jwtVerify(jwt, new TextEncoder().encode(process.env.JWT_SECRET));
         const userId = data.payload.userId
         const body = await req.json();
         const res = await axios.delete(`https://dlbackendtws.azurewebsites.net/reservations/`, {
             headers: {
-                "x-api-key": process.env.API_KEY
+                "x-api-key": process.env.API_KEY,
+                "reservation-type": reservationType
             },
             data: {
                 group_code: body.group_code,
-                user_id: userId
+                user_id: userId,
+                reservation_id: body.pendingId
             }
         })
         return new Response(JSON.stringify(res.data), {

@@ -21,7 +21,7 @@ export default function ReservationCard({ reservation }: props) {
     const image = getImage(reservation.SpaceId)!;
   return (
     <div 
-    className='flex flex-row gap-10 h-[240px] bg-[#09091e] rounded-xl bg-opacity-0'
+    className='flex flex-row gap-10 h-[240px] rounded-xl bg-white bg-opacity-10 border-gray-300  border-opacity-20'
     >
         <div className='w-[50%]'>
             <img 
