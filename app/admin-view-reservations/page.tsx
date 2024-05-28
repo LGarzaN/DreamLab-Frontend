@@ -310,41 +310,35 @@ function ReservationCard(index: number, reservation: Reservation, pending: boole
     }
 
     const handleClick = async () => {
-        const prom = new Promise<void>(async (resolve, reject) => {
-            const data: ReservationData = {
-                group_code: reservation.GroupCode,
-                reservation_id: reservation.PendingReservationId
-            }
-    
-            data.user_id = reservation.UserId;
-    
-            try {
-                const res = await axios.delete(`/api/reservations/`, {
-                    headers: {
-                        'reservation-type': pending ? "pending" : "confirmed"
-                    },
-                    data: data
-                })
-    
-                if (res.status === 200) {
-                    resolve();
-                } else {
-                    reject();
-                }
-            } catch (error) {
-                reject();
-            }
-        });
-    
-        await toast.promise(prom, {
-            loading: 'Cancelando...',
-            success: pending ? "Solicitud cancelada" : "Reservación cancelada",
-            error: 'Error al cancelar la reservación'
-        }, { style: { backgroundColor: "#121417", color: "white" } });
-    
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        window.location.reload();
-    }
+      const userId = reservation.UserId;
+      const prom = new Promise<void>(async (resolve, reject) => {
+          const res = await axios.delete(`/api/adminreservations`, {
+              headers: {
+                  'reservation-type': pending ? "pending" : "confirmed"
+              },
+              data: {
+                  group_code: reservation.GroupCode,
+                  pendingId: reservation.PendingReservationId,
+                  userId: userId
+              }
+          })
+  
+          if (res.status === 200) {
+              resolve()
+          } else {
+              reject()
+          }
+      })
+
+      await toast.promise(prom, {
+          loading: 'Cancelando...',
+          success: pending ? "Solicitud cancelada" : "Reservación cancelada",
+          error: 'Error al cancelar la reservación'
+      }, {style: {backgroundColor: "#121417", color: "white"}})
+
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+      window.location.reload();
+  }
     
     
     return <AlertDialog.Root key={index}>
