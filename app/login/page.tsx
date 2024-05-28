@@ -61,7 +61,7 @@ export default function Login() {
                 setLoading(false)
             }
         } catch (error) {
-            toast.error(`Error: ${error}`, {style: {backgroundColor: "#121417", color: "white"}})
+            toast.error("Usuario y/o patrón incorrectos", { style: { backgroundColor: "#121417", color: "white" } });
             setLoading(false)
         }
       }
