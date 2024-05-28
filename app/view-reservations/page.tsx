@@ -69,7 +69,7 @@ export default function Page() {
     ) : null}
     {!loading && reservations.length === 0 && pendingReservations.length === 0 && (
         <div className="flex w-[97vw] h-[63vh] justify-center items-center">
-            <p className="text-2xl font-bold">No Reservations</p>
+            <p className="text-2xl font-bold">Sin reservaciones</p>
         </div>
     )}
     {loading && (
@@ -158,7 +158,7 @@ function ReservationCard(index: number, reservation: Reservation, pending: boole
         <AlertDialog.Content size={"3"}>
             <div className="w-full h-full py-3 px-3">
                     <p className="text-xl font-semibold mb-3">{pending ? "En espera de confirmación" : "¡Te esperamos!"}</p>
-                    <p className="text-[17px] text-gray-300">{pending ? "Se te notificará por correo cuando cambie el estado de tu reserva." : "Ya estas listo para tu experiencia en el DREAM Lab. Aqui estan los detalles de tu reservacion"}</p>
+                    <p className="text-[17px] text-gray-300">{pending ? "Se te notificará por correo cuando cambie el estado de tu reserva." : "Ya estas listo para tu experiencia en el DREAM Lab. Aquí estan los detalles de tu reservación"}</p>
                     <div className="flex justify-center flex-col my-6 gap-y-4 text-gray-300">
                         <div className="flex flex-row justify-between">
                             <p className="">Grupo:</p>
@@ -169,7 +169,7 @@ function ReservationCard(index: number, reservation: Reservation, pending: boole
                             <p className="text-white">{convertTo12HourFormat(reservation.StartHour)}</p>
                         </div>
                         <div className="flex flex-row justify-between">
-                            <p className="">Duracion:</p>
+                            <p className="">Duración:</p>
                             <p className="text-white">1 hora</p>
                         </div>
                         <div>
@@ -181,10 +181,9 @@ function ReservationCard(index: number, reservation: Reservation, pending: boole
                     {pending ?
                     <p className="text-gray-400 mb-8">
                         Para más información sobre el proceso de asignación de espacios, visita nuestra página de 
-                        <a href="/faq" className="text-blue-500"> Información</a>.
+                        <a href="/info" className="text-blue-500"> Información</a>.
                     </p>: <p className="text-gray-400 mb-8">
                         Recuerda que cuentas con una tolerancia de 5 minutos para llegar a tu reservación.
-                        
                     </p>
                     }
                 <Flex gap="3" mt="4" justify="start">
@@ -192,7 +191,7 @@ function ReservationCard(index: number, reservation: Reservation, pending: boole
                         <Button variant="soft" color="gray">Cerrar</Button>
                     </AlertDialog.Cancel>
                         <Button variant="surface" color="red" onClick={handleClick}>
-                            Cancelar {pending ? "Solicitud" : "Reserva"}
+                            Cancelar {pending ? "Solicitud" : "Reservación"}
                         </Button>
                 </Flex>
             </div>
