@@ -9,6 +9,13 @@ import toast from "react-hot-toast";
 import { data } from "@/data/areas_data";
 import { Select } from "@radix-ui/themes";
 
+interface ReservationData {
+    group_code: string;
+    reservation_id: number;
+    user_id?: number;
+}
+
+
 interface Reservation {
     Day: string,
     StartHour: string,
@@ -304,32 +311,42 @@ function ReservationCard(index: number, reservation: Reservation, pending: boole
 
     const handleClick = async () => {
         const prom = new Promise<void>(async (resolve, reject) => {
-            const res = await axios.delete(`/api/reservations/`, {
-                headers: {
-                    'reservation-type': pending ? "pending" : "confirmed"
-                },
-                data: {
-                    group_code: reservation.GroupCode,
-                    pendingId: reservation.PendingReservationId
-                }
-            })
-    
-            if (res.status === 200) {
-                resolve()
-            } else {
-                reject()
+            const data: ReservationData = {
+                group_code: reservation.GroupCode,
+                reservation_id: reservation.PendingReservationId
             }
-        })
-
+    
+            data.user_id = reservation.UserId;
+    
+            try {
+                const res = await axios.delete(`/api/reservations/`, {
+                    headers: {
+                        'reservation-type': pending ? "pending" : "confirmed"
+                    },
+                    data: data
+                })
+    
+                if (res.status === 200) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            } catch (error) {
+                reject();
+            }
+        });
+    
         await toast.promise(prom, {
             loading: 'Cancelando...',
             success: pending ? "Solicitud cancelada" : "Reservación cancelada",
             error: 'Error al cancelar la reservación'
-        }, {style: {backgroundColor: "#121417", color: "white"}})
-
-        await new Promise((resolve) => setTimeout(resolve, 1000))
+        }, { style: { backgroundColor: "#121417", color: "white" } });
+    
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         window.location.reload();
     }
+    
+    
     return <AlertDialog.Root key={index}>
         <AlertDialog.Trigger>
             <div className="w-full flex items-center justify-center">
