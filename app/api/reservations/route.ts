@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
 
         const data = await jwtVerify(jwt, new TextEncoder().encode(process.env.JWT_SECRET));
         const userId = data.payload.userId
-        const res = await axios.get(`https://dlbackendtws.azurewebsites.net/reservations/${userId}`, {
+        const res = await axios.get(`https://dlbackendtws.azurewebsites.net/reservations/`, {
             headers: {
                 "x-api-key": process.env.API_KEY
             }

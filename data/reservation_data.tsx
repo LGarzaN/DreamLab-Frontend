@@ -5,14 +5,14 @@ export const reservation_data = [
       Day: "2024-04-13",
       StartHour: "8:00",
       EndHour: "9:00",
-      Occupied: false,
+      Occupied: true,
     },
     {
       SpaceId: 1,
       Day: "2024-04-13",
       StartHour: "9:00",
       EndHour: "10:00",
-      Occupied: false,
+      Occupied: true,
     },
     {
       SpaceId: 1,
