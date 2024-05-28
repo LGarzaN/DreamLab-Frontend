@@ -44,7 +44,7 @@ export default function Page() {
                 <h1 className="text-4xl lg:text-5xl text-white z-10 pl-20 mt-10">Mis Reservaciones</h1>
             </div>
         </div>
-        <div className="h-[70vh] flex flex-col md:flex-row">
+        <div className="h-full flex flex-col md:flex-row">
             {!loading && reservations.length > 0 ? reservations.map((reservation: Reservation, index) => {
                 return (
                     ReservationCard(index, reservation)

@@ -24,9 +24,17 @@ function RequirementsChooser(
   setRequirements: any
 ) {
   const requirements_data_especifics = obtenerRequerimientosPorArea(1);
-  const [numerosRequerimientos, setNumerosRequerimientos] = useState<
-    Record<number, number>
-  >({});
+  const [numerosRequerimientos, setNumerosRequerimientos] = useState<Record<number, number>>({});
+  const [user, setUser] = useState("");
+  const [matricula, setMatricula] = useState("");
+
+  const handleUserChange = (e: any) => {
+    setUser(e.target.value);
+  };
+
+  const handlMatriculaChange = (e: any) => {
+    setMatricula(e.target.value);
+  };
 
   const handleIncrement = (id: number) => {
     setNumerosRequerimientos((prevState) => ({
@@ -61,9 +69,31 @@ function RequirementsChooser(
           </p>
         </section>
 
+        <div className=" flex flex-row justify-evenly space-x-6">
+          <input
+            id="username"
+            type="text"
+            className="w-[40vw] h-16 border-[0.5px] border-gray-300 rounded-xl px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={user}
+            onChange={handleUserChange}
+            placeholder="Introduce el nombre del Responsable"
+          />
+          <input
+            id="matricula"
+            type="text"
+            className="w-[40vw] h-16 border-[0.5px] border-gray-300 rounded-xl px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={matricula}
+            onChange={handlMatriculaChange}
+            placeholder="Introduce la Matricula del Responsable"
+          />
+      
+        </div>
+         
+
         <section className="flex justify-evenly w:full lg:flex-row flex-col">
+          
           {requirements_data_especifics.map((item) => (
-            <div key={item.id} className="bg-white-500 h-28 w-[90vw] lg:w-[40vw] bg-[#16191C] rounded-xl flex items-center	m-4 justify-evenly">
+            <div key={item.id} className="h-28 w-[90vw] lg:w-[40vw] bg-[#16191C] rounded-xl flex items-center	m-4 justify-evenly">
               <img
                 src={item.image}
                 alt="descripcion"

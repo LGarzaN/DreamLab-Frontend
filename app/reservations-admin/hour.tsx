@@ -103,6 +103,8 @@ function Hour(
   const weekdays = WeekDays();
   const description = Description();
   const [prueba, setPrueba] = useState(0);
+  const [user, setUser] = useState("");
+  const [matricula, setMatricula] = useState("");
 
   const datos: WeekData[] = [];
   for (let i = 0; i < 6; i++) {

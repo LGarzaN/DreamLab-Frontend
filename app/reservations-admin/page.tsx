@@ -44,6 +44,7 @@ function Page() {
         schedule_id: scheduleId,
         user_requirements: "1=1,2=1",
         space_id: id,
+        user_id: 2,
       });
 
       if (res.status === 200) {
