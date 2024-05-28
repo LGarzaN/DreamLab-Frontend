@@ -9,11 +9,11 @@ export async function POST(req: Request) {
         const body = await req.json()
 
         const username = body.username
-        const password = body.password
+        const pattern_password = body.pattern_password
         
         const res = await axios.post('https://dlbackendtws.azurewebsites.net/login/pattern', {
             username,
-            password
+            pattern_password
         }, {
             headers: {
                 'Content-Type': 'application/json',
