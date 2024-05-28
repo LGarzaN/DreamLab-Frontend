@@ -1,37 +1,54 @@
 export const admin_pruebas = [
     {
-        nombre: "Diego Iván Beltrán",
-        matricula: "A01254021",
-        dia: "Lunes ",
-        fecha: "28 mayo 2024",
-        date: "10/06/24",
-        hora_inicio: "1:00 pm",
-        hora_fin: "2:00 pm",
-        espacio: "Lego Room",
-        area: "Espacios Abierto"
+      nombre: "Luis Garza",
+      matricula: "A01721881",
+      dia: [
+        "Lunes"
+      ],
+      fecha: [
+        "27 de Mayo 2024"
+      ],
+      hora_inicio: "18:00:00",
+      hora_fin: "19:00:00",
+      espacio: "Testing land"
     },
     {
-        nombre: "Ana Jimena Gallegos Rongel",
-        matricula: "A01252605",
-        dia: "Martes ",
-        fecha: "29 mayo 2024",
-        date: "11/06/24",
-        hora_inicio: "3:00 pm",
-        hora_fin: "4:00 pm",
-        espacio: "Electric Garage",
-        area: "Espacios Abierto"
+      nombre: "Admin",
+      matricula: "admin",
+      dia: [
+        "Lunes"
+      ],
+      fecha: [
+        "27 de Mayo 2024"
+      ],
+      hora_inicio: "12:00:00",
+      hora_fin: "13:00:00",
+      espacio: "Web headquarter"
     },
     {
-        nombre: "Elisa Garcia Gamez",
-        matricula: "A01252604",
-        dia: "Miercoles ",
-        fecha: "30 mayo 2024",
-        date: "12/06/24",
-        hora_inicio: "4:00 pm",
-        hora_fin: "5:00 pm",
-        espacio: "Deep Net",
-        area: "Espacios Abierto"
+      nombre: "Admin",
+      matricula: "admin",
+      dia: [
+        "Lunes"
+      ],
+      fecha: [
+        "27 de Mayo 2024"
+      ],
+      hora_inicio: "10:00:00",
+      hora_fin: "11:00:00",
+      espacio: "Social Networking"
     },
-
+    {
+      nombre: "Admin",
+      matricula: "admin",
+      dia: [
+        "Miércoles"
+      ],
+      fecha: [
+        "29 de Mayo 2024"
+      ],
+      hora_inicio: "11:00:00",
+      hora_fin: "12:00:00",
+      espacio: "Lego Room"
+    }
 ]
-

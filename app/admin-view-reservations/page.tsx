@@ -1,10 +1,38 @@
 "use client";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { admin_pruebas } from "@/data/admin_pruebas";
 import { Select } from "@radix-ui/themes";
+import axios from "axios";
 
+interface Prueba {
+    nombre: string;
+    matricula: string;
+    dia: string;
+    fecha: string[];
+    hora_inicio: string;
+    hora_fin: string;
+    espacio: string;
+  }
+
+const areasMap: { [key: string]: string } = {
+    "Social Networking": "Espacios Abiertos",
+    "Lego Room": "Espacios Abiertos",
+    "Electric Garage": "Garage Valley",
+    "Dimension Forge": "Garage Valley",
+    "New Horizons": "Garage Valley",
+    "Deep Net": "Garage Valley",
+    "Graveyard": "Garage Valley",
+    "PCB Factory": "Garage Valley",
+    "The Matrix": "Garage Valley",
+    "Hack battlefield": "Zona de X-Ploración",
+    "Testing land": "Zona de X-Ploración",
+    "Web headquarter": "Zona de X-Ploración",
+    "Biometrics flexible hall": "Zona de X-Ploración",
+    "Beyon dgits": "Zona de X-Ploración",
+    "Open innovation lab": "Zona de X-Ploración"
+};
 function getNextSevenDays() {
   const today = new Date();
   const nextSevenDays = [];
@@ -42,7 +70,38 @@ function page() {
   const [searchArea, setSearchArea] = useState("Espacios");
   const [searchHour, setSearchHour] = useState("Hora");
   const [searchDay, setSearchDay] = useState("Fecha");
+  const [data, setData] = useState<Prueba[]>([]);
+
+
   const days = getNextSevenDays();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/adminreservations', {
+          withCredentials: true
+        });
+        setData(response.data);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          // Maneja el error de Axios
+          if (error.response && error.response.status === 401) {
+            console.error("Unauthorized - Please log in");
+          } else {
+            console.error("An error occurred", error.message);
+          }
+        } else {
+          // Maneja otros tipos de error
+          console.error("An unknown error occurred", error);
+        }
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
+  
+
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -60,7 +119,7 @@ function page() {
     setSearchDay(value);
   };
 
-  const dataToShow = admin_pruebas.filter((item) => {
+  const dataToShow = data.filter((item) => {
     const nameMatch = item.nombre
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
@@ -75,7 +134,7 @@ function page() {
 
     const dateMatch =
       searchDay.trim() === "Fecha" ||
-      item.fecha.toLowerCase() === searchDay.toLowerCase();
+      item.fecha[0].toLowerCase() === searchDay.toLowerCase();
 
     if (searchTerm.trim() === "") {
       return areaMatch && hourMatch && dateMatch;
@@ -193,22 +252,22 @@ function page() {
                       <Select.Item value="Graveyard">Graveyard</Select.Item>
                       <Select.Item value="PCB Factory">PCB Factory</Select.Item>
                       <Select.Item value="The Matrix">The Matrix</Select.Item>
-                      <Select.Item value="Hack-Battlefield">
+                      <Select.Item value="Hack battlefield">
                         Hack-Battlefield
                       </Select.Item>
-                      <Select.Item value="Testing-Land">
+                      <Select.Item value="Testing land">
                         Testing-Land
                       </Select.Item>
-                      <Select.Item value="War Headquarter">
-                        War Headquarter
+                      <Select.Item value="Web headquarter">
+                        Web Headquarter
                       </Select.Item>
-                      <Select.Item value="Biometrics Flexible">
+                      <Select.Item value="Biometrics flexible hall">
                         Biometrics Flexible
                       </Select.Item>
-                      <Select.Item value="Beyon Digits">
+                      <Select.Item value="Beyon digits">
                         Beyon Digits
                       </Select.Item>
-                      <Select.Item value="Open Innovation Lab">
+                      <Select.Item value="Open innovation lab">
                         Open Innovation Lab
                       </Select.Item>
                     </Select.Group>
@@ -235,33 +294,27 @@ function page() {
               </div>
               <div className="w-[15vw] flex flex-col space-y-2">
                 <h1 key={index} className="text-xl">
-                  {" "}
-                  {prueba.dia}{" "}
+                  {prueba.dia}
                 </h1>
                 <h2 className="text-2xl font-semibold"> {prueba.fecha} </h2>
               </div>
               <div className="w-[20vw] flex flex-col text-center">
                 <h1 key={index} className="text-xl">
-                  {" "}
                   {prueba.hora_inicio}
                 </h1>
                 <h1 key={index} className="text-xl mt-[-6px] mb-[-6px]">
-                  {" "}
-                  -{" "}
+                  -
                 </h1>
                 <h1 key={index} className="text-xl">
-                  {" "}
-                  {prueba.hora_fin}{" "}
+                  {prueba.hora_fin}
                 </h1>
               </div>
               <div className="w-[15vw] flex flex-col space-y-2 ml-7">
                 <h1 key={index} className="text-2xl font-semibold">
-                  {" "}
-                  {prueba.area}{" "}
+                    {prueba.espacio}
                 </h1>
                 <h2 key={index} className="text-xl">
-                  {" "}
-                  {prueba.espacio}{" "}
+                    {areasMap[prueba.espacio]}
                 </h2>
               </div>
             </div>
@@ -276,32 +329,26 @@ function page() {
             <div className="w-[85vw] h-28 bg-[#293038] rounded-xl flex flex-row items-center justify-around">
               <div className="w-[50vw] pl-2">
                 <h1 key={index} className="font-semibold truncate">
-                  {" "}
-                  {prueba.nombre}{" "}
+                  {prueba.nombre}
                 </h1>
                 <h1 key={index} className="text-xs">
-                  {" "}
-                  {prueba.matricula}{" "}
+                  {prueba.matricula}
                 </h1>
                 <div className="flex flex-row">
                   <h1 key={index} className="font-semibold">
-                    {" "}
-                    {prueba.dia}{" "}
+                    {prueba.dia}
                   </h1>
                   <h1 key={index} className="font-semibold">
-                    {" "}
-                    {prueba.fecha}{" "}
+                    {prueba.fecha}
                   </h1>
                 </div>
                 <div className="flex flex-row">
                   <h1 key={index} className="text-xs">
-                    {" "}
-                    {prueba.hora_inicio}{" "}
+                    {prueba.hora_inicio}
                   </h1>
                   <h1 className="text-xs"> - </h1>
                   <h1 key={index} className="text-xs">
-                    {" "}
-                    {prueba.hora_fin}{" "}
+                    {prueba.hora_fin}
                   </h1>
                 </div>
               </div>
