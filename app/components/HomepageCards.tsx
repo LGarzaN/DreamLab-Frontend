@@ -60,24 +60,51 @@ function HomepageCards({
                   <div>{item.descripcion}</div>
                   <div className="justify-end gap-4 flex mt-4">
                     <Dialog.Close className="">
-                          <Button variant="soft" color="gray" className="hover:cursor-pointer">
-                            Cerrar
-                          </Button>
-                      </Dialog.Close>
-                      <Dialog.Close>
+                      <Button
+                        variant="soft"
+                        color="gray"
+                        className="hover:cursor-pointer"
+                      >
+                        Cerrar
+                      </Button>
+                    </Dialog.Close>
+                    <Dialog.Close>
+                      <div>
                         <Link
                           href={{
                             pathname: "/reservations",
                             query: {
-                              id: item.id
+                              id: item.id,
                             },
                           }}
                         >
-                          <Button variant="soft" color="violet" className="hover:cursor-pointer">
+                          <Button
+                            variant="soft"
+                            color="violet"
+                            className="hover:cursor-pointer"
+                          >
                             Reservar ahora
                           </Button>
                         </Link>
-                      </Dialog.Close>
+                        {/* POR MIERNTRASSS */}
+                        <Link
+                          href={{
+                            pathname: "/reservations-admin",
+                            query: {
+                              id: item.id,
+                            },
+                          }}
+                        >
+                          <Button
+                            variant="soft"
+                            color="violet"
+                            className="hover:cursor-pointer"
+                          >
+                            Reservar ahora ADMIN
+                          </Button>
+                        </Link>
+                      </div>
+                    </Dialog.Close>
                   </div>
                 </div>
               </div>

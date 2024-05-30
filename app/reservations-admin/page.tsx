@@ -34,17 +34,18 @@ function Page() {
   const [requirements, setRequirements] = useState("");
   const [scheduleId, setScheduleId] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [matricula, setMatricula] = useState("");
 
   const handleClick = async () => {
     if (page == 0) {
       setPage(page + 1);
     } else {
       setLoading(true);
-      const res = await axios.post(`/api/reservations/`, {
+      const res = await axios.post(`/api/adminreservations`, {
         schedule_id: scheduleId,
         user_requirements: "1=1,2=1",
         space_id: id,
-        user_id: 2,
+        username: matricula,
       });
 
       if (res.status === 200) {
@@ -117,7 +118,7 @@ function Page() {
             setScheduleId,
             loading
           )
-        : RequirementsChooser(date, start, end, requirements, setRequirements)}
+        : RequirementsChooser(date, start, end, requirements, setRequirements, matricula, setMatricula)}
 
       <div className="w-full justify-center">
         <Separator size="4" />
