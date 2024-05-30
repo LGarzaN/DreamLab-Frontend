@@ -6,9 +6,11 @@ import ReservationCard from "./ReservationCard";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import ReservationCarousel from './Carousel';
+import NewsCarrousel from "./News";
 
 function Page() {
   const [reservations, setReservations] = useState([]);
+  const [news, setNews] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,8 +25,17 @@ function Page() {
         console.log(e);
       }
     };
+
+    const fetchNews = async () => {
+      try {
+        const res = await axios.get("/api/news");
+        setNews(res.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
     fetchData();
-    console.log("hola")
+    fetchNews();
   }, []);
 
   useEffect(() => {
@@ -56,9 +67,8 @@ function Page() {
           </div>
           <div className="h-[50%] flex w-full justify-start items-center flex-col">
               <p className="text-4xl font-semibold">Noticias</p>
-              <div className="mt-10 flex flex-row gap-10">
-                <img src="/videowall/news1.png" alt="" className="h-[75%] w-[50%] object-cover rounded-xl bg-black bg-opacity-60"/>
-                <img src="/videowall/news1.png" alt="" className="h-[75%] w-[50%] object-cover rounded-xl bg-black bg-opacity-60"/>
+              <div className="mt-10 flex flex-row gap-10 w-full h-[60vh]">
+                {news && <NewsCarrousel newsArray={news} />}
               </div>
           </div>
         </div>
