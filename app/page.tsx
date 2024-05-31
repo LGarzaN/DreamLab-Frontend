@@ -2,17 +2,29 @@
 import React, { useEffect, useState } from "react";
 import HomepageCards from "./components/HomepageCards";
 import { Tabs, Box, Text } from "@radix-ui/themes";
-import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./components/Navbar";
+import { isAdmin } from "./utils/getrole";
 
 export default function Page() {
   const [name, setName] = useState("");
-
+  const [path, setPath] = useState("/reservations");
   const scrollToSection = () => {
     const targetSection = document.getElementById("areas");
     targetSection!.scrollIntoView({ behavior: "smooth" });
   };
+
+  useEffect(() => {
+    async function ad(){
+      return await isAdmin()
+    }
+    ad().then(resultado => {
+      if (resultado === true) {
+        setPath("/reservations-admin");
+      }
+    });
+  }, []);
+
 
   return (
     <div className="">
@@ -90,16 +102,16 @@ export default function Page() {
           </div>
           <Box pt="3">
             <Tabs.Content value="todos">
-              <HomepageCards keyword={name} specificArea="" />
+              <HomepageCards keyword={name} specificArea="" path={path}/>
             </Tabs.Content>
 
             <Tabs.Content value="espacio_abierto">
-              <HomepageCards keyword={name} specificArea="Espacios Abiertos" />
+              <HomepageCards keyword={name} specificArea= "Espacios Abiertos" path={path}/>
             </Tabs.Content>
 
             <Tabs.Content value="garage_valley">
               <Text size="2">
-                <HomepageCards keyword={name} specificArea="Garage Valley" />
+                <HomepageCards keyword={name} specificArea="Garage Valley" path={path} />
               </Text>
             </Tabs.Content>
 
@@ -107,13 +119,14 @@ export default function Page() {
               <HomepageCards
                 keyword={name}
                 specificArea="Zona de X-Ploración"
+                path={path}
               />
             </Tabs.Content>
           </Box>
         </Tabs.Root>
       </div>
       <div className="md:hidden lg:hidden xl:hidden">
-        <HomepageCards keyword={name} specificArea="" />
+        <HomepageCards keyword={name} specificArea="" path={path}/>
       </div>
     </div>
   );

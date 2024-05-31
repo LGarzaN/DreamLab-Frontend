@@ -4,13 +4,17 @@ import Image from "next/image";
 import { Dialog, TextField, Button, Flex, Text } from "@radix-ui/themes";
 import Link from "next/link";
 import { data } from "@/data/areas_data";
+import { useEffect, useState } from "react";
+
 
 function HomepageCards({
   keyword,
   specificArea,
+  path
 }: {
   keyword: string;
   specificArea: string;
+  path: string;
 }) {
   const filteredData = data.filter((item) => {
     const nameMatch = item.name.toLowerCase().includes(keyword.toLowerCase());
@@ -24,6 +28,7 @@ function HomepageCards({
       return nameMatch && areaMatch;
     }
   });
+
 
   return (
     <div className="flex justify-center min-h-[80vh]">
@@ -72,7 +77,7 @@ function HomepageCards({
                       <div>
                         <Link
                           href={{
-                            pathname: "/reservations",
+                            pathname: path,
                             query: {
                               id: item.id,
                             },
@@ -84,23 +89,6 @@ function HomepageCards({
                             className="hover:cursor-pointer"
                           >
                             Reservar ahora
-                          </Button>
-                        </Link>
-                        {/* POR MIERNTRASSS */}
-                        <Link
-                          href={{
-                            pathname: "/reservations-admin",
-                            query: {
-                              id: item.id,
-                            },
-                          }}
-                        >
-                          <Button
-                            variant="soft"
-                            color="violet"
-                            className="hover:cursor-pointer"
-                          >
-                            Reservar ahora ADMIN
                           </Button>
                         </Link>
                       </div>

@@ -9,7 +9,8 @@ import { data } from "@/data/areas_data";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
 import Navbar from "../components/Navbar";
-import { resolve } from "path";
+import { isAdmin } from "../utils/getrole";
+
 
 function getName(id: number) {
   const area = data.find((area) => area.id === id);
@@ -54,6 +55,9 @@ function Page() {
         setLoading(false);
         await new Promise((resolve) => setTimeout(resolve, 2000));
         window.location.href = "/";
+      } else if (res.status === 404) {
+        toast.error("Usuario no encontrado");
+        setLoading(false);
       } else {
         setLoading(false);
         toast.error("Error al realizar la reservación");
