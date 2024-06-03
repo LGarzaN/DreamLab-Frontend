@@ -17,6 +17,7 @@ const Page = () => {
                 <li>Da click en algun espacio para ver mas información</li>
                 <li>Reserva en el horario que mejor se te acomode</li>
             </ul>
+            
             <p className='text-2xl font-semibold mt-10'>Pero, ¡Espera!</p>
             <p className='mt-5 text-gray-400 text-lg'>
                 El que hayas reservado no significa que tu reservación ha sido confirmada, deberás esperar a que el DREAM Lab
@@ -48,6 +49,21 @@ const Page = () => {
                 son asignados por el DREAM Lab y estan basados en diversos factores, como tu semestre, tu carrera, y tu historial de
                 reservaciones.
             </p>
+            <p className='text-white text-4xl font-semibold mt-20'>¿No sabes cómo llegar a tu reserva?</p>
+            <p className='mt-5 text-gray-400 text-lg'>
+                Utiliza nuestro mapa virtual para conocer la ruta hacia tu destino. 
+            </p>
+            <div className="w-[750px] h-[450px] bg-black bg-opacity-60 rounded-xl flex flex-col ml-40 mt-10">
+                        <iframe
+                            title="Mappedin Map"
+                            src="https://app.mappedin.com/map/6654e029269972f02bf83dd1?embedded=true"
+                            width="100%"
+                            height="100%"
+                            frameBorder="0"
+                            style={{ border: 0 }}
+                        ></iframe>
+                        
+            </div>
         </div>
     </div>
   )
