@@ -21,12 +21,13 @@ function RequirementsChooser(
   start: number,
   end: number,
   requirements: string,
-  setRequirements: any
+  setRequirements: any,
+  matricula: string,
+  setMatricula: any,
 ) {
   const requirements_data_especifics = obtenerRequerimientosPorArea(1);
   const [numerosRequerimientos, setNumerosRequerimientos] = useState<Record<number, number>>({});
   const [user, setUser] = useState("");
-  const [matricula, setMatricula] = useState("");
 
   const handleUserChange = (e: any) => {
     setUser(e.target.value);

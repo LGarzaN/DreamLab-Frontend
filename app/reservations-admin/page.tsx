@@ -9,7 +9,8 @@ import { data } from "@/data/areas_data";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
 import Navbar from "../components/Navbar";
-import { resolve } from "path";
+import { isAdmin } from "../utils/getrole";
+
 
 function getName(id: number) {
   const area = data.find((area) => area.id === id);
@@ -34,17 +35,18 @@ function Page() {
   const [requirements, setRequirements] = useState("");
   const [scheduleId, setScheduleId] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [matricula, setMatricula] = useState("");
 
   const handleClick = async () => {
     if (page == 0) {
       setPage(page + 1);
     } else {
       setLoading(true);
-      const res = await axios.post(`/api/reservations/`, {
+      const res = await axios.post(`/api/adminreservations`, {
         schedule_id: scheduleId,
         user_requirements: "1=1,2=1",
         space_id: id,
-        user_id: 2,
+        username: matricula,
       });
 
       if (res.status === 200) {
@@ -53,6 +55,9 @@ function Page() {
         setLoading(false);
         await new Promise((resolve) => setTimeout(resolve, 2000));
         window.location.href = "/";
+      } else if (res.status === 404) {
+        toast.error("Usuario no encontrado");
+        setLoading(false);
       } else {
         setLoading(false);
         toast.error("Error al realizar la reservación");
@@ -117,7 +122,7 @@ function Page() {
             setScheduleId,
             loading
           )
-        : RequirementsChooser(date, start, end, requirements, setRequirements)}
+        : RequirementsChooser(date, start, end, requirements, setRequirements, matricula, setMatricula)}
 
       <div className="w-full justify-center">
         <Separator size="4" />
