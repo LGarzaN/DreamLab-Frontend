@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from 'react'
 import UsoEspacios from './components/UsoEspacios';
 import HorasPico from './components/HorasPicos';
@@ -7,7 +7,6 @@ import ReservasTardias from './components/ReservarTardias';
 import ReservasRealizadas from './components/ReservasRealizadas';
 import CantidadArea from './components/CantidadArea';
 import { useEffect, useState } from 'react';
-
 
 
 
@@ -47,7 +46,7 @@ interface GraficasProps {
     data2: { [key: string]: number }[];
   }
 
-  function graficas({ data1, data2 }: GraficasProps) {
+export default function Graficas({ data1, data2 }: GraficasProps) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -134,5 +133,3 @@ interface GraficasProps {
     </div>
   )
 }
-
-export default graficas
