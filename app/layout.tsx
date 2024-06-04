@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
 import { Toaster } from "react-hot-toast";
-import Navbar from "./components/Navbar";
+import { Roboto } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+});
 
 export const metadata: Metadata = {
   title: "DREAM Lab",
@@ -20,12 +22,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={roboto.className}>
         <Toaster />
         <Theme appearance="dark" accentColor="violet">
           {children}
         </Theme>
-        </body>
+      </body>
     </html>
   );
 }

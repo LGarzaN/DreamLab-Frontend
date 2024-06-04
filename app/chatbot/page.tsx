@@ -86,11 +86,11 @@ export default function Home() {
                 {playerText}
               </motion.div>
               <motion.div 
-              className="bg-[#121417] mt-24 border-[#42454A] border-2 h-[175px] w-[300px] rounded-[30px] flex justify-center px-5 py-4 items-center overflow-y-auto z-10"
+              className="bg-[#121417] mt-24 border-[#42454A] border-2 min-h-[175px] max-h-[275px] min-w-[300px] max-w-[500px] rounded-[30px] flex justify-center px-5 py-4 items-center overflow-y-auto z-10"
               initial={{opacity: 0}}
               animate={{opacity: 1}}
               transition={{duration: 1, delay: 3}}>
-                {!loading ? <TypeAnimation sequence={[npcText]} speed={75}></TypeAnimation>: <ClipLoader />}
+                {!loading ? <TypeAnimation sequence={[npcText]} speed={75}></TypeAnimation>: null}
               </motion.div>
           </div>
           <div className="h-[60%] w-full flex items-end justify-center gap-24 z-10">

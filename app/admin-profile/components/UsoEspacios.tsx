@@ -26,7 +26,7 @@ export default function UsoEspacios({data}: DataProp) {
             {
                 data.map((entry, index) => {
                     const color = barColors[index]
-                    return <Cell fill={color} />;
+                    return <Cell fill={color} key={index}/>;
                 })
             }
             </Bar>
