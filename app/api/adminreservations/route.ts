@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
 
         const data = await jwtVerify(jwt, new TextEncoder().encode(process.env.JWT_SECRET));
         
-        const res = await axios.get(`http://127.0.0.1:8000/admin/reservations`, {
+        const res = await axios.get(`https://dlbackendtws.azurewebsites.net/admin/reservations`, {
             headers: {
                 "x-api-key": process.env.API_KEY
             }
@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
             ...body,
             /*user_id: userId*/
         }
-        const res = await axios.post(`http://127.0.0.1:8000/admin/create`, newBody, {
+        const res = await axios.post(`https://dlbackendtws.azurewebsites.net/admin/create`, newBody, {
             headers: {
                 "x-api-key": process.env.API_KEY
             }

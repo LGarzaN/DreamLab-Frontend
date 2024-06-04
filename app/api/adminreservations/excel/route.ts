@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
 
         const data = await jwtVerify(jwt, new TextEncoder().encode(process.env.JWT_SECRET));
         
-        const res = await axios.get(`http://127.0.0.1:8000/admin/reservationsexcel`, {
+        const res = await axios.get(`https://dlbackendtws.azurewebsites.net/admin/reservationsexcel`, {
             headers: {
                 "x-api-key": process.env.API_KEY
             }
