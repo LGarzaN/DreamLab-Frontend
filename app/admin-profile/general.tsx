@@ -87,7 +87,7 @@ interface GraficasProps {
 
             <div className='w-[19vw] h-[17vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
             {loading ? (
-                <div>Esperando...</div>
+                <div>Cargando...</div>
                 ) : (
                 <ReservasTardias data = {[{ name: 'Group A', value: 50}, { name: 'Group B', value: 50}]}/>
                 )}
@@ -95,7 +95,7 @@ interface GraficasProps {
 
             <div className='w-[19vw] h-[17vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
             {loading ? (
-                <div>Esperando...</div>
+                <div>Cargando...</div>
                 ) : (
                 <ReservasRealizadas data ={[{ name: 'Group A', value: Number(valoresNumericos2[3]) },{ name: 'Group B', value: Number(valoresNumericos2[2]) }]}/>
                 )}
@@ -103,7 +103,7 @@ interface GraficasProps {
 
             <div className='w-[19vw] h-[17vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
             {loading ? (
-                <div>Esperando...</div>
+                <div>Cargando...</div>
                 ) : (
                 <CantidadArea data={[{ name: 'ITC', value: Number(valoresNumericos2[4]) },{ name: 'ITD', value: Number(valoresNumericos2[5]) },{ name: 'IRS', value: Number(valoresNumericos2[6]) }]}/>
                 )}
@@ -115,7 +115,7 @@ interface GraficasProps {
 
             <div className='w-[45vw] h-[47vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
             {loading ? (
-                <div>Esperando...</div>
+                <div>Cargando...</div>
                 ) : (
                 <UsoEspacios data={[{ Cantidad: Number(valoresNumericos[0]), Espacio: abreviaciones[0] },{ Cantidad: Number(valoresNumericos[1]), Espacio: abreviaciones[1] },{ Cantidad:  Number(valoresNumericos[2]), Espacio: abreviaciones[2] },{ Cantidad:  Number(valoresNumericos[3]), Espacio: abreviaciones[3] },{ Cantidad:  Number(valoresNumericos[4]), Espacio: abreviaciones[4] }]}/>
                 )}
@@ -123,7 +123,7 @@ interface GraficasProps {
 
             <div className='w-[33vw] h-[47vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
             {loading ? (
-                <div>Esperando...</div>
+                <div>Cargando...</div>
                 ) : (
                 <HorasPico data={[{ hora: 15, date: "Lun" },{ hora: 12, date: "Mar" },{ hora: 17, date: "Mie" },{ hora: 11, date: "Jue" },{ hora: 12, date: "Vie" }]}/>
                 )}

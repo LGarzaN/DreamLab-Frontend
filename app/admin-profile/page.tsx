@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Tabs, Box, Text } from "@radix-ui/themes";
 import axios from "axios";
 import Graficas from "./general";
+import Excel from "../excelprueba/page";
 
 export default function Page() {
     const [loading, setLoading] = useState(true);
@@ -152,7 +153,13 @@ export default function Page() {
 
         <section className="flex justify-center items-center mt--12">
             <div className="bg-[#16191C] w-[90vw] h-[800px] rounded-xl">
-                <h1 className="text-3xl font-bold m-8 ml-20">Estadisticas</h1>
+                <div className="flex items-center justify-between h-20">
+                    <h1 className="text-3xl font-bold m-8 ml-20">Estadisticas</h1>
+                    <div className="mr-20">
+                        <Excel/>
+                    </div>
+                    
+                </div>
 
                 <div className="hidden md:block">
                 <Tabs.Root defaultValue="general" className="flex flex-col justify-center items-center">
