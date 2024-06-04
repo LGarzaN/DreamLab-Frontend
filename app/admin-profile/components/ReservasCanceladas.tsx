@@ -1,23 +1,26 @@
-"use client"
 import React, { useEffect, useState } from 'react';
-import { PieChart, Pie, Cell, Text} from 'recharts';
-
+import { PieChart, Pie, Cell } from 'recharts';
 
 type DataProp = {
   data: {
-      name: string
-      value: number
-  }[]
-}
+    name: string;
+    value: number;
+  }[];
+};
 
-export default function ReservasCanceladas({data}: DataProp) {
-  const [isClient, setIsClient] = useState(false);
+export default function ReservasCanceladas({ data }: DataProp) {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    setIsClient(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+
+    return () => clearTimeout(timer); 
   }, []);
 
-  if (!isClient) {
-    return null; // Render nothing on the server side
+  if (loading) {
+    return <div>Esperando...</div>;
   }
 
   const COLORS = ['#605AD6', '#D9D9D9'];
@@ -31,20 +34,20 @@ export default function ReservasCanceladas({data}: DataProp) {
           {data[0].value}%
         </div>
         <div className='w-3/4'>
-        <PieChart width={100} height={100}>
-          <Pie
-            data={data}
-            dataKey={"value"}
-            innerRadius={20}
-            outerRadius={40}
-            paddingAngle={7}
-            stroke="none"
-          >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-        </PieChart>
+          <PieChart width={100} height={100}>
+            <Pie
+              data={data}
+              dataKey='value'
+              innerRadius={20}
+              outerRadius={40}
+              paddingAngle={7}
+              stroke='none'
+            >
+              {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+          </PieChart>
         </div>
       </div>
     </div>

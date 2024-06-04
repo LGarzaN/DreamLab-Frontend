@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import { ResponsiveContainer, BarChart, Bar, Cell, XAxis, YAxis, Tooltip} from 'recharts'
+import { useEffect, useState } from 'react'
 
 type DataProp = {
   data: {
@@ -10,6 +11,19 @@ type DataProp = {
 }
 
 export default function UsoEspacios({data}: DataProp) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+
+    return () => clearTimeout(timer); 
+  }, []);
+
+  if (loading) {
+    return <div>Esperando...</div>;
+  }
 
   const barColors = ["#00B1E9", "#FF0A0A", "#36C255", "#F2D53A", "#981CD2"]
 

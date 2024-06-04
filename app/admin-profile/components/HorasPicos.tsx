@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import {Line, LineChart, XAxis, YAxis, Tooltip, ResponsiveContainer} from "recharts";
+import { useEffect, useState } from 'react';
 
 
 type DataProp = {
@@ -10,6 +11,19 @@ type DataProp = {
   }[]
 }
 export default function HorasPico({data}: DataProp) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+
+    return () => clearTimeout(timer); 
+  }, []);
+
+  if (loading) {
+    return <div>Esperando...</div>;
+  }
 
   return (
     <div className='w-[40vw]'>
