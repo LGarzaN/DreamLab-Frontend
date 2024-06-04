@@ -1,16 +1,20 @@
 "use client"
 
 import Link from "next/link";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Image from "next/image";
+import { isAdmin } from "../utils/getrole";
+
 
 const Navbar = () => {
     const [show, setShow] = useState(false);
     const dragX = useMotionValue(0);
     const dragThreshold = -500; // Adjust this value based on your preference
+    const [profilePath, setProfilePath] = useState("/profile");
+    const [reservationsPath, setReservationsPath] = useState("/view-reservations");
 
     const opacity = useTransform(
         dragX,
@@ -37,6 +41,17 @@ const Navbar = () => {
             toast.error("Error al cerrar sesion");
         }
     }
+    useEffect(() => {
+        async function ad(){
+          return await isAdmin()
+        }
+        ad().then(resultado => {
+          if (resultado === true) {
+            setProfilePath("/admin-profile");
+            setReservationsPath("/admin-view-reservations");
+          }
+        });
+      }, []);
 
     return (
         <>
@@ -50,13 +65,13 @@ const Navbar = () => {
                     </div>
                     <div className="ml-12">
                         <ul className="flex flex-row gap-8 text-gray-400">
-                            <li className="hover:text-[#abaaff] transition-all"><Link href={"/view-reservations"}>Reservaciones</Link></li>
-                            <li className="hover:text-[#abaaff] transition-all"><Link href={"/info"}>Información</Link></li>
+                            <li className="hover:text-[#abaaff] transition-all"><Link href={reservationsPath}>Reservaciones</Link></li>
+                            <li className="hover:text-[#abaaff] transition-all"><Link href={"/info"}>Informacion</Link></li>
                         </ul>
                     </div>
                     <div className="ml-auto flex flex-row gap-4">
                         <button onClick={async () => {await logout()}}>Log Out</button>
-                        <Link href={"/profile"}>
+                        <Link href={profilePath}>
                             <Image src="/userdefault.svg" className="w-[45px]" alt="ProfilePicture" width={45} height={45}/>
                         </Link>
                     </div>

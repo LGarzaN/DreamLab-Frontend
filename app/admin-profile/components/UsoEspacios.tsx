@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import { ResponsiveContainer, BarChart, Bar, Cell, XAxis, YAxis, Tooltip} from 'recharts'
+import { useEffect, useState } from 'react'
 
 type DataProp = {
   data: {
@@ -19,7 +20,7 @@ export default function UsoEspacios({data}: DataProp) {
       <ResponsiveContainer width={400} height={300}>
         <BarChart data={data}>
             <XAxis dataKey="Espacio" stroke='white' padding={{ left: 10}}/>
-            <YAxis dataKey="Cantidad"  domain={[0, 50]} stroke='white' />
+            <YAxis dataKey="Cantidad"  domain={[0, 10]} stroke='white' />
             <Tooltip offset={20}/>
             <Bar dataKey="Cantidad" fill="#8884d8"  barSize={40}> 
             {

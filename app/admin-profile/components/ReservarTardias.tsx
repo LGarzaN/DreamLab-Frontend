@@ -10,14 +10,6 @@ type DataProp = {
 }
 
 export default function ReservasTardias({data}: DataProp) {
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return null; // Render nothing on the server side
-  }
 
   const COLORS = ['#2194D4', '#D9D9D9'];
 

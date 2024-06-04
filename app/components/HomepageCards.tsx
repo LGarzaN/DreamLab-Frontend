@@ -4,13 +4,17 @@ import Image from "next/image";
 import { Dialog, TextField, Button, Flex, Text } from "@radix-ui/themes";
 import Link from "next/link";
 import { data } from "@/data/areas_data";
+import { useEffect, useState } from "react";
+
 
 function HomepageCards({
   keyword,
   specificArea,
+  path
 }: {
   keyword: string;
   specificArea: string;
+  path: string;
 }) {
   const filteredData = data.filter((item) => {
     const nameMatch = item.name.toLowerCase().includes(keyword.toLowerCase());
@@ -24,6 +28,7 @@ function HomepageCards({
       return nameMatch && areaMatch;
     }
   });
+
 
   return (
     <div className="flex justify-center min-h-[80vh]">
@@ -60,24 +65,34 @@ function HomepageCards({
                   <div>{item.descripcion}</div>
                   <div className="justify-end gap-4 flex mt-4">
                     <Dialog.Close className="">
-                          <Button variant="soft" color="gray" className="hover:cursor-pointer">
-                            Cerrar
-                          </Button>
-                      </Dialog.Close>
-                      <Dialog.Close>
+                      <Button
+                        variant="soft"
+                        color="gray"
+                        className="hover:cursor-pointer"
+                      >
+                        Cerrar
+                      </Button>
+                    </Dialog.Close>
+                    <Dialog.Close>
+                      <div>
                         <Link
                           href={{
-                            pathname: "/reservations",
+                            pathname: path,
                             query: {
-                              id: item.id
+                              id: item.id,
                             },
                           }}
                         >
-                          <Button variant="soft" color="violet" className="hover:cursor-pointer">
+                          <Button
+                            variant="soft"
+                            color="violet"
+                            className="hover:cursor-pointer"
+                          >
                             Reservar ahora
                           </Button>
                         </Link>
-                      </Dialog.Close>
+                      </div>
+                    </Dialog.Close>
                   </div>
                 </div>
               </div>

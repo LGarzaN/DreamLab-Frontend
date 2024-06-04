@@ -11,14 +11,7 @@ type DataProp = {
   }
 
 export default function ReservasRealizadas({data}: DataProp) {
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
-  if (!isClient) {
-    return null; // Render nothing on the server side
-  }
 
   const COLORS = ['#65CB57', '#D9D9D9'];
 

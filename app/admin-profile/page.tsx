@@ -2,10 +2,9 @@
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { Tabs, Box, Text } from "@radix-ui/themes";
-import GeneralArea from "./general";
-import EspaciosAbiertos from "./espaciosAbiertos";
-import GarageValley from "./garagevalley";
-import ZonaXploracion from "./zonaxploracion";
+import axios from "axios";
+import Graficas from "./general";
+import Excel from "./components/Excel";
 
 export default function Page() {
     const [loading, setLoading] = useState(true);
@@ -16,6 +15,14 @@ export default function Page() {
         priority: 0,
         profile_picture: ""
     });
+    const [dataUsoEspaciosGeneral, setDataUsoEspaciosGeneral] = useState([]);
+    const [dataUsoEspaciosAbiertos, setDataUsoEspaciosAbiertos] = useState([]);
+    const [dataUsoEspaciosGarage, setDataUsoEspaciosGarage] = useState([]);
+    const [dataUsoEspaciosExploracion, setDataUsoEspaciosExploracion] = useState([]);
+    const [datosGenerales, setDatosGeneral] = useState([]);
+    const [datosAbiertos, setDatosAbiertos] = useState([]);
+    const [datosGarage, setDatosGarage] = useState([]);
+    const [datosExploracion, setDatosExploracion] = useState([]);
 
     useEffect(() => {
         const fetchProfileData = async () => {
@@ -36,6 +43,81 @@ export default function Page() {
         };
 
         fetchProfileData();
+
+        axios.get('/api/adminreservations/usoespacios_general')
+        .then((response) => {
+            setDataUsoEspaciosGeneral(response.data)
+            setLoading(false)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
+        axios.get('/api/adminreservations/datos_general')
+        .then((response) => {
+            setDatosGeneral(response.data)
+            setLoading(false)
+            
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
+        axios.get('/api/adminreservations/usoespacios_abiertos')
+        .then((response) => {
+            setDataUsoEspaciosAbiertos(response.data)
+            setLoading(false)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
+        axios.get('/api/adminreservations/datos_abiertos')
+        .then((response) => {
+            setDatosAbiertos(response.data)
+            setLoading(false)
+            
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
+        axios.get('/api/adminreservations/usoespacios_garage')
+        .then((response) => {
+            setDataUsoEspaciosGarage(response.data)
+            setLoading(false)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
+        axios.get('/api/adminreservations/datos_garage')
+        .then((response) => {
+            setDatosGarage(response.data)
+            setLoading(false)
+            
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+        axios.get('/api/adminreservations/usoespacios_exploracion')
+        .then((response) => {
+            setDataUsoEspaciosExploracion(response.data)
+            setLoading(false)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
+        axios.get('/api/adminreservations/datos_exploracion')
+        .then((response) => {
+            setDatosExploracion(response.data)
+            setLoading(false)
+            
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     }, []);
 
     return (
@@ -71,7 +153,13 @@ export default function Page() {
 
         <section className="flex justify-center items-center mt--12">
             <div className="bg-[#16191C] w-[90vw] h-[800px] rounded-xl">
-                <h1 className="text-3xl font-bold m-8 ml-20">Estadisticas</h1>
+                <div className="flex items-center justify-between h-20">
+                    <h1 className="text-3xl font-bold m-8 ml-20">Estadisticas</h1>
+                    <div className="mr-20">
+                        <Excel/>
+                    </div>
+                    
+                </div>
 
                 <div className="hidden md:block">
                 <Tabs.Root defaultValue="general" className="flex flex-col justify-center items-center">
@@ -84,19 +172,19 @@ export default function Page() {
 
                     <Box pt="3">
                         <Tabs.Content value="general">
-                        <GeneralArea/>
+                            <Graficas data1={dataUsoEspaciosGeneral} data2={datosGenerales}/>
                         </Tabs.Content>
 
                         <Tabs.Content value="abiertos">
-                        <EspaciosAbiertos/>
+                            <Graficas data1={dataUsoEspaciosAbiertos} data2={datosAbiertos}/>
                         </Tabs.Content>
 
                         <Tabs.Content value="garage">
-                        <GarageValley/>
+                            <Graficas data1={dataUsoEspaciosGarage} data2={datosGarage}/>
                         </Tabs.Content>
 
                         <Tabs.Content value="x-ploracion">
-                        <ZonaXploracion/>
+                            <Graficas data1={dataUsoEspaciosExploracion} data2={datosExploracion}/>
                         </Tabs.Content>
                     </Box>
                 </Tabs.Root>
