@@ -13,18 +13,6 @@ type DataProp = {
 export default function HorasPico({data}: DataProp) {
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-
-    return () => clearTimeout(timer); 
-  }, []);
-
-  if (loading) {
-    return <div>Esperando...</div>;
-  }
-
   return (
     <div className='w-[40vw]'>
          <h1 className='mt-4 font-light text-xl'>Horas Pico</h1>

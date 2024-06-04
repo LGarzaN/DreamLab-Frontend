@@ -10,19 +10,6 @@ type DataProp = {
 }
 
 export default function ReservasTardias({data}: DataProp) {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-
-    return () => clearTimeout(timer); 
-  }, []);
-
-  if (loading) {
-    return <div>Esperando...</div>;
-  }
 
   const COLORS = ['#2194D4', '#D9D9D9'];
 

@@ -11,18 +11,6 @@ type DataProp = {
 export default function CantidadArea({ data }: DataProp) {
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-
-    return () => clearTimeout(timer); 
-  }, []);
-
-  if (loading) {
-    return <div>Esperando...</div>;
-  }
-
   const COLORS = ['#F2933A', '#F2D53A', '#FF0A0A'];
 
   return (

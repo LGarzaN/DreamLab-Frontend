@@ -7,7 +7,8 @@ import ReservasTardias from './components/ReservarTardias';
 import ReservasRealizadas from './components/ReservasRealizadas';
 import CantidadArea from './components/CantidadArea';
 import { useEffect, useState } from 'react';
-import axios from "axios";
+
+
 
 
 interface DataGeneral {
@@ -41,43 +42,31 @@ function abreviacionesAreas(data: { [key: string]: number }[]) {
     return keys.map(elemento => abreviaciones[elemento]);
 }
 
-function general() {
-    const [dataUsoEspacios, setDataUsoEspacios] = useState([]);
-    const [datosGenerales, setDatosGeneral] = useState([]);
+interface GraficasProps {
+    data1: { [key: string]: number }[];
+    data2: { [key: string]: number }[];
+  }
+
+  function graficas({ data1, data2 }: GraficasProps) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('/api/adminreservations/usoespacios_g')
-        .then((response) => {
-            setDataUsoEspacios(response.data)
-            setLoading(false)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+        if (data1.length > 0 && data2.length > 0) {
+          setLoading(false);
+        }
+      }, [data1, data2]);
 
-        axios.get('/api/adminreservations/datos_g')
-        .then((response) => {
-            setDatosGeneral(response.data)
-            
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-
-    }, [])
-
-    const valoresNumericos = dataUsoEspacios.map(objeto => {
+    const valoresNumericos = data1.map(objeto => {
         const [clave, valor] = Object.entries(objeto)[0];
         return valor;
     });
 
-    const valoresNumericos2 = datosGenerales.map((objeto: DataGeneral) => {
+    const valoresNumericos2 = data2.map((objeto: DataGeneral) => {
         const [clave, valor] = Object.entries(objeto)[0];
         return valor;
       });
     
-    const abreviaciones = abreviacionesAreas(dataUsoEspacios);
+    const abreviaciones = abreviacionesAreas(data1);
 
   return (
     <div className='w-[80vw] h-full flex flex-col justify-around place-content-around'>
@@ -108,7 +97,7 @@ function general() {
             {loading ? (
                 <div>Esperando...</div>
                 ) : (
-                <ReservasRealizadas data ={[{ name: 'Group A', value: Number(valoresNumericos2[2]) },{ name: 'Group B', value: Number(valoresNumericos2[3]) }]}/>
+                <ReservasRealizadas data ={[{ name: 'Group A', value: Number(valoresNumericos2[3]) },{ name: 'Group B', value: Number(valoresNumericos2[2]) }]}/>
                 )}
             </div>
 
@@ -146,4 +135,4 @@ function general() {
   )
 }
 
-export default general
+export default graficas

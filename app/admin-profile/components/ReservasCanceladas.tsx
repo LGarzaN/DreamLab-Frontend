@@ -9,19 +9,6 @@ type DataProp = {
 };
 
 export default function ReservasCanceladas({ data }: DataProp) {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-
-    return () => clearTimeout(timer); 
-  }, []);
-
-  if (loading) {
-    return <div>Esperando...</div>;
-  }
 
   const COLORS = ['#605AD6', '#D9D9D9'];
 
