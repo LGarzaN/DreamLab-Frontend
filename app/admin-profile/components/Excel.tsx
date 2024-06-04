@@ -1,6 +1,6 @@
 "use client"
 import React, { useRef, useState, useEffect } from "react";
-import downloadExcelFile from "../helper/downloadExcel";
+import downloadExcelFile from "@/app/helper/downloadExcel";
 import axios from "axios";
 
 interface Reservation {

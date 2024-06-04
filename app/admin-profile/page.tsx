@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Tabs, Box, Text } from "@radix-ui/themes";
 import axios from "axios";
 import Graficas from "./general";
-import Excel from "../excelprueba/page";
+import Excel from "./components/Excel";
 
 export default function Page() {
     const [loading, setLoading] = useState(true);
