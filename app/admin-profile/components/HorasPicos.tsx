@@ -17,7 +17,7 @@ export default function HorasPico({data}: DataProp) {
     <div className='w-[40vw]'>
          <h1 className='mt-4 font-light text-xl'>Horas Pico</h1>
         <ResponsiveContainer width="90%" height={300}>
-        <LineChart data={data} className='m-6 p-1' >
+        <LineChart data={data} className='ml-2 p-1' >
             <XAxis dataKey="date" stroke='white' padding={{ left: 30, right: 30 }}/>
             <YAxis dataKey="hora"  domain={[10, 18]} stroke='white' />
             <Tooltip offset={20}/>

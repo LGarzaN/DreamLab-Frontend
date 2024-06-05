@@ -19,7 +19,7 @@ const NewsCarrousel: React.FC<props> = ({newsArray}) => {
         dots: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 2,
+        slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
@@ -42,7 +42,7 @@ const NewsCarrousel: React.FC<props> = ({newsArray}) => {
     };
     console.log(newsArray)
   return (
-    <Slider {...settings} className='w-full' dots={false}>
+    <Slider {...settings} className='w-full flex' dots={false} arrows={false}>
         {newsArray.map((news: News, index) => (
             <div key={index} className="px-10">
                 <NewsCard news={news} />
@@ -54,15 +54,22 @@ const NewsCarrousel: React.FC<props> = ({newsArray}) => {
 
 const NewsCard = ({ news }: { news: News }) => {
     return (
-        <div className="bg-white bg-opacity-10 border-gray-300  border-opacity-20 rounded pb-2">
-            <img src={news.image || "/videowall/news1.png"} className="" alt="..." />
-            <div className="">
-                <h5 className="">{news.title}</h5>
-                <p className="">{news.content}</p>
-                <p className=""><small className="text-muted">{news.date}</small></p>
+        <div className="bg-white bg-opacity-10 border-gray-300  border-opacity-20 h-[70vh] flex flex-row rounded-lg">
+            <img src={news.image || "/videowall/news1.png"} className="rounded-tr-none rounded-br-none w-[65%]" alt="..." />
+            <div className="w-[35%] py-5 px-5">
+                <p className="text-3xl text-center font-bold">{news.title}</p>
+                <p className="mb-5 text-gray-300">{formatDate(news.date)}</p>
+                <p className="text-xl">{news.content}</p>  
+                
             </div>
         </div>
     );
 }
+
+const formatDate = (date: string) => {
+    const d = new Date(date);
+    return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+}
+
 
 export default NewsCarrousel

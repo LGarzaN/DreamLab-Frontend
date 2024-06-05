@@ -69,9 +69,8 @@ export default function Graficas({ data1, data2 }: GraficasProps) {
 
   return (
     <div className='w-[80vw] h-full flex flex-col justify-around place-content-around'>
-        
-        <div className="flex md:flex-row justify-between mb-4">
-            <div className='w-[19vw] h-[17vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
+        <div className="flex md:flex-row justify-between mb-4 mt-4">
+            <div className='w-[19vw] h-[20vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
             {loading ? (
                 <div>Esperando...</div>
                 ) : (
@@ -84,7 +83,7 @@ export default function Graficas({ data1, data2 }: GraficasProps) {
                 )}
             </div>
 
-            <div className='w-[19vw] h-[17vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
+            <div className='w-[19vw] h-[20vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
             {loading ? (
                 <div>Cargando...</div>
                 ) : (
@@ -92,7 +91,7 @@ export default function Graficas({ data1, data2 }: GraficasProps) {
                 )}
             </div>
 
-            <div className='w-[19vw] h-[17vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
+            <div className='w-[19vw] h-[20vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
             {loading ? (
                 <div>Cargando...</div>
                 ) : (
@@ -100,7 +99,7 @@ export default function Graficas({ data1, data2 }: GraficasProps) {
                 )}
             </div>
 
-            <div className='w-[19vw] h-[17vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
+            <div className='w-[19vw] h-[20vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
             {loading ? (
                 <div>Cargando...</div>
                 ) : (
@@ -112,7 +111,7 @@ export default function Graficas({ data1, data2 }: GraficasProps) {
 
         <div className="flex md:flex-row justify-between mt-4">
 
-            <div className='w-[45vw] h-[47vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
+            <div className='w-[45vw] h-[50vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
             {loading ? (
                 <div>Cargando...</div>
                 ) : (
@@ -120,7 +119,7 @@ export default function Graficas({ data1, data2 }: GraficasProps) {
                 )}
             </div>
 
-            <div className='w-[33vw] h-[47vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
+            <div className='w-[33vw] h-[50vh] flex bg-[#293038] items-center justify-center text-center rounded-xl'>
             {loading ? (
                 <div>Cargando...</div>
                 ) : (

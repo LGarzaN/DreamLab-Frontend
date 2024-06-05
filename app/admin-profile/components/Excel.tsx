@@ -2,6 +2,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import downloadExcelFile from "@/app/helper/downloadExcel";
 import axios from "axios";
+import { Button } from "@radix-ui/themes";
 
 interface Reservation {
   Day: string;
@@ -42,15 +43,8 @@ export default function Excel() {
     return <h1>Cargando...</h1>; 
   }
   return (
-    <div className="">
-      <div className="">
-        <button
-          className="bg-slate-600 py-[10px] rounded-lg px-8 text-white uppercase"
-          onClick={handleExport}
-        >
-          Exportar
-        </button>
-      </div>
-    </div>
+    <Button onClick={handleExport} size={"3"} color="gray" variant="outline">
+      Exportar a Excel
+    </Button>
   );
 }

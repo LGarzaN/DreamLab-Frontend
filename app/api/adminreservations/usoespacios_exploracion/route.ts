@@ -5,7 +5,6 @@ import { jwtVerify } from 'jose'
 export async function GET(req: NextRequest) {
     try {
         const jwt = req.cookies.get("session")?.value;
-        console.log(jwt)
         if (!jwt) {
             return new Response("Unauthorized", {
                 status: 401

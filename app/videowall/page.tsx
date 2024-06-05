@@ -67,7 +67,7 @@ function Page() {
           </div>
           <div className="h-[50%] flex w-full justify-start items-center flex-col">
               <p className="text-4xl font-semibold">Noticias</p>
-              <div className="mt-10 flex flex-row gap-10 w-full h-[60vh]">
+              <div className="mt-10 flex flex-row gap-10 w-full h-[70vh]">
                 {news && <NewsCarrousel newsArray={news} />}
               </div>
           </div>

@@ -25,5 +25,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/chatbot', '/reservations', '/view-reservations', '/profile'],
+  matcher: ['/', '/chatbot', '/reservations', '/view-reservations', '/profile', '/admin-profile', '/admin-view-reservations', '/profile', ],
 }
