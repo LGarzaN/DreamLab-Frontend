@@ -44,7 +44,7 @@ const NewsCarrousel: React.FC<props> = ({newsArray}) => {
   return (
     <Slider {...settings} className='w-full flex' dots={false} arrows={false}>
         {newsArray.map((news: News, index) => (
-            <div key={index} className="px-10">
+            <div key={index} className="px-10 border-red-500 border-2">
                 <NewsCard news={news} />
             </div>
         ))}
@@ -54,13 +54,11 @@ const NewsCarrousel: React.FC<props> = ({newsArray}) => {
 
 const NewsCard = ({ news }: { news: News }) => {
     return (
-        <div className="bg-white bg-opacity-10 border-gray-300  border-opacity-20 h-[60vh] flex flex-row rounded-lg">
+        <div className="bg-white bg-opacity-10 border-gray-300  border-opacity-20 h-[100%] flex flex-row rounded-lg">
             <img src={news.image || "/videowall/news1.png"} className="rounded-tr-none rounded-br-none w-[65%]" alt="..." />
             <div className="w-[35%] py-5 px-5">
-                <p className="text-3xl text-center font-bold">{news.title}</p>
-                <p className="mb-5 text-gray-300">{formatDate(news.date)}</p>
+                <p className="text-3xl text-center font-bold mb-8">{news.title}</p>
                 <p className="text-xl">{news.content}</p>  
-                
             </div>
         </div>
     );
