@@ -81,7 +81,7 @@ function Page() {
         <div className="h-full w-[32%] ">
           <div className="w-full h-[80%] ">
             <p className="text-4xl font-semibold text-center mt-20">Espacios Disponibles</p>
-            <div className="w-full h-[90%] flex flex-row mt-10 ">
+            <div className="w-full h-[90%] flex flex-row mt-6 ">
                 <div className="w-1/2 h-full  flex flex-col">
                   <div className=" h-1/2 w-full p-10 px-20 rounded-xl">
                     <div className="w-full h-full ">
