@@ -12,6 +12,7 @@ import Secuencia from "./Secuencia"
 import Navbar from "../components/Navbar";
 import { getData } from "../utils/getrole";
 import * as ScrollArea from "@radix-ui/react-scroll-area";
+import ReactMarkdown from "react-markdown";
 
 
 export default function Home() {
@@ -29,11 +30,10 @@ export default function Home() {
   }
 
   useEffect(() => {
-    console.log("Getting thread")
     const getThread = async () => {
       try {
         const user = await getData()
-        const response = await axios.post("/api/chat", {thread_id: null, message: `Hola soy ${user.username} y mi UserId es ${user.userId}`})
+        const response = await axios.post("/api/chat", {thread_id: null, message: `Hola soy ${user.name} y mi UserId es ${user.userId}`})
         setLoading(false)
         setThread(response.data.response.thread_id)
       } catch (e) {
@@ -86,7 +86,7 @@ export default function Home() {
               transition={{duration: 1, delay: 3}}>
               <ScrollArea.Root>
                 <ScrollArea.Viewport>
-                  {!loading ? <TypeAnimation sequence={[npcText]} speed={75}></TypeAnimation>: null}
+                  {!loading ? <ReactMarkdown>{npcText}</ReactMarkdown>: null}
                 </ScrollArea.Viewport>
                 <ScrollArea.Scrollbar orientation="vertical">
                   <ScrollArea.Thumb className="w-4 border-gray-700 border-2 rounded" />
