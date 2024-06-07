@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
+import { Dialog, TextField, Button, Flex, Text } from "@radix-ui/themes";
 
 const Rectangle = ({ iconSrc, title, description }: { iconSrc: string, title: string, description: string }) => (
   <div className="bg-[#2A3038] flex rounded-lg overflow-hidden p-4">
@@ -13,7 +14,8 @@ const Rectangle = ({ iconSrc, title, description }: { iconSrc: string, title: st
 );
 
 export default function Page() {
-
+  const [showPopup, setShowPopup] = useState(false);
+  const blurStyle = showPopup ? "blur-md" : "";
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [userData, setUserData] = useState<{ username: string; name: string; priority: number, profile_picture: string}>({ 
@@ -22,6 +24,12 @@ export default function Page() {
     priority: 0,
     profile_picture: ""
   });
+  const togglePopup = async () => {
+    setShowPopup(!showPopup);
+    console.log("Popup toggled:", !showPopup);
+
+  };
+  
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -58,7 +66,7 @@ export default function Page() {
           //}}
           className="absolute inset-0 w-full max-h-[40vh] object-cover"
         />
-
+        
         <img
             //src={userData.profile_picture}
             src="/profilepic.jpeg"
@@ -67,15 +75,26 @@ export default function Page() {
             style={{ zIndex: 10 }}
             //style={{ width: "200px", height: "200px", objectFit: "cover", borderRadius: "50%", marginRight: "20px" }}
           />
+        <button className="hover:bg-opacity-75" onClick={() => {togglePopup(); console.log("Button clicked!")}}>
+          <img
+            
+            src="/pencil.svg"
+            alt=""
+            className="w-[50px] h-[50px] absolute inset-0 mt-44 ml-60"
+            style={{ zIndex: 10 }}
+            
+          />
+          </button>
+        
       </div>
 
       <div style={{ display: "flex", justifyContent: "space-between", marginTop: "320px", width: "80%"}} className="relative z-0">
         <div style={{ display: "flex", alignItems: "center" }}>
             <div>
-              <p style={{ fontSize: "34px", fontWeight: "bold", textAlign: "center", marginLeft: "150px"}}>{userData.name}</p>
+              <p style={{ fontSize: "34px", fontWeight: "bold", textAlign: "center", marginLeft: "170px"}}>{userData.name}</p>
               {/*<p style={{ fontSize: "34px", fontWeight: "bold", textAlign: "center", marginLeft: "150px"}}>Luis Garza</p>
               <p style={{ fontSize: "22px", textAlign: "left", marginLeft: "150px", fontWeight: "lighter"}}>A01252605</p>*/}
-              <p style={{ fontSize: "22px", textAlign: "left", marginLeft: "150px", fontWeight: "lighter"}}>{userData.username}</p>
+              <p style={{ fontSize: "22px", textAlign: "left", marginLeft: "170px", fontWeight: "lighter"}}>{userData.username}</p>
             </div>
         </div>
         <div style={{ textAlign: "right" }}>
@@ -123,6 +142,26 @@ export default function Page() {
           </div>
         </div>
       </div>
+
+      {showPopup && (
+          <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 flex items-center justify-center z-50">
+              <div className="bg-[#1c2223] p-8 rounded-lg relative" style={{ width: '400px', height: '200px' }}>
+                  <button onClick={togglePopup} className="absolute top-3 right-3 text-white font-bold">X</button>
+                  <h2 className="text-white mb-4 text-3xl">Cambiar foto de perfil</h2>
+                  <input type="file" accept="image/*" className="text-white mb-6" />
+                  <Button
+                    variant="soft"
+                    color="violet"
+                    className="hover:cursor-pointer"
+                    style={{ fontSize: '16px', padding: '10px 20px' }}
+                    >
+                   Subir foto
+                  </Button>
+              </div>
+          </div>
+      )}
+
+
     </div>
   );
 }
