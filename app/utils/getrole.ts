@@ -5,3 +5,9 @@ export const isAdmin = async () => {
     const data = res.data.data.payload.role
     return data == "Admin"
 }
+
+export const getData = async () => {
+    const res = await axios.get('/api/getRole')
+    const data = res.data.data.payload
+    return data
+}

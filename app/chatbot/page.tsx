@@ -4,29 +4,23 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { TypeAnimation } from "react-type-animation";
 import { ClipLoader } from "react-spinners";
-import Cookies from 'js-cookie'
 import { Button, TextFieldInput, TextFieldRoot, TextFieldSlot } from "@radix-ui/themes";
 import Link from "next/link";
-import lottie from "lottie-react"
 import Lottie from "lottie-react";
-
-import Run from "./Run.json"
 import BotAnim from "./BotAnim.json"
-import Wave from "./Wave.json"
 import Secuencia from "./Secuencia"
-import Image from "next/image";
 import Navbar from "../components/Navbar";
+import { getData } from "../utils/getrole";
+import * as ScrollArea from "@radix-ui/react-scroll-area";
 
 
 export default function Home() {
   const [npcText, setNpcText] = useState("¿Hola!, ¿Cómo te puedo ayudar?")
   const [playerText, setPlayerText] = useState("")
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [room, setRoom] = useState("recep")
-  const [id, setId] = useState("1")
+  const [thread, setThread] = useState(null)
   const [interactions, setInteractions] = useState(0)
-
-  
 
   const handleKeyPress = (e: any) => {
     if (e.key === 'Enter') {
@@ -35,40 +29,40 @@ export default function Home() {
   }
 
   useEffect(() => {
-    const token = Cookies.get("id")
-    setId(token ?? "1")
-    console.log(token)
+    console.log("Getting thread")
+    const getThread = async () => {
+      try {
+        const user = await getData()
+        const response = await axios.post("/api/chat", {thread_id: null, message: `Hola soy ${user.username} y mi UserId es ${user.userId}`})
+        setLoading(false)
+        setThread(response.data.response.thread_id)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    if (thread === null) {
+      getThread()
+    } else {
+      setLoading(false)
+    }
   }, [])
 
   const handleSend = async () => {
     setLoading(true)
     try {
+      console.log("Sending message")
       const response = await axios.post("/api/chat", {
-        playerText: playerText,
-        id: id
+        thread_id: thread,
+        message: playerText
       })
-      const room = checkForRoom(response.data.npcText.response)
-      if (room) {
-        setRoom(room)
-        response.data.npcText.response = response.data.npcText.response.split("$$")[2]
-        console.log(response.data.npcText.response)
-      }
+      console.log("NPC response", response.data.response)
       setPlayerText("")
       setInteractions(interactions + 1)
-      setNpcText(response.data.npcText.response)
+      setNpcText(response.data.response.response)
       setLoading(false)
     } catch (e) {
       console.log(e)
       setLoading(false)
-    }
-  }
-
-  
-
-  const checkForRoom = (text: string) => {
-    if (text && text.includes("$$")) {
-      const char = text.split("$$")[1]
-      return char
     }
   }
 
@@ -86,11 +80,18 @@ export default function Home() {
                 {playerText}
               </motion.div>
               <motion.div 
-              className="bg-[#121417] mt-24 border-[#42454A] border-2 min-h-[175px] max-h-[275px] min-w-[300px] max-w-[500px] rounded-[30px] flex justify-center px-5 py-4 items-center overflow-y-auto z-10"
+              className="bg-[#121417] mt-24 border-[#42454A] border-2 min-h-[175px] max-h-[250px] min-w-[300px] max-w-[450px] rounded-[30px] flex justify-center px-5 py-4 items-center overflow-y-auto z-10"
               initial={{opacity: 0}}
               animate={{opacity: 1}}
               transition={{duration: 1, delay: 3}}>
-                {!loading ? <TypeAnimation sequence={[npcText]} speed={75}></TypeAnimation>: null}
+              <ScrollArea.Root>
+                <ScrollArea.Viewport>
+                  {!loading ? <TypeAnimation sequence={[npcText]} speed={75}></TypeAnimation>: null}
+                </ScrollArea.Viewport>
+                <ScrollArea.Scrollbar orientation="vertical">
+                  <ScrollArea.Thumb className="w-4 border-gray-700 border-2 rounded" />
+                </ScrollArea.Scrollbar>
+              </ScrollArea.Root>
               </motion.div>
           </div>
           <div className="h-[60%] w-full flex items-end justify-center gap-24 z-10">

@@ -1,23 +1,22 @@
 
 export async function POST(req: Request) {
-    console.log("POST request received")
     try {
         const body = await req.json()
-        const playerText = body.playerText
-        const id = body.id
-        const promptResponse = await fetch("https://dlbackendtws.azurewebsites.net/chat", {
+        const playerText = body.message
+        const id = body.thread_id
+        const promptResponse = await fetch("https://dlchatbot2.azurewebsites.net/chat/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                "session_id": id,
-                "prompt": playerText
+                "thread_id": id,
+                "message": playerText
             })
         })
-        const npcText = await promptResponse.json()
+        const response = await promptResponse.json()
         return new Response(JSON.stringify({
-            npcText: npcText
+            response
         }), {
             headers: {
                 "Content-Type": "application/json"
