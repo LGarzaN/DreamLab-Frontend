@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
             }
         });
 
-    } catch (e) {
+    } catch (e: any) {
         console.error(e);
         
         const status = e.response?.status || 500;
