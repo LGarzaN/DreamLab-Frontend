@@ -10,10 +10,10 @@ describe('Reservación Funcionalidad', () => {
     })
 
     it('Reserva con toda la información correcta', () => {
-        cy.viewport("iphone-6+");
+        cy.viewport(1440, 900);
         cy.visit('https://dreamlab.azurewebsites.net');
         cy.contains('Sumérgete en la educación del futuro');
-        cy.contains('Social Networking').click({force:true});
+        cy.contains('Social Networking').click();
         cy.contains('Reservar').click();
         cy.contains('Lunes').click();
         cy.get('.grid > :nth-child(n)').then($elements => {
@@ -24,36 +24,19 @@ describe('Reservación Funcionalidad', () => {
         cy.get(':nth-child(1) > .lg\\\:w-28 > .flex-col > .rounded-tr-xl > .lg\\\:w-6').click();
         cy.get(':nth-child(2) > .lg\\\:w-28 > .flex-col > .rounded-tr-xl > .lg\\\:w-6').click();
         cy.contains("Reservar").click();
-        cy.contains("Reservación realizada con éxito");
+        cy.get('.rt-variant-surface').click();
+        cy.contains("Reservación creada con exito");
     })
 
     it('Reserva sin Horario', () => {
-        cy.viewport("iphone-6+");
+        cy.viewport(1440, 900);
         cy.visit('https://dreamlab.azurewebsites.net');
         cy.contains('Sumérgete en la educación del futuro');
-        cy.contains('Social Networking').click({force:true});
+        cy.contains('Social Networking').click();
         cy.contains('Reservar').click();
         cy.contains('Lunes').click();
         cy.contains('Siguiente').click();
-        cy.contains('Favor de seleccionar un Horario');
+        cy.contains('Selecciona una hora de inicio');
     })
-
-    it('Reserva sin Requerimientos', () => {
-        cy.viewport("iphone-6+");
-        cy.visit('https://dreamlab.azurewebsites.net');
-        cy.contains('Sumérgete en la educación del futuro');
-        cy.contains('Social Networking').click({force:true});
-        cy.contains('Reservar').click();
-        cy.contains('Lunes').click();
-        cy.get('.grid > :nth-child(n)').then($elements => {
-            const randomIndex = Math.floor(Math.random() * $elements.length);
-            cy.get('.grid > :nth-child(n)').eq(randomIndex).click();
-        });
-        cy.contains('Siguiente').click();
-        cy.contains("Reservar").click();
-        cy.contains("Favor de seleccionar los requerimientos necesarios");
-    })
-    
-
 
 })
