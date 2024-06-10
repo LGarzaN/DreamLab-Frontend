@@ -25,9 +25,7 @@ export async function GET(req: NextRequest) {
             }
         });
 
-        const { reservations, studyHours, exploredAreas } = statsResponse.data;
-
-        return new Response(JSON.stringify({ reservations, studyHours, exploredAreas }), {
+        return new Response(JSON.stringify(statsResponse.data), {
             status: 200,
             headers: {
                 "Content-Type": "application/json"
