@@ -20,6 +20,7 @@ export async function GET(req: NextRequest) {
         });
 
         const reservations = res.data;
+        console.log("reservations", reservations)
         return new Response(JSON.stringify(reservations), {
             headers: {
                 "Content-Type": "application/json"

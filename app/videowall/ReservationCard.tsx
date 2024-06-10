@@ -2,7 +2,7 @@ import React from 'react'
 import { data } from "@/data/areas_data";
 
 interface Reservation {
-    Username: string;
+    Matricula: string;
     Day: string;
     StartHour: string;
     EndHour: string;
@@ -11,6 +11,9 @@ interface Reservation {
     RequirementsId: string;
     RequirementsQuantity: string;
     GroupCode: string;
+    Name: string;
+    UserId: string;
+    Fecha: [string];
 }
 
 interface props {
@@ -34,7 +37,7 @@ export default function ReservationCard({ reservation }: props) {
                 <p className='text-white text-3xl font-semibold'>{reservation.SpaceName}</p>
             </div>
             <div className='mt-10'>
-                <p className='text-white text-3xl font-semibold mb-2'>{reservation.Username}</p>
+                <p className='text-white text-3xl font-semibold mb-2'>{reservation.Name}</p>
                 <p className='text-white text-3xl'>{reservation.StartHour} - {reservation.EndHour}</p>
             </div>
             

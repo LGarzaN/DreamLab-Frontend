@@ -2,15 +2,28 @@
 import React, { useEffect, useState } from "react";
 import Videowall_bar from "../components/Videowall_bar";
 import axios from "axios";
-import ReservationCard from "./ReservationCard";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import ReservationCarousel from './Carousel';
 import NewsCarrousel from "./News";
+import { data } from "@/data/areas_data";
+import Slider from "react-slick";
+
+function getName(id: number) {
+  const area = data.find((area) => area.id === id);
+  return area ? area.name : null;
+}
+
+function getImage(id: number) {
+  const area = data.find((area) => area.id === id);
+  return area ? area.image : null;
+}
 
 function Page() {
   const [reservations, setReservations] = useState([]);
   const [news, setNews] = useState([]);
+  const [availableSpaces, setAvailableSpaces] = useState([]);
+  const [bigSpace, setSpace] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,15 +47,39 @@ function Page() {
         console.log(e);
       }
     }
+
+    const fetchAvailableSpaces = async () => {
+      try {
+        const res = await axios.get("/api/reservations/available");
+        const data = res.data;
+        setSpace(data.shift());
+        setAvailableSpaces(data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
     fetchData();
     fetchNews();
+    fetchAvailableSpaces();
   }, []);
 
-  useEffect(() => {
-    if (reservations.length > 4) {
-      setReservations(reservations.slice(0, 4));
-    }
-  }, [reservations]);
+  // useEffect(() => {
+  //   if (reservations.length > 4) {
+  //     setReservations(reservations.slice(0, 4));
+  //   }
+  // }, [reservations]);
+
+  const settings = {
+      dots: false,
+      infinite: true,
+      vertical: true,
+      speed: 5000,
+      slidesToShow: 2,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 4990, // Adjust the autoplay speed for smoother effect
+      cssEase: 'linear', 
+  };
 
   return (
     <div className="w-[3840px] relative h-[1080px] bg-gradient-to-t from-[#010135] to-[#00001C] flex justify-center items-center">
@@ -81,37 +118,34 @@ function Page() {
         <div className="h-full w-[32%] ">
           <div className="w-full h-[80%] ">
             <p className="text-4xl font-semibold text-center mt-20">Espacios Disponibles</p>
+            {availableSpaces && availableSpaces.length > 0 && bigSpace && (
             <div className="w-full h-[90%] flex flex-row mt-6 ">
-                <div className="w-1/2 h-full  flex flex-col">
-                  <div className=" h-1/2 w-full p-10 px-20 rounded-xl">
-                    <div className="w-full h-full ">
-                      <img src="/Lego Room.png" alt="" className="h-[80%] w-full object-cover rounded-xl "/>
-                      <div className="w-full h-[20%] pt-5 flex flex-row justify-between px-3 ">
-                        <p className="text-4xl font-semibold">Lego Room </p>
-                        <p className="text-red-400 text-4xl font-semibold">11/12</p>
+              <div className="w-1/2 h-full pt-10">
+                <Slider {...settings} arrows={false} dots={false} className="h-full">
+                  {availableSpaces.map((space, index) => (
+                    <div key={index} className="w-full h-1/2 flex flex-col px-5 mb-10">
+                      <div className="h-1/2 w-full">
+                        <img src={getImage(space["SpaceId"]) ?? ""} className="h-[300px] w-full object-cover rounded-xl"/>
+                      </div>
+                      <div className="w-full flex flex-row justify-between mt-4">
+                        <p className="text-2xl font-semibold text-center">{getName(space["SpaceId"])}</p>
+                        <p className={`text-2xl font-semibold text-center ${space["Reservations"] >= 3 ? "text-red-300": "text-green-400"}`}>{space["Reservations"]}/5</p>
                       </div>
                     </div>
-                  </div>
-                  <div className=" h-1/2 w-full p-10 px-20 ">
-                    <div className="w-full">
-                      <img src="/areas/graveyard.jpeg" alt="" className="h-[80%] w-full object-cover rounded-xl"/>
-                      <div className="w-full h-[20%] pt-5 flex flex-row justify-between px-3 ">
-                        <p className="text-4xl font-semibold">Graveyard</p>
-                        <p className="text-green-400 text-4xl font-semibold">1/4</p>
-                      </div>
-                    </div>
-                  </div>
+                    ))}
+                  </Slider>
                 </div>
                 <div className="w-1/2 h-full p-10 px-20">
                   <div className="w-full h-full ">
-                    <img src="/areas/deep_net.jpeg" alt="" className="h-[80%] w-full object-cover rounded-xl"/>
+                    <img src={getImage(bigSpace["SpaceId"] ?? 0) || ""} alt="" className="h-[80%] w-full object-cover rounded-xl"/>
                     <div className="w-full h-[20%] pt-5 flex flex-row justify-between px-3">
-                      <p className="text-4xl font-semibold ">Deep Net</p>
-                      <p className="text-orange-400 text-4xl font-semibold">6/10</p>
+                      <p className="text-2xl font-semibold ">{getName(bigSpace["SpaceId"] ?? 0)}</p>
+                      <p className={`text-2xl font-semibold ${bigSpace["Reservations"] >= 3 ? "text-red-300": "text-green-400"}`}>{bigSpace["Reservations"]}/5</p>
                     </div>
                   </div>
               </div>
             </div>
+            )}
           </div>
         </div>
       </div>

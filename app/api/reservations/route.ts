@@ -7,8 +7,7 @@ export async function GET(req: NextRequest) {
     try {
         //check if the request came from the /videowall page
         if (req.headers.get("source") && req.headers.get("source") === "videowall") {
-            console.log("videowall")
-            return new Response(JSON.stringify(vwreservations), {
+            return new Response(JSON.stringify(res2), {
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -179,3 +178,54 @@ const vwreservations = [
         GroupCode: '5ee4e77'
     },
 ]
+
+const res2 = [
+    {
+      Day: '2024-06-10',
+      StartHour: '18:00',
+      EndHour: '19:00',
+      SpaceName: 'Deep Net',
+      SpaceId: 6,
+      GroupCode: 'bf49352',
+      Name: 'Luis Garza',
+      Matricula: 'A01721881',
+      UserId: 2,
+      Fecha: [ '10 de Junio 2024' ]
+    },
+    {
+        Day: '2024-06-10',
+        StartHour: '18:00',
+        EndHour: '19:00',
+        SpaceName: 'Deep Net',
+        SpaceId: 6,
+        GroupCode: 'bf49352',
+        Name: 'Luis Garza',
+        Matricula: 'A01721881',
+        UserId: 2,
+        Fecha: [ '10 de Junio 2024' ]
+      },
+      {
+        Day: '2024-06-10',
+        StartHour: '18:00',
+        EndHour: '19:00',
+        SpaceName: 'Deep Net',
+        SpaceId: 6,
+        GroupCode: 'bf49352',
+        Name: 'Luis Garza',
+        Matricula: 'A01721881',
+        UserId: 2,
+        Fecha: [ '10 de Junio 2024' ]
+      },
+      {
+        Day: '2024-06-10',
+        StartHour: '18:00',
+        EndHour: '19:00',
+        SpaceName: 'Deep Net',
+        SpaceId: 6,
+        GroupCode: 'bf49352',
+        Name: 'Luis Garza',
+        Matricula: 'A01721881',
+        UserId: 2,
+        Fecha: [ '10 de Junio 2024' ]
+      }
+  ]

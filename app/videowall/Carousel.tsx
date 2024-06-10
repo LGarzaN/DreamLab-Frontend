@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import ReservationCard from './ReservationCard';
 
 interface Reservation {
-    Username: string;
+    Matricula: string;
     Day: string;
     StartHour: string;
     EndHour: string;
@@ -12,6 +12,9 @@ interface Reservation {
     RequirementsId: string;
     RequirementsQuantity: string;
     GroupCode: string;
+    Name: string;
+    UserId: string;
+    Fecha: [string];
 }
 
 interface CarouselProps {
@@ -19,6 +22,7 @@ interface CarouselProps {
 }
 
 const ReservationCarousel: React.FC<CarouselProps> = ({ reservations }) => {
+    console.log("reservations", reservations);
     const settings = {
         dots: true,
         infinite: true,
@@ -48,7 +52,7 @@ const ReservationCarousel: React.FC<CarouselProps> = ({ reservations }) => {
     return (
         <Slider {...settings} arrows={false} dots={false}>
             {reservations.map((reservation, index) => (
-                <div key={index} className="px-2 ">
+                <div key={index} className="px-2"> 
                     <ReservationCard reservation={reservation} />
                 </div>
             ))}
