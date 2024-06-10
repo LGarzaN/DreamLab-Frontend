@@ -6,6 +6,7 @@ import { requirements_data, requirements_area } from "@/data/requirements_data";
 import axios from "axios";
 import { Dialog, TextField, Button, Flex, Text, AlertDialogCancel } from "@radix-ui/themes";
 import toast from "react-hot-toast";
+import { ClipLoader } from "react-spinners";
 
 interface Reservation {
   Day: string;
@@ -184,7 +185,9 @@ export default function Page() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (<div className="w-[100vw] h-[100vh] flex justify-center items-center">
+      <ClipLoader color="#ffffff" loading={loading} size={75} />
+    </div>);
   }
 
   if (error) {
@@ -200,12 +203,12 @@ export default function Page() {
         <img
           src="/techimg.png"
           alt="Tech Image"
-          className="absolute inset-0 w-full max-h-[40vh] object-cover"
+          className="absolute inset-0 w-full max-h-[30vh] object-cover"
         />
         <img
           src={userData.profile_picture || "/profilepic.jpeg"}
           alt="Profile Picture"
-          className="w-[200px] h-[200px] rounded-full absolute inset-0 mt-48 ml-24"
+          className="w-[200px] h-[200px] rounded-full absolute inset-0 mt-28 ml-24"
           style={{ zIndex: 10 }}
         />
         <Dialog.Root>
@@ -214,7 +217,7 @@ export default function Page() {
 
             src="/pencil.png"
             alt=""
-            className="w-[40px] h-[40px] absolute inset-0 mt-52 ml-64"
+            className="w-[40px] h-[40px] absolute inset-0 mt-32 ml-64"
             style={{ zIndex: 10 }}
           />
           </Dialog.Trigger>
@@ -259,7 +262,7 @@ export default function Page() {
         </Dialog.Root>
       </div>
 
-      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "280px", width: "80%"}} className="relative z-0">
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "230px", width: "80%"}} className="relative z-0">
         <div style={{ display: "flex", alignItems: "center" }}>
           <div className="mb-16 ml-4">
             <p style={{ fontSize: "34px", fontWeight: "bold", textAlign: "center", marginLeft: "150px"}}>{userData.name}</p>
@@ -271,7 +274,7 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="flex justify-center mt-4 w-full">
+      <div className="flex justify-center mb-10 w-full">
         <div className="bg-[#16191C] text-white p-6 rounded-lg mx-4 w-[45%]" style={{ textAlign: "center" }}>
           <h3 className="text-3xl font-bold mb-4">Próxima Reservación</h3>
           {reservationData ? (
