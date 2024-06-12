@@ -114,9 +114,9 @@ export default function Page() {
             )}
         </div>
         {visiblePastReservations < pastReservations.length && (
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center mt-1">
                 <button 
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition"
+                    className="px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full hover:bg-gradient-to-l transition"
                     onClick={handleShowMore}
                 >
                     Mostrar Más
