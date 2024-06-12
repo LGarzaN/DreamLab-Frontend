@@ -16,7 +16,7 @@ interface Reservation {
     SpaceId: number,
     RequirementsId: string,
     RequirementsQuantity: string,
-    GroupCode: string
+    GroupCode: string,
     PendingReservationId: number
 }
 
@@ -104,7 +104,7 @@ export default function Page() {
         <div className="md:h-[70vh] grid grid-cols-1 md:grid-cols-3 md:grid-rows-auto gap-4 px-5 py-8 gap-y-14">
             {!loading && pastReservations.length > 0 ? (
                 pastReservations.slice(0, visiblePastReservations).map((reservation: Reservation, index) => {
-                    return ReservationCard(index, reservation);
+                    return ReservationCard(index, reservation, false, true);
                 })
             ) : null}
             {!loading && pastReservations.length === 0 && (
@@ -126,7 +126,7 @@ export default function Page() {
     </div>)
 }
 
-function ReservationCard(index: number, reservation: Reservation, pending: boolean = false) {
+function ReservationCard(index: number, reservation: Reservation, pending: boolean = false, pastReservation: boolean = false) {
     function getImage(id: number) {
         const area = data.find((area) => area.id === id);
         return area ? area.image : "/areas/social_network.jpeg";
@@ -174,17 +174,19 @@ function ReservationCard(index: number, reservation: Reservation, pending: boole
         <AlertDialog.Trigger>
             <div className="w-full md:w-[33vw] h-[25vh] flex flex-row cursor-pointer group">
                 <div className="w-[60%] justify-center items-center flex relative group-hover:opacity-85 transition-all">
-                    <div className={`z-20 ${pending ? "bg-gray-500" : "bg-green-600"} gap-x-1 w-full md:w-[45%] h-[20%] top-0 rounded-t-lg md:rounded-none md:rounded-r md:top-4 left-0 absolute justify-center items-center flex md:shadow-[2px_5px_13px_-8px_#cbd5e0]`}>
-                        <div>
-                            {pending ? 
-                            <img src="/pending.svg" className="w-6 h-6"/>
-                            : 
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>}
+                    {!pastReservation && (
+                        <div className={`z-20 ${pending ? "bg-gray-500" : "bg-green-600"} gap-x-1 w-full md:w-[45%] h-[20%] top-0 rounded-t-lg md:rounded-none md:rounded-r md:top-4 left-0 absolute justify-center items-center flex md:shadow-[2px_5px_13px_-8px_#cbd5e0]`}>
+                            <div>
+                                {pending ? 
+                                <img src="/pending.svg" className="w-6 h-6"/>
+                                : 
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>}
+                            </div>
+                            {pending ? "Pendiente": "Confirmada"}
                         </div>
-                        {pending ? "Pendiente": "Confirmada"}
-                    </div>
+                    )}
                     <img src={getImage(reservation.SpaceId)} className="rounded-lg z-0 h-full w-full" alt="Space Image"/>
                 </div>
                 <div className="w-[40%] px-6">
