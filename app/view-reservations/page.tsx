@@ -23,7 +23,9 @@ interface Reservation {
 export default function Page() {
     const [reservations, setReservations] = useState([]);
     const [pendingReservations, setPendingReservations] = useState([]);
+    const [pastReservations, setPastReservations] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [visiblePastReservations, setVisiblePastReservations] = useState(6);
 
     useEffect(() => {
         axios.get('/api/reservations')
@@ -36,6 +38,7 @@ export default function Page() {
             console.log(error)
             setLoading(false)
         })
+
         axios.get('/api/reservations/pending')
         .then((response) => {
             setPendingReservations(response.data)
@@ -46,7 +49,23 @@ export default function Page() {
             console.log(error)
             setLoading(false)
         })
+
+        axios.get('/api/reservations/historial')
+        .then((response) => {
+            setPastReservations(response.data)
+            // setPendingReservations(response.data)
+            setLoading(false);
+        })
+        .catch((error) => {
+            console.log(error)
+            setLoading(false)
+        })
     }, [])
+
+    const handleShowMore = () => {
+        setVisiblePastReservations((prevCount) => prevCount + 6);
+    };
+
     return (
     <div className="h-screen">
         <Navbar />
@@ -77,8 +96,33 @@ export default function Page() {
             <ClipLoader size={60} color="white" />
         </div>
     )}
-</div>
-
+        </div>
+        <div className="px-5">
+            <hr className="my-8" />
+            <h2 className="text-3xl font-bold">Reservaciones Pasadas</h2>
+        </div>
+        <div className="md:h-[70vh] grid grid-cols-1 md:grid-cols-3 md:grid-rows-auto gap-4 px-5 py-8 gap-y-14">
+            {!loading && pastReservations.length > 0 ? (
+                pastReservations.slice(0, visiblePastReservations).map((reservation: Reservation, index) => {
+                    return ReservationCard(index, reservation);
+                })
+            ) : null}
+            {!loading && pastReservations.length === 0 && (
+                <div className="flex w-[97vw] h-[63vh] justify-center items-center">
+                    <p className="text-2xl font-bold">Sin reservaciones pasadas</p>
+                </div>
+            )}
+        </div>
+        {visiblePastReservations < pastReservations.length && (
+            <div className="flex justify-center mt-4">
+                <button 
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition"
+                    onClick={handleShowMore}
+                >
+                    Mostrar Más
+                </button>
+            </div>
+        )}
     </div>)
 }
 
@@ -212,16 +256,16 @@ const formatSpanishDate = (dateString: string) => {
   function convertTo12HourFormat(time24: string) {
     // Split the input time into hours and minutes
     let [hours, minutes] = time24.split(':').map(Number);
-  
+
     // Determine AM or PM
     const period = hours >= 12 ? 'PM' : 'AM';
-  
+
     // Convert hours from 24-hour to 12-hour format
     hours = hours % 12 || 12;
-  
+
     // Pad minutes with leading zero if necessary
     const minutes_string = minutes.toString().padStart(2, '0');
-  
+
     // Return the formatted time
     return `${hours}:${minutes_string} ${period}`;
   }
