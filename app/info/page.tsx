@@ -43,7 +43,7 @@ const Page = () => {
                     Evitar abusos
                 </div>
             </div>
-            <p className='text-2xl font-semibold mt-10'>Nivel de Prioridad? Que es eso?</p>
+            <p className='text-2xl font-semibold mt-10'>¿Nivel de Prioridad? Que es eso?</p>
             <p className='mt-5 text-gray-400 text-lg'>
                 El nivel de prioridad es un sistema que el DREAM Lab utiliza para asignar reservaciones. Los niveles de prioridad
                 son asignados por el DREAM Lab y estan basados en diversos factores, como tu semestre, tu carrera, y tu historial de

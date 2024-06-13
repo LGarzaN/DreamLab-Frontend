@@ -304,7 +304,7 @@ export default function Page() {
                         <Tabs.Trigger value="general">General</Tabs.Trigger>
                         <Tabs.Trigger value="abiertos">Espacios Abiertos</Tabs.Trigger>
                         <Tabs.Trigger value="garage">Garage valley</Tabs.Trigger>
-                        <Tabs.Trigger value="x-ploracion">Zona de X-ploracion</Tabs.Trigger>
+                        <Tabs.Trigger value="x-ploracion">Zona de X-ploración</Tabs.Trigger>
                     </Tabs.List>
 
                     <Box pt="3">

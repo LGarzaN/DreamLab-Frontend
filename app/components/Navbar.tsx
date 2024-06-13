@@ -7,6 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import { isAdmin } from "../utils/getrole";
+import Cookies from "js-cookie";
 
 
 const Navbar = () => {
@@ -15,6 +16,8 @@ const Navbar = () => {
     const dragThreshold = -500; // Adjust this value based on your preference
     const [profilePath, setProfilePath] = useState("/profile");
     const [reservationsPath, setReservationsPath] = useState("/view-reservations");
+    const [profilePicture, setProfilePicture] = useState("/userdefault.svg");
+    const [hasFetchedProfilePicture, setHasFetchedProfilePicture] = useState(false);
 
     const opacity = useTransform(
         dragX,
@@ -51,7 +54,39 @@ const Navbar = () => {
             setReservationsPath("/admin-view-reservations");
           }
         });
-      }, []);
+
+        const fetchProfilePicture = async () => {
+            if (Cookies.get('profilePicture')) {
+              setProfilePicture(Cookies.get('profilePicture')!);
+              setHasFetchedProfilePicture(true);
+              return;
+            }
+            try {
+                console.log("Fetching profile picture");
+              const response = await axios.get('/api/profile-picture');
+              if (response.status === 200) {
+                const data = response.data;
+                if (typeof data === 'string') {
+                  const url = decodeURIComponent(data);
+                  Cookies.set('profilePicture', url);
+                  setProfilePicture(url);
+                  setHasFetchedProfilePicture(true);
+                } else {
+                  throw new Error('Invalid data format');
+                }
+              } else {
+                throw new Error('Failed to fetch profile picture');
+              }
+            } catch (error) {
+              console.error(error);
+            }
+          };
+      
+          if (!hasFetchedProfilePicture) {
+            fetchProfilePicture();
+          }
+          
+      }, [hasFetchedProfilePicture]);
 
     return (
         <>
@@ -66,13 +101,13 @@ const Navbar = () => {
                     <div className="ml-12">
                         <ul className="flex flex-row gap-8 text-gray-400">
                             <li className="hover:text-[#abaaff] transition-all"><Link href={reservationsPath}>Reservaciones</Link></li>
-                            <li className="hover:text-[#abaaff] transition-all"><Link href={"/info"}>Informacion</Link></li>
+                            <li className="hover:text-[#abaaff] transition-all"><Link href={"/info"}>Información</Link></li>
                         </ul>
                     </div>
                     <div className="ml-auto flex flex-row gap-4">
-                        <button onClick={async () => {await logout()}}>Log Out</button>
+                        <button className="text-gray-300" onClick={async () => {await logout()}}>Cerrar Sesión</button>
                         <Link href={profilePath}>
-                            <Image src="/userdefault.svg" className="w-[45px]" alt="ProfilePicture" width={45} height={45}/>
+                            <Image src={profilePicture} className="w-[50px] rounded-full" alt="ProfilePicture" width={45} height={45}/>
                         </Link>
                     </div>
                 </div>
@@ -108,8 +143,8 @@ const Navbar = () => {
                         <ul className="flex flex-col gap-8 w-full text-lg">
                             <li className="hover:text-[#abaaff] transition-all"><Link href={"/"}>Inicio</Link></li>
                             <li className="hover:text-[#abaaff] transition-all"><Link href={"/view-reservations"}>Reservaciones</Link></li>
-                            <li className="hover:text-[#abaaff] transition-all"><Link href={"/info"}>Informacion</Link></li>
-                            <li className="hover:text-[#abaaff] transition-all"><Link href={"/info"}>Cerrar Sesion</Link></li>
+                            <li className="hover:text-[#abaaff] transition-all"><Link href={"/info"}>Información</Link></li>
+                            <li className="hover:text-[#abaaff] transition-all"><button onClick={async () => {await logout()}}>Cerrar Sesión</button></li>
                         </ul>
                     </div>
                     <div className="w-full flex justify-center h-[15%] items-center">
