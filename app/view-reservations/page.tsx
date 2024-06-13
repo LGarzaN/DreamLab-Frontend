@@ -26,6 +26,7 @@ export default function Page() {
     const [pastReservations, setPastReservations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [visiblePastReservations, setVisiblePastReservations] = useState(6);
+    const [buttonVisible, setButtonVisible] = useState(true);
 
     useEffect(() => {
         axios.get('/api/reservations')
@@ -64,10 +65,11 @@ export default function Page() {
 
     const handleShowMore = () => {
         setVisiblePastReservations((prevCount) => prevCount + 6);
+        setButtonVisible(false);
     };
 
     return (
-    <div className="h-screen">
+    <div className="h-screen overflow-x-hidden">
         <Navbar />
         <div className="relative w-full">
             <img src="/viewReservations.png" alt="View Reservations" className="w-full h-[20vh] md:h-[30vh] lg:h-[30vh] object-cover brightness-75" />
@@ -75,7 +77,7 @@ export default function Page() {
                 <h1 className="text-4xl lg:text-5xl text-white z-10 pl-10 md:pl-20 mt-10">Mis Reservaciones</h1>
             </div>
         </div>
-        <div className="md:h-[70vh] grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 px-5 py-8 gap-y-14">
+        <div className="md:h-[70vh] grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 px-5 py-8 gap-y-14 mb-10">
     {!loading && reservations.length > 0 ? (
         reservations.map((reservation: Reservation, index) => {
             return ReservationCard(index, reservation);
@@ -113,7 +115,7 @@ export default function Page() {
                 </div>
             )}
         </div>
-        {visiblePastReservations < pastReservations.length && (
+        {visiblePastReservations < pastReservations.length && buttonVisible && (
             <div className="flex justify-center mt-1">
                 <button 
                     className="px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full hover:bg-gradient-to-l transition"

@@ -134,7 +134,7 @@ export const data = [
     image: "/areas/beyon_digits.jpeg",
     alt: "Beyon-Digits",
     area: "Zona de X-Ploración",
-    link: "/beyon-digits",
+    link: "/beyond-digits",
     descripcion:
       "Ambiente tecnológico con videowalls para visualización y trabajo colaborativo en proyectos digitales.",
     id: 14,

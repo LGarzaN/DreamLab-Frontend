@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
                 "Content-Type": "application/json"
             }
         });
-    } catch (e) {
+    } catch (e: any) {
         console.error(e);
         if (e.response && e.response.status === 401) {
             return new Response("Unauthorized", {

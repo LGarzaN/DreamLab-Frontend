@@ -275,7 +275,7 @@ export default function Page() {
       </div>
 
       <div className="flex justify-center mb-10 w-full">
-        <div className="bg-[#16191C] text-white p-6 rounded-lg mx-4 w-[45%]" style={{ textAlign: "center" }}>
+        <div className="bg-[#16191C] text-white p-6 rounded-lg mx-4 w-[55%]" style={{ textAlign: "center" }}>
           <h3 className="text-3xl font-bold mb-4">Próxima Reservación</h3>
           {reservationData ? (
             <div className="flex items-center justify-center">
