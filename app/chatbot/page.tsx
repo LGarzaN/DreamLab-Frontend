@@ -85,12 +85,13 @@ export default function Home() {
               animate={{opacity: 1}}
               transition={{duration: 1, delay: 3}}>
               <ScrollArea.Root>
-                <ScrollArea.Viewport>
+                <ScrollArea.Viewport className="pt-20">
                   {!loading ? <ReactMarkdown>{npcText}</ReactMarkdown>: null}
                 </ScrollArea.Viewport>
-                <ScrollArea.Scrollbar orientation="vertical">
+                <ScrollArea.Scrollbar className="ScrollAreaScrollbar" orientation="vertical">
                   <ScrollArea.Thumb className="w-4 border-gray-700 border-2 rounded" />
                 </ScrollArea.Scrollbar>
+                <ScrollArea.Corner className="ScrollAreaCorner" />
               </ScrollArea.Root>
               </motion.div>
           </div>
