@@ -8,7 +8,7 @@ describe('Videowall', () => {
         cy.viewport(3840, 1080);
         cy.visit('https://dreamlab.azurewebsites.net/videowall');
         cy.contains('Mapa').click()
-        cy.get('.p-5')
+        cy.get('iframe')
     })
 
     it('Reservar', () => {

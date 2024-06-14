@@ -1,4 +1,4 @@
-describe('Información de Sala', () => {
+describe('Información de Area', () => {
     beforeEach(() => {
         cy.Login().then(() => {
             cy.visit('https://dreamlab.azurewebsites.net/login', {
@@ -15,12 +15,4 @@ describe('Información de Sala', () => {
         cy.contains('Lego Room').click();
         cy.contains('Espacio creativo para estudiantes del área, con reserva previa para construir y diseñar con bloques Lego.');
     })
-
-    it('Información de Sala Compatibilidad', () => {
-        cy.visit('https://dreamlab.azurewebsites.net')
-        cy.contains('Sumérgete en la educación del futuro');
-        cy.contains('Lego Room').click({force: true});
-        cy.contains('Espacio creativo para estudiantes del área, con reserva previa para construir y diseñar con bloques Lego.');
-    })
-
 })
